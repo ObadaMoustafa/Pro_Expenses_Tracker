@@ -1,0 +1,24 @@
+{
+  "name": "pro_expenses_tracker",
+  "version": "1.0.0",
+  "description": "expenses tracker app",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run test:client\" \"npm run start:client\"",
+    "test:client": "cd client && npm run test && cd ..",
+    "start:client": "cd client && npm run start && cd .."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ObadaElSharbatly/Pro_Expenses_Tracker.git"
+  },
+  "author": "Obada ELSharbatly",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ObadaElSharbatly/Pro_Expenses_Tracker/issues"
+  },
+  "homepage": "https://github.com/ObadaElSharbatly/Pro_Expenses_Tracker#readme",
+  "dependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
