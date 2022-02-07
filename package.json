@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "expenses tracker app",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "concurrently \"npm run test:client\" \"npm run start:client\"",
-    "test:client": "cd client && npm run test && cd ..",
-    "start:client": "cd client && npm run start && cd .."
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
+    "start:client": "cd client && npm run start && cd ..",
+    "start:server": "cd server && npm run start && cd .."
   },
   "repository": {
     "type": "git",

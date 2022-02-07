@@ -1,0 +1,2 @@
+#Link of server side is important here without the last slash for dealing with server side API
+REACT_APP_SERVER_SIDE=http://localhost:5000
