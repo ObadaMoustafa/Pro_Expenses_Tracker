@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import { app } from "./app.js";
+import { connectDB } from "./db/connectDB.js";
 dotenv.config();
 
 const port = process.env.PORT;
@@ -7,8 +8,9 @@ if (port === null) {
   throw new Error("port is null it seems you forgot to create env file");
 }
 
-function startServer() {
+async function startServer() {
   try {
+    await connectDB();
     app.listen(port, () => console.log(`server is running in port ${port}`));
   } catch (error) {
     console.error(error);
