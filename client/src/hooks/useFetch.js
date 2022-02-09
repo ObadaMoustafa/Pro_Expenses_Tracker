@@ -20,7 +20,7 @@ const useFetch = (route, onReceived) => {
 
     const fetchInfo = async () => {
       // We add the /api subsection here to make it a single point of change if our configuration changes
-      const url = `${process.env.BASE_SERVER_URL}/api${route}`;
+      const url = `${process.env.REACT_APP_SERVER_SIDE}/api${route}`;
 
       const res = await fetch(url, { ...options, signal });
 
@@ -51,7 +51,7 @@ const useFetch = (route, onReceived) => {
     try {
       fetchInfo();
     } catch (error) {
-      setError(error);
+      setError(error.message);
       setIsLoading(false);
     }
   };

@@ -1,35 +1,47 @@
 import Users from "../models/Users.js";
 import bcrypt from "bcrypt";
+import { isRightPassword, isValidEmail } from "../utils/users.js";
 
 export const createNewUser = async (req, res) => {
-  const { name, email, password, currency } = req.body;
-  // create hash to secure the password
-  const hash = bcrypt.hashSync(password, 10);
+  const { name, email, password, confirmPassword, currency } = req.body;
+
   try {
-    await Users.create({
+    //check if the email is valid
+    if (!(await isValidEmail(email)))
+      throw new Error("This email is already exists .. you may need to login");
+    // check if passwords are match
+    console.log("is match pass:", isRightPassword(password, confirmPassword));
+    if (!isRightPassword(password, confirmPassword))
+      throw new Error("Password doesn't match");
+
+    // create hash to secure the password
+    const hash = bcrypt.hashSync(password, 10);
+
+    // if everything is okay we can create a new account
+    const newUser = await Users.create({
       name,
       email,
       password: hash,
       currency,
     });
-    const newUser = await Users.findOne({ email });
-    if (!newUser) throw new Error("user is not found");
+
+    // return the user object to response without the password
+    const result = {
+      name: newUser.name,
+      email: newUser.email,
+      currency: newUser.currency,
+      _id: newUser._id,
+    };
+
     res.status(200).json({
       success: true,
-      result: newUser,
+      result,
     });
   } catch (error) {
-    if (error.code === 11000) {
-      res.status(409).json({
-        success: false,
-        msg: "Error: this email is used before!",
-      });
-    } else {
-      res.status(400).json({
-        success: false,
-        msg: `Error happened: ${error.message}`,
-      });
-    }
+    res.status(400).json({
+      success: false,
+      msg: `Error: ${error.message}`,
+    });
 
     console.error(error);
   }
@@ -54,10 +66,17 @@ export const login = async (req, res) => {
     const isCorrectPassword = bcrypt.compareSync(password, hash); // true
     if (!isCorrectPassword) throw new Error("Wrong password");
 
+    // return the user object to response without the password
+    const result = {
+      name: isUser.name,
+      email: isUser.email,
+      currency: isUser.currency,
+      _id: isUser._id,
+    };
     //login successfully
     res.status(200).json({
       success: true,
-      result: isUser,
+      result,
     });
   } catch (error) {
     res.status(400).json({

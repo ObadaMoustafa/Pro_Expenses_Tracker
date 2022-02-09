@@ -7,17 +7,23 @@ import Homepage from "./pages/Homepage/Homepage";
 import WelcomeMsg from "./pages/Homepage/components/WelcomeMsg";
 import Login from "./pages/Homepage/components/Login";
 import SignUp from "./pages/Homepage/components/SignUp";
+import { UserProvider } from "./context/userContext";
+import ProtectedPage from "./components/ProtectedPage";
 
 ReactDOM.render(
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Homepage />}>
-        <Route path="/" element={<WelcomeMsg />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-      </Route>
-      <Route path="/start/:userId" element={<App />} />
-    </Routes>
+    <UserProvider>
+      <Routes>
+        <Route path="/" element={<Homepage />}>
+          <Route path="/" element={<WelcomeMsg />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Route>
+        <Route exact path="/start/:userId" element={<ProtectedPage />}>
+          <Route path="/start/:userId" element={<App />}></Route>
+        </Route>
+      </Routes>
+    </UserProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );

@@ -1,12 +1,16 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
+import PrimaryButton from "./components/buttons/PrimaryButton";
+import { userContext } from "./context/userContext";
 import "./style/App.css";
 
 function App() {
+  const { logout } = useContext(userContext);
   return (
     <div className="app-container">
       <p>welcome from inside the app</p>
       <Outlet />
+      <PrimaryButton onClick={logout} text="Logout" width="50%" />
     </div>
   );
 }
