@@ -4,14 +4,19 @@ import App from "./App";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import Homepage from "./pages/Homepage/Homepage";
-import Login from "./pages/Login/Login";
+import WelcomeMsg from "./pages/Homepage/components/WelcomeMsg";
+import Login from "./pages/Homepage/components/Login";
+import SignUp from "./pages/Homepage/components/SignUp";
 
 ReactDOM.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Homepage />} />
+      <Route path="/" element={<Homepage />}>
+        <Route path="/" element={<WelcomeMsg />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Route>
       <Route path="/start/:userId" element={<App />} />
-      <Route path="/login" element={<Login />} />
     </Routes>
   </BrowserRouter>,
   document.getElementById("root")
