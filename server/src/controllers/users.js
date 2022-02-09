@@ -22,12 +22,12 @@ export const createNewUser = async (req, res) => {
     if (error.code === 11000) {
       res.status(409).json({
         success: false,
-        result: "Error: this email is used before!",
+        msg: "Error: this email is used before!",
       });
     } else {
       res.status(400).json({
         success: false,
-        result: `Error happened: ${error.message}`,
+        msg: `Error happened: ${error.message}`,
       });
     }
 
@@ -62,7 +62,7 @@ export const login = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       success: false,
-      result: `Error: ${error.message}`,
+      msg: `Error: ${error.message}`,
     });
   }
 };
