@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
-function RedirectPage({ msg1, msg2, href, timeout }) {
+function RedirectPage({ success, msg1, msg2, href, timeout }) {
   //write code here
   const navigate = useNavigate();
   useEffect(() => {
@@ -15,6 +15,7 @@ function RedirectPage({ msg1, msg2, href, timeout }) {
 
   return (
     <>
+      <p>{success ? "success" : "Failed"}</p>
       <p>{msg1}</p>
       <p>{msg2}</p>
     </>
@@ -22,6 +23,7 @@ function RedirectPage({ msg1, msg2, href, timeout }) {
 }
 
 RedirectPage.propTypes = {
+  success: PropTypes.bool,
   msg1: PropTypes.string,
   msg2: PropTypes.string,
   href: PropTypes.string,

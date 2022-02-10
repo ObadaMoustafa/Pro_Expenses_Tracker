@@ -4,6 +4,7 @@ import SecondaryButton from "../../../components/buttons/SecondaryButton";
 import walletImg from "../../../images/wallet.png";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import { Youtube, GitHub, Linkedin } from "react-feather";
 
 function WelcomeMsg() {
   const [canShowLoginForm, setCanShowLoginForm] = useState(false);
@@ -34,6 +35,29 @@ function WelcomeMsg() {
         />
       </div>
       <h1>Pro Expenses Tracker App</h1>
+      <div className="homepage-social-icons-container">
+        <a
+          href="https://www.linkedin.com/in/obada-elsharbatly/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Linkedin size={50} strokeWidth={1} />
+        </a>
+        <a
+          href="https://github.com/ObadaElSharbatly"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <GitHub size={50} strokeWidth={1} />
+        </a>
+        <a
+          href="https://www.youtube.com/playlist?list=PLoMKCbpTTvvthiSknYuafN-XMhbz-fSlY"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Youtube size={50} strokeWidth={1} />
+        </a>
+      </div>
       {!canShowLoginForm && !canShowSignUpForm && (
         <div className="homepage-buttons">
           <PrimaryButton

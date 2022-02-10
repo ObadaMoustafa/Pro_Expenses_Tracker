@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import LoadingOrError from "../../../components/loading&errors/LoadingOrError";
 import { userContext } from "../../../context/userContext";
 import useFetch from "../../../hooks/useFetch";
@@ -10,18 +9,14 @@ import Input from "../../../components/Form/Input";
 
 function Login({ showSignUpForm }) {
   //write code here
-  const [successMsg, setSuccessMsg] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { updateUser } = useContext(userContext);
-  const navigate = useNavigate();
   const { performFetch, isLoading, error } = useFetch(
     "/users/login",
     async (res) => {
       // const { name, email, currency } = res.result;
       await updateUser(res.result);
-      navigate(`/start/${res.result._id}`);
-      setSuccessMsg("Login successfully");
     }
   );
 
@@ -59,8 +54,6 @@ function Login({ showSignUpForm }) {
         isErr={error ? true : false}
         errMsg={error}
       />
-
-      {successMsg && <div>{successMsg}</div>}
     </>
   );
 }
