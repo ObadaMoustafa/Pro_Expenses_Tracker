@@ -1,12 +1,25 @@
 import React, { useContext } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { userContext } from "../context/userContext";
+import RedirectPage from "./RedirectPage";
 
 function ProtectedPage() {
   //write code here
-  const navigate = useNavigate();
   const { currentUser } = useContext(userContext);
-  return <>{currentUser ? <Outlet /> : navigate("/login")}</>;
+  return (
+    <>
+      {currentUser ? (
+        <Outlet />
+      ) : (
+        <RedirectPage
+          msg1="you have to login first"
+          msg2="redirecting to the login page within 4 seconds ..."
+          href="/login"
+          timeout={4000}
+        />
+      )}
+    </>
+  );
 }
 
 export default ProtectedPage;

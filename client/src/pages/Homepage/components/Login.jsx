@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import LoadingOrError from "../../../components/loading&errors/LoadingOrError";
 import { userContext } from "../../../context/userContext";
 import useFetch from "../../../hooks/useFetch";
 import fetchOptions from "../../../utils/fetchOptions";
+import PropTypes from "prop-types";
 
-function Login() {
+function Login({ showSignUpForm }) {
   //write code here
   const [successMsg, setSuccessMsg] = useState(null);
   const [email, setEmail] = useState("");
@@ -53,9 +54,9 @@ function Login() {
         <PrimaryButton text="Login" width="350px" />
       </form>
 
-      <Link to="/signup">
-        <p>Or create a new account</p>
-      </Link>
+      <p onClick={showSignUpForm} className="hyper-link">
+        Or create a new account
+      </p>
 
       <LoadingOrError
         isLoading={isLoading}
@@ -67,5 +68,7 @@ function Login() {
     </>
   );
 }
-
+Login.propTypes = {
+  showSignUpForm: PropTypes.func.isRequired,
+};
 export default Login;

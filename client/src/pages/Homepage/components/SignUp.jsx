@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import LoadingOrError from "../../../components/loading&errors/LoadingOrError";
 import useFetch from "../../../hooks/useFetch";
 import fetchOptions from "../../../utils/fetchOptions";
+import PropTypes from "prop-types";
 
-function SignUp() {
+function SignUp({ showLoginForm }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -90,7 +90,10 @@ function SignUp() {
         <PrimaryButton text="Sign up!" width="350px" />
       </form>
       <p>
-        already has an account .. <Link to="/login">login here</Link>
+        already has an account ..{" "}
+        <p onClick={showLoginForm} className="hyper-link">
+          login here
+        </p>
       </p>
       <LoadingOrError
         isLoading={isLoading}
@@ -100,5 +103,7 @@ function SignUp() {
     </>
   );
 }
-
+SignUp.propTypes = {
+  showLoginForm: PropTypes.func.isRequired,
+};
 export default SignUp;

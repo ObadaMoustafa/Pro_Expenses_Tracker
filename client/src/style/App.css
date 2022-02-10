@@ -106,3 +106,19 @@
 body {
   background-color: #ffc300;
 }
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.hyper-link {
+  color: #001d3d;
+  text-decoration: none;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.hyper-link:hover {
+  color: white;
+}
