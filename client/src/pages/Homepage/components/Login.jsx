@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import LoadingOrError from "../../../components/loading&errors/LoadingOrError";
 import { userContext } from "../../../context/userContext";
 import useFetch from "../../../hooks/useFetch";
 import fetchOptions from "../../../utils/fetchOptions";
 import PropTypes from "prop-types";
+import Form from "../../../components/Form/Form";
+import Input from "../../../components/Form/Input";
 
 function Login({ showSignUpForm }) {
   //write code here
@@ -32,27 +33,22 @@ function Login({ showSignUpForm }) {
 
   return (
     <>
-      <form onSubmit={handleLogin}>
-        <label htmlFor="email">Email</label>
-        <input
+      <Form onSubmit={handleLogin} text="Login" width="100%">
+        <Input
+          name="Email"
           type="email"
-          name="email"
-          id="email"
-          placeholder="example@email.com"
+          placeHolder="email@example.com"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          setValue={setEmail}
         />
-        <label htmlFor="email">Password</label>
-        <input
+        <Input
+          name="Password"
           type="password"
-          name="password"
-          id="password"
-          placeholder="Password"
+          placeHolder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          setValue={setPassword}
         />
-        <PrimaryButton text="Login" width="350px" />
-      </form>
+      </Form>
 
       <p onClick={showSignUpForm} className="hyper-link">
         Or create a new account
@@ -69,6 +65,6 @@ function Login({ showSignUpForm }) {
   );
 }
 Login.propTypes = {
-  showSignUpForm: PropTypes.func.isRequired,
+  showSignUpForm: PropTypes.func,
 };
 export default Login;

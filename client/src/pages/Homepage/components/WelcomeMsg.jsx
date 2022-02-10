@@ -8,6 +8,7 @@ import SignUp from "./SignUp";
 function WelcomeMsg() {
   const [canShowLoginForm, setCanShowLoginForm] = useState(false);
   const [canShowSignUpForm, setCanShowSignUpForm] = useState(false);
+
   function showLoginForm() {
     setCanShowLoginForm(true);
     setCanShowSignUpForm(false);

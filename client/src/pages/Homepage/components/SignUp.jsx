@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import PrimaryButton from "../../../components/buttons/PrimaryButton";
+import React, { useContext, useState } from "react";
 import LoadingOrError from "../../../components/loading&errors/LoadingOrError";
 import useFetch from "../../../hooks/useFetch";
 import fetchOptions from "../../../utils/fetchOptions";
 import PropTypes from "prop-types";
+import Form from "../../../components/Form/Form";
+import Input from "../../../components/Form/Input";
+import { userContext } from "../../../context/userContext";
 
 function SignUp({ showLoginForm }) {
   const [name, setName] = useState("");
@@ -11,10 +13,11 @@ function SignUp({ showLoginForm }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [currency, setCurrency] = useState("");
+  const { updateUser } = useContext(userContext);
 
   const { isLoading, error, performFetch } = useFetch(
     "/users/createUser",
-    (res) => console.log(res.result)
+    (res) => updateUser(res.result)
   );
 
   function handleSignUp(e) {
@@ -31,69 +34,39 @@ function SignUp({ showLoginForm }) {
 
   return (
     <>
-      <form onSubmit={handleSignUp}>
-        <label htmlFor="name">
-          Name <span>*</span>
-        </label>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-
-        <label htmlFor="email">
-          Email <span>*</span>
-        </label>
-        <input
+      <Form onSubmit={handleSignUp} text="Sign up!" width="100%">
+        <Input placeHolder="Name" name="Name" value={name} setValue={setName} />
+        <Input
+          placeHolder="expamle@email.com"
           type="email"
-          name="email"
+          name="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
+          setValue={setEmail}
         />
-
-        <label htmlFor="password">
-          Password <span>*</span>
-        </label>
-        <input
-          type="password"
-          name="password"
+        <Input
+          placeHolder="Password"
+          name="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-
-        <label htmlFor="confirm-password">
-          Confirm Password <span>*</span>
-        </label>
-        <input
+          setValue={setPassword}
           type="password"
-          name="password"
+        />
+        <Input
+          placeHolder="Confirm password"
+          name="Confirm password"
           value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
+          setValue={setConfirmPassword}
+          type="password"
         />
-
-        <label htmlFor="currency">
-          Currency <span>*</span>
-        </label>
-        <input
-          type="text"
-          name="currency"
+        <Input
+          placeHolder="EUR by default"
+          name="Currency"
           value={currency}
-          onChange={(e) => setCurrency(e.target.value)}
-          required
+          setValue={setCurrency}
+          isRequired={false}
         />
-
-        <PrimaryButton text="Sign up!" width="350px" />
-      </form>
-      <p>
-        already has an account ..{" "}
-        <p onClick={showLoginForm} className="hyper-link">
-          login here
-        </p>
+      </Form>
+      <p onClick={showLoginForm} className="hyper-link">
+        already has an account .. login here
       </p>
       <LoadingOrError
         isLoading={isLoading}
@@ -104,6 +77,6 @@ function SignUp({ showLoginForm }) {
   );
 }
 SignUp.propTypes = {
-  showLoginForm: PropTypes.func.isRequired,
+  showLoginForm: PropTypes.func,
 };
 export default SignUp;

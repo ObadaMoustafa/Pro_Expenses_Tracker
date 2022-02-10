@@ -9,6 +9,7 @@ import Login from "./pages/Homepage/components/Login";
 import SignUp from "./pages/Homepage/components/SignUp";
 import { UserProvider } from "./context/userContext";
 import ProtectedPage from "./components/ProtectedPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -16,12 +17,11 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<Homepage />}>
           <Route path="/" element={<WelcomeMsg />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
         </Route>
         <Route exact path="/start/:userId" element={<ProtectedPage />}>
           <Route path="/start/:userId" element={<App />}></Route>
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </UserProvider>
   </BrowserRouter>,

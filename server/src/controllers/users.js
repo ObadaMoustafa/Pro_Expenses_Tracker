@@ -17,12 +17,18 @@ export const createNewUser = async (req, res) => {
     // create hash to secure the password
     const hash = bcrypt.hashSync(password, 10);
 
+    // if no currency use EUR
+    let theCurrency = currency;
+    if (currency === "") {
+      theCurrency = "EUR";
+    }
+
     // if everything is okay we can create a new account
     const newUser = await Users.create({
       name,
       email,
       password: hash,
-      currency,
+      currency: theCurrency,
     });
 
     // return the user object to response without the password
