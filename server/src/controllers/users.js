@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { isRightPassword, isValidEmail } from "../utils/users.js";
 
 export const createNewUser = async (req, res) => {
-  const { name, email, password, confirmPassword, currency } = req.body;
+  const { name, email, password, confirmPassword, currency, gender } = req.body;
 
   try {
     //check if the email is valid
@@ -29,6 +29,7 @@ export const createNewUser = async (req, res) => {
       email,
       password: hash,
       currency: theCurrency,
+      gender,
     });
 
     // return the user object to response without the password
@@ -36,6 +37,7 @@ export const createNewUser = async (req, res) => {
       name: newUser.name,
       email: newUser.email,
       currency: newUser.currency,
+      gender: newUser.gender,
       _id: newUser._id,
     };
 
@@ -78,6 +80,7 @@ export const login = async (req, res) => {
       email: isUser.email,
       currency: isUser.currency,
       _id: isUser._id,
+      gender: isUser.gender,
     };
     //login successfully
     res.status(200).json({

@@ -9,6 +9,8 @@ import { userContext } from "../../../context/userContext";
 
 function SignUp({ showLoginForm }) {
   const [name, setName] = useState("");
+  const [gender, setGender] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -28,6 +30,7 @@ function SignUp({ showLoginForm }) {
       password,
       confirmPassword,
       currency,
+      gender,
     };
     performFetch(fetchOptions("POST", reqBody));
   }
@@ -35,31 +38,82 @@ function SignUp({ showLoginForm }) {
   return (
     <>
       <Form onSubmit={handleSignUp} text="Sign up!" width="100%">
-        <Input placeHolder="Name" name="Name" value={name} setValue={setName} />
         <Input
-          placeHolder="expamle@email.com"
+          label="Name"
+          placeholder="Name"
+          name="name"
+          value={name}
+          setValue={setName}
+        />
+
+        <div
+          style={{
+            display: "flex",
+            columnGap: "20px",
+            justifyContent: "flex-start",
+            width: "100%",
+          }}
+        >
+          <Input
+            label="Male"
+            type="radio"
+            name="gender"
+            value="male"
+            setValue={setGender}
+            isRequired={false}
+          />
+          <Input
+            label="Female"
+            type="radio"
+            name="gender"
+            value="female"
+            setValue={setGender}
+            isRequired={false}
+          />
+        </div>
+        {/* <label>male</label>
+        <input
+          type="radio"
+          name="gender"
+          value="male"
+          onChange={changeGender}
+        />
+        <label>female</label>
+        <input
+          type="radio"
+          name="gender"
+          value="female"
+          onChange={changeGender}
+        /> */}
+
+        <Input
+          label="Email"
+          placeholder="expamle@email.com"
           type="email"
-          name="Email"
+          name="email"
           value={email}
           setValue={setEmail}
         />
         <Input
-          placeHolder="Password"
-          name="Password"
+          label="Password"
+          placeholder="Password"
+          name="password"
           value={password}
           setValue={setPassword}
           type="password"
         />
         <Input
-          placeHolder="Confirm password"
-          name="Confirm password"
+          label="Confirm Password"
+          placeholder="Confirm password"
+          name="confirm password"
           value={confirmPassword}
           setValue={setConfirmPassword}
           type="password"
         />
         <Input
-          placeHolder="EUR by default"
-          name="Currency"
+          label="favorite Currency"
+          placeholder="EUR by default"
+          name="currency"
           value={currency}
           setValue={setCurrency}
           isRequired={false}

@@ -5,6 +5,7 @@ const usersSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   currency: { type: String, default: "EUR" },
+  gender: { type: String, enum: ["male", "female"] },
 });
 
 const Users = mongoose.model("users", usersSchema);

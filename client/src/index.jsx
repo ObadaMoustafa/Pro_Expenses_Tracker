@@ -5,8 +5,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import Homepage from "./pages/Homepage/Homepage";
 import WelcomeMsg from "./pages/Homepage/components/WelcomeMsg";
-import Login from "./pages/Homepage/components/Login";
-import SignUp from "./pages/Homepage/components/SignUp";
 import { UserProvider } from "./context/userContext";
 import ProtectedPage from "./components/ProtectedPage";
 import NotFoundPage from "./pages/NotFoundPage";

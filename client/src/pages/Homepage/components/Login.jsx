@@ -30,16 +30,18 @@ function Login({ showSignUpForm }) {
     <>
       <Form onSubmit={handleLogin} text="Login" width="100%">
         <Input
-          name="Email"
+          label="Email"
+          name="email"
           type="email"
-          placeHolder="email@example.com"
+          placeholder="email@example.com"
           value={email}
           setValue={setEmail}
         />
         <Input
-          name="Password"
+          label="Password"
+          name="password"
           type="password"
-          placeHolder="Password"
+          placeholder="Password"
           value={password}
           setValue={setPassword}
         />

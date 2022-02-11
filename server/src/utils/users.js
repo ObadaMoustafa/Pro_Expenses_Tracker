@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import Users from "../models/Users.js";
 
 export async function isValidEmail(email) {
@@ -12,4 +11,3 @@ export function isRightPassword(password, confirmPassword) {
   const isPasswordMatch = password === confirmPassword;
   return isPasswordMatch;
 }
-isValidEmail("obada@email.com");

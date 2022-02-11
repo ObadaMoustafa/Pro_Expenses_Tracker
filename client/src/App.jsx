@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import PrimaryButton from "./components/buttons/PrimaryButton";
-import Nav from "./components/Nav";
+import Nav from "./components/Nav/Nav";
 import { userContext } from "./context/userContext";
 import "./style/App.css";
 
