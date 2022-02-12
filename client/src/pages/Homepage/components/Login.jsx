@@ -6,17 +6,20 @@ import fetchOptions from "../../../utils/fetchOptions";
 import PropTypes from "prop-types";
 import Form from "../../../components/Form/Form";
 import Input from "../../../components/Form/Input";
+import { useNavigate } from "react-router-dom";
 
 function Login({ showSignUpForm }) {
   //write code here
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { updateUser } = useContext(userContext);
+  const navigate = useNavigate();
   const { performFetch, isLoading, error } = useFetch(
     "/users/login",
     async (res) => {
       // const { name, email, currency } = res.result;
       await updateUser(res.result);
+      navigate(`/start/${res.result._id}`);
     }
   );
 

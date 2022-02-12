@@ -1,20 +1,20 @@
-import React, { useContext } from "react";
-import { Outlet, Navigate } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { userContext } from "../../context/userContext";
 // import PropTypes from "prop-types";
 
 function Homepage() {
   //write code here
   const { currentUser } = useContext(userContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (currentUser) navigate(`/start/${currentUser._id}`);
+  }, []);
   return (
     <>
-      {currentUser ? (
-        <Navigate to={`/start/${currentUser._id}`} />
-      ) : (
-        <div className="homepage-container">
-          <Outlet />
-        </div>
-      )}
+      <div className="homepage-container">
+        <Outlet />
+      </div>
     </>
   );
 }
