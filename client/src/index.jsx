@@ -8,6 +8,7 @@ import WelcomeMsg from "./pages/Homepage/components/WelcomeMsg";
 import { UserProvider } from "./context/userContext";
 import ProtectedPage from "./components/ProtectedPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import ExpensesOverview from "./pages/ExpensesOverview/ExpensesOverview";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -16,8 +17,10 @@ ReactDOM.render(
         <Route path="/" element={<Homepage />}>
           <Route path="/" element={<WelcomeMsg />} />
         </Route>
-        <Route exact path="/start/:userId" element={<ProtectedPage />}>
-          <Route path="/start/:userId" element={<App />}></Route>
+        <Route exact path="/start" element={<ProtectedPage />}>
+          <Route path="/start" element={<App />}>
+            <Route path="/start/overview" element={<ExpensesOverview />} />
+          </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

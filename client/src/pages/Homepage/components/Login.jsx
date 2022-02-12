@@ -19,7 +19,7 @@ function Login({ showSignUpForm }) {
     async (res) => {
       // const { name, email, currency } = res.result;
       await updateUser(res.result);
-      navigate(`/start/${res.result._id}`);
+      navigate("/start");
     }
   );
 

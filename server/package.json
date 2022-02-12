@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "setup": "npm i",
     "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js"
+    "dev": "nodemon ./src/index.js",
+    "seedDb": "node src/db/seedDb.js"
   },
   "keywords": [],
   "author": "",

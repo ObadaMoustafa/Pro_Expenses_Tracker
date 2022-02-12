@@ -13,7 +13,8 @@
     "heroku-postbuild": "npm run setup && npm run build:client",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:client": "cd client && npm run dev && cd ..",
-    "dev:server": "cd server && npm run dev && cd .."
+    "dev:server": "cd server && npm run dev && cd ..",
+    "seedDb": "cd server && npm run seedDb & cd .."
   },
   "repository": {
     "type": "git",

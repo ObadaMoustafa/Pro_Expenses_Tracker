@@ -14,7 +14,7 @@ function ProtectedPage() {
         <RedirectPage
           msg1="you have to login first"
           msg2="redirecting to the login page within 4 seconds ..."
-          href="/login"
+          href="/"
           timeout={4000}
         />
       )}

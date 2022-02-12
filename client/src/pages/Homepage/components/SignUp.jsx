@@ -6,20 +6,23 @@ import PropTypes from "prop-types";
 import Form from "../../../components/Form/Form";
 import Input from "../../../components/Form/Input";
 import { userContext } from "../../../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 function SignUp({ showLoginForm }) {
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [currency, setCurrency] = useState("");
   const { updateUser } = useContext(userContext);
-
+  const navigate = useNavigate();
   const { isLoading, error, performFetch } = useFetch(
     "/users/createUser",
-    (res) => updateUser(res.result)
+    async (res) => {
+      await updateUser(res.result);
+      navigate("/start");
+    }
   );
 
   function handleSignUp(e) {

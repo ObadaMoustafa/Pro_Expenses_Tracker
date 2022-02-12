@@ -5,13 +5,27 @@ import femaleAvatar from "../../images/female-avatar.png";
 import { Link } from "react-router-dom";
 function UserAvatar() {
   //write code here
-  const { currentUser } = useContext(userContext);
+  const { currentUser, logout } = useContext(userContext);
   const isMale = currentUser.gender === "male";
-  const [isMenu, setIsMenu] = useState(false);
+  const [isMenuShow, setIsMenuShow] = useState(false);
+  const [menuClass, setMenuClass] = useState("hide-menu");
+
+  useEffect(() => {
+    if (isMenuShow) window.addEventListener("click", showMenu);
+
+    return () => window.removeEventListener("click", showMenu);
+  }, [isMenuShow]);
 
   function showMenu() {
-    setIsMenu((pre) => !pre);
+    if (!isMenuShow) {
+      setMenuClass("show-menu");
+      setIsMenuShow(true);
+    } else {
+      setMenuClass("hide-menu");
+      setIsMenuShow(false);
+    }
   }
+
   return (
     <div className="dropdown-list">
       <div className="nav-user" onClick={showMenu}>
@@ -20,19 +34,17 @@ function UserAvatar() {
           <img src={isMale ? maleAvatar : femaleAvatar} alt="user avatar" />
         </div>
       </div>
-      {isMenu && (
-        <div className="dropdown-list-menu">
-          <Link to="/hfhf" className="dropdown-list-menu-item">
-            Expenses
-          </Link>
-          <Link to="/hfhf" className="dropdown-list-menu-item">
-            Debts
-          </Link>
-          <Link to="/hfhf" className="dropdown-list-menu-item">
-            Income
-          </Link>
+      <div className={`dropdown-list-menu ${menuClass}`}>
+        <Link to="/hfhf" className="dropdown-list-menu-item">
+          Expenses
+        </Link>
+        <Link to="/hfhf" className="dropdown-list-menu-item">
+          Debts
+        </Link>
+        <div className="dropdown-list-menu-item" onClick={logout}>
+          Logout
         </div>
-      )}
+      </div>
     </div>
   );
 }

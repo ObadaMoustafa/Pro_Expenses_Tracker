@@ -1,19 +1,16 @@
-import React, { useContext } from "react";
-import { Outlet } from "react-router-dom";
-import PrimaryButton from "./components/buttons/PrimaryButton";
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import Nav from "./components/Nav/Nav";
-import { userContext } from "./context/userContext";
 import "./style/App.css";
 
 function App() {
-  const { logout } = useContext(userContext);
+  const navigate = useNavigate();
+  useEffect(() => navigate("overview"), []);
   return (
     <>
       <Nav />
       <div className="app-container">
-        <p>welcome from inside the app</p>
         <Outlet />
-        <PrimaryButton onClick={logout} text="Logout" width="50%" />
       </div>
     </>
   );

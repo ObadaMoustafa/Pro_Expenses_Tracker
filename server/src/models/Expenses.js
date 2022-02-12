@@ -1,10 +1,10 @@
-import mongoose, { SchemaTypes } from "mongoose";
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 const expensesSchema = new Schema({
-  userId: { type: SchemaTypes.ObjectId, ref: "users", required: true },
+  userId: { type: Schema.Types.ObjectId, ref: "users", required: true },
   expenses: [
     {
-      date: Date,
+      date: String,
       amount: Number,
       expensesCategory: String,
       expensesSubcategory: String,
@@ -12,7 +12,7 @@ const expensesSchema = new Schema({
   ],
   income: [
     {
-      date: Date,
+      date: String,
       amount: Number,
       expensesCategory: String,
     },
