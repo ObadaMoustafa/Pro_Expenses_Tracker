@@ -1,24 +1,67 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Form from "../../components/Form/Form";
 import Input from "../../components/Form/Input";
 import { subDays, format } from "date-fns";
 import useFetch from "../../hooks/useFetch";
+import { userContext } from "../../context/userContext";
+import {
+  resultByDateRange,
+  sumArrayValues,
+} from "../../utils/expensesCalculation";
+import LoadingOrError from "../../components/loading&errors/LoadingOrError";
 
 function ExpensesOverview() {
   //write code here
-  const [fromDate, setFromDate] = useState(
-    format(subDays(new Date(), 30), "yyyy-MM-dd")
+  const [isNewUser, setIsNewUser] = useState(true);
+  const { currentUser } = useContext(userContext);
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [userExpenses, setUserExpenses] = useState(null);
+  const [balance, setBalance] = useState(0);
+  const [income, setIncome] = useState(0);
+  const [expenses, setExpenses] = useState(0);
+  const [debts, setDebts] = useState(0);
+  const { isLoading, error, performFetch, cancelFetch } = useFetch(
+    `/expenses/getExpenses/${currentUser._id}`,
+    async (res) => {
+      if (res.result) {
+        setIsNewUser(false);
+        setUserExpenses(res.result);
+        const { expenses, income, debts } = res.result;
+        if (expenses) setExpenses(sumArrayValues(expenses));
+        if (income) setIncome(sumArrayValues(income));
+        if (debts) setDebts(sumArrayValues(debts));
+      }
+    }
   );
-  const [toDate, setToDate] = useState(format(new Date(), "yyyy-MM-dd"));
-  // const { isLoading, error } = useFetch();
 
-  // useEffect(() => {
-  //   performFetch();
-  //   return () => cancelFetch();
-  // }, []);
+  function handleSubmit(e) {
+    e.preventDefault();
+    const { expenses, income, debts } = userExpenses;
+    if (expenses) resultByDateRange(expenses, fromDate, toDate, setExpenses);
+    if (income) resultByDateRange(income, fromDate, toDate, setIncome);
+    if (debts) resultByDateRange(debts, fromDate, toDate, setDebts);
+  }
+
+  // calculating the balance to be dynamic with transactions;
+  useEffect(() => {
+    const totalBalance = income - expenses - debts;
+    setBalance(totalBalance);
+  }, [income, expenses, debts]);
+
+  // performing the first fetch for total user history
+  useEffect(() => {
+    performFetch();
+    return () => cancelFetch();
+  }, []);
   return (
     <>
-      <Form text="submit" width="150px" formWidth="100%">
+      <Form
+        text="submit"
+        width="150px"
+        formWidth="100%"
+        onSubmit={handleSubmit}
+      >
         <Input
           type="date"
           label="From Date"
@@ -32,22 +75,22 @@ function ExpensesOverview() {
           setValue={setToDate}
         />
       </Form>
-
+      <LoadingOrError isLoading={isLoading} isErr={error} errMsg={error} />
       <div className="overview-total-balance">
         <p>Balance</p>
-        <p>550 €</p>
+        <p style={{ color: balance > 0 ? "green" : "red" }}>{balance} €</p>
       </div>
       <div className="overview-total-income">
         <p>Income</p>
-        <p>550 €</p>
+        <p>{income} €</p>
       </div>
       <div className="overview-total-expenses">
         <p>Expenses</p>
-        <p>550 €</p>
+        <p>{expenses} €</p>
       </div>
       <div className="overview-total-debts">
-        <p>Debts</p>
-        <p>550 €</p>
+        <p>Paid Debts</p>
+        <p>{debts} €</p>
       </div>
     </>
   );

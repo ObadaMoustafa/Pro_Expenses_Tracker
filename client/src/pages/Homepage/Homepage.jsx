@@ -8,7 +8,7 @@ function Homepage() {
   const { currentUser } = useContext(userContext);
   const navigate = useNavigate();
   useEffect(() => {
-    if (currentUser) navigate(`/start/${currentUser._id}`);
+    if (currentUser) navigate("/start");
   }, []);
   return (
     <>

@@ -6,7 +6,7 @@
   margin: 0 auto;
 }
 
-.homepage-social-icons-container, .homepage-buttons, nav, nav .nav-logo, nav .dropdown-list .nav-user, nav .dropdown-list .nav-user-name, nav .dropdown-list .nav-user-avatar, nav .dropdown-list-menu-item {
+.homepage-social-icons-container, .homepage-buttons, nav, nav .nav-logo, nav .dropdown-list .nav-user, nav .dropdown-list .nav-user-name, nav .dropdown-list .nav-user-avatar, nav .dropdown-list-menu-item, .overview-total-balance, .overview-total-income, .overview-total-expenses, .overview-total-debts {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -236,6 +236,7 @@ nav .nav-logo {
   width: -moz-fit-content;
   width: fit-content;
   height: calc(100% - 3px);
+  text-decoration: none;
   cursor: pointer;
 }
 
@@ -334,6 +335,74 @@ nav .dropdown-list-menu-item:hover {
   nav .dropdown-list-menu {
     top: 55px;
   }
+}
+
+.overview-total-balance {
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+.overview-total-balance p:first-child {
+  font-size: 35pt;
+  font-weight: 900;
+}
+
+.overview-total-balance p:nth-child(2) {
+  font-size: 80px;
+  font-weight: 700;
+}
+
+.overview-total-income {
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+.overview-total-income p:first-child {
+  font-size: 35pt;
+  font-weight: 900;
+}
+
+.overview-total-income p:nth-child(2) {
+  font-size: 80px;
+  font-weight: 700;
+}
+
+.overview-total-expenses {
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+.overview-total-expenses p:first-child {
+  font-size: 35pt;
+  font-weight: 900;
+}
+
+.overview-total-expenses p:nth-child(2) {
+  font-size: 80px;
+  font-weight: 700;
+}
+
+.overview-total-debts {
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+.overview-total-debts p:first-child {
+  font-size: 35pt;
+  font-weight: 900;
+}
+
+.overview-total-debts p:nth-child(2) {
+  font-size: 80px;
+  font-weight: 700;
 }
 
 * {

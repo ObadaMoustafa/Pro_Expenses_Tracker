@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-const { Schema } = mongoose;
+const { Schema, SchemaTypes } = mongoose;
 const expensesSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, ref: "users", required: true },
+  userId: { type: SchemaTypes.ObjectId, ref: "users", required: true },
   expenses: [
     {
       date: String,
