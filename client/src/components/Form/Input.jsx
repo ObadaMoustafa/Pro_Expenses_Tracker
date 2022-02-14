@@ -8,12 +8,13 @@ function Input({
   name,
   value,
   setValue,
+  width,
   ...rest
 }) {
   //you have to make state for every input in the file you gonna use it
   const isOptional = type === "radio" || type === "checkbox";
   return (
-    <div className={isOptional ? "input-radio-container" : "input-container"}>
+    <div className={`input-container ${isOptional && "input-radio-container"}`}>
       <label htmlFor={isOptional ? label : name}>
         {label} {isRequired && <span>*</span>}
       </label>
@@ -38,5 +39,6 @@ Input.propTypes = {
   name: PropTypes.string,
   value: PropTypes.string,
   setValue: PropTypes.func,
+  width: PropTypes.string,
 };
 export default Input;

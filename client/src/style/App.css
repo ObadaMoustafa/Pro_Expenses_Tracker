@@ -6,7 +6,7 @@
   margin: 0 auto;
 }
 
-.homepage-social-icons-container, .homepage-buttons, nav, nav .nav-logo, nav .dropdown-list .nav-user, nav .dropdown-list .nav-user-name, nav .dropdown-list .nav-user-avatar, nav .dropdown-list-menu-item, .overview-total-balance, .overview-total-income, .overview-total-expenses, .overview-total-debts {
+form, .form-split-fields, .homepage-social-icons-container, .homepage-buttons, nav, nav .nav-logo, nav .dropdown-list .nav-user, nav .dropdown-list .nav-user-name, nav .dropdown-list .nav-user-avatar, nav .dropdown-list-menu-item, .overview-total-balance, .overview-total-income, .overview-total-expenses, .overview-total-debts {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -20,7 +20,7 @@
           align-items: center;
 }
 
-.homepage-container, .app-container, form, .input-container, nav .dropdown-list, nav .dropdown-list-menu {
+.homepage-container, .app-container, .input-container, nav .dropdown-list, nav .dropdown-list-menu {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -126,10 +126,34 @@ form {
 
 .input-container input {
   width: 100%;
-  height: 35px;
+  height: 40px;
   border-radius: 5px;
   font-size: 1rem;
   padding-left: 10px;
+}
+
+.form-split-fields {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  row-gap: 10px;
+  width: 100%;
+}
+
+.form-split-fields .input-container {
+  width: 35%;
+}
+
+.input-radio-container {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.input-radio-container input {
+  height: 25px;
 }
 
 /* ----------------------------------------------
@@ -177,9 +201,16 @@ form {
   form {
     width: 100%;
   }
+  .form-split-fields .input-container {
+    width: 100%;
+  }
+  .input-radio-container {
+    width: 25% !important;
+  }
 }
 
 .homepage-container {
+  padding-bottom: 20px;
   border-color: black;
 }
 

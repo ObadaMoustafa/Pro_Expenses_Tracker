@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import Form from "../../../components/Form/Form";
 import Input from "../../../components/Form/Input";
 import { useNavigate } from "react-router-dom";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
 
 function Login({ showSignUpForm }) {
   //write code here
@@ -31,7 +32,7 @@ function Login({ showSignUpForm }) {
 
   return (
     <>
-      <Form onSubmit={handleLogin} text="Login" width="100%">
+      <Form onSubmit={handleLogin}>
         <Input
           label="Email"
           name="email"
@@ -48,6 +49,7 @@ function Login({ showSignUpForm }) {
           value={password}
           setValue={setPassword}
         />
+        <PrimaryButton text="Login" width="100%" />
       </Form>
 
       <p onClick={showSignUpForm} className="hyper-link">

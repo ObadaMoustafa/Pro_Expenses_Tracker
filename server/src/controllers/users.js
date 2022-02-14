@@ -1,8 +1,13 @@
 import Users from "../models/Users.js";
 import bcrypt from "bcrypt";
-import { isRightPassword, isValidEmail } from "../utils/users.js";
+import {
+  createExpensesDocument,
+  createNewUser,
+  isRightPassword,
+  isValidEmail,
+} from "../utils/users.js";
 
-export const createNewUser = async (req, res) => {
+export const signUpProcess = async (req, res) => {
   const { name, email, password, confirmPassword, currency, gender } = req.body;
 
   try {
@@ -24,26 +29,13 @@ export const createNewUser = async (req, res) => {
     }
 
     // if everything is okay we can create a new account
-    const newUser = await Users.create({
-      name,
-      email,
-      password: hash,
-      currency: theCurrency,
-      gender,
-    });
-
     // return the user object to response without the password
-    const result = {
-      name: newUser.name,
-      email: newUser.email,
-      currency: newUser.currency,
-      gender: newUser.gender,
-      _id: newUser._id,
-    };
-
+    const result = await createNewUser(name, email, hash, theCurrency, gender);
+    const userExpensesDocument = createExpensesDocument(result._id);
     res.status(200).json({
       success: true,
       result,
+      userExpensesDocument,
     });
   } catch (error) {
     res.status(400).json({
@@ -63,24 +55,24 @@ export const login = async (req, res) => {
         "like any website in the world => Email and password are required to login"
       );
     // check if email is exist
-    const isUser = await Users.findOne({ email });
-    if (!isUser)
+    const loginUser = await Users.findOne({ email });
+    if (!loginUser)
       throw new Error(
         "This Email is not exist .. maybe you need to create and account"
       );
 
     // compare and check the password
-    const hash = isUser.password;
+    const hash = loginUser.password;
     const isCorrectPassword = bcrypt.compareSync(password, hash); // true
     if (!isCorrectPassword) throw new Error("Wrong password");
 
     // return the user object to response without the password
     const result = {
-      name: isUser.name,
-      email: isUser.email,
-      currency: isUser.currency,
-      _id: isUser._id,
-      gender: isUser.gender,
+      name: loginUser.name,
+      email: loginUser.email,
+      currency: loginUser.currency,
+      _id: loginUser._id,
+      gender: loginUser.gender,
     };
     //login successfully
     res.status(200).json({

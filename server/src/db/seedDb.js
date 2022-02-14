@@ -7,6 +7,8 @@ import { seedExpenses } from "./seedExpenses.js";
 async function seedDb() {
   try {
     await connectDB();
+    await dropDb().dropCollection("expenses");
+    await dropDb().dropCollection("debts");
     await seedExpenses();
     await seedDebts();
     console.log("done");

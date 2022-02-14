@@ -7,6 +7,8 @@ import Form from "../../../components/Form/Form";
 import Input from "../../../components/Form/Input";
 import { userContext } from "../../../context/userContext";
 import { useNavigate } from "react-router-dom";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
+import SplitFields from "../../../components/Form/SplitFields";
 
 function SignUp({ showLoginForm }) {
   const [name, setName] = useState("");
@@ -40,7 +42,7 @@ function SignUp({ showLoginForm }) {
 
   return (
     <>
-      <Form onSubmit={handleSignUp} text="Sign up!" width="100%">
+      <Form onSubmit={handleSignUp}>
         <Input
           label="Name"
           placeholder="Name"
@@ -49,14 +51,7 @@ function SignUp({ showLoginForm }) {
           setValue={setName}
         />
 
-        <div
-          style={{
-            display: "flex",
-            columnGap: "20px",
-            justifyContent: "flex-start",
-            width: "100%",
-          }}
-        >
+        <SplitFields>
           <Input
             label="Male"
             type="radio"
@@ -73,22 +68,7 @@ function SignUp({ showLoginForm }) {
             setValue={setGender}
             isRequired={false}
           />
-        </div>
-        {/* <label>male</label>
-        <input
-          type="radio"
-          name="gender"
-          value="male"
-          onChange={changeGender}
-        />
-        <label>female</label>
-        <input
-          type="radio"
-          name="gender"
-          value="female"
-          onChange={changeGender}
-        /> */}
-
+        </SplitFields>
         <Input
           label="Email"
           placeholder="expamle@email.com"
@@ -121,6 +101,7 @@ function SignUp({ showLoginForm }) {
           setValue={setCurrency}
           isRequired={false}
         />
+        <PrimaryButton text="Sign up!" width="100%" />
       </Form>
       <p onClick={showLoginForm} className="hyper-link">
         already has an account .. login here
