@@ -9,21 +9,24 @@ import { UserProvider } from "./context/userContext";
 import ProtectedPage from "./components/ProtectedPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ExpensesOverview from "./pages/ExpensesOverview/ExpensesOverview";
+import { ExpensesProvider } from "./context/expensesContext";
 
 ReactDOM.render(
   <BrowserRouter>
     <UserProvider>
-      <Routes>
-        <Route path="/" element={<Homepage />}>
-          <Route path="/" element={<WelcomeMsg />} />
-        </Route>
-        <Route exact path="/start" element={<ProtectedPage />}>
-          <Route path="/start" element={<App />}>
-            <Route path="/start/overview" element={<ExpensesOverview />} />
+      <ExpensesProvider>
+        <Routes>
+          <Route path="/" element={<Homepage />}>
+            <Route path="/" element={<WelcomeMsg />} />
           </Route>
-        </Route>
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+          <Route exact path="/start" element={<ProtectedPage />}>
+            <Route path="/start" element={<App />}>
+              <Route path="/start/overview" element={<ExpensesOverview />} />
+            </Route>
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </ExpensesProvider>
     </UserProvider>
   </BrowserRouter>,
   document.getElementById("root")

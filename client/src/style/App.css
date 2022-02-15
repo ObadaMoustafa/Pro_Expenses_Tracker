@@ -6,7 +6,7 @@
   margin: 0 auto;
 }
 
-form, .form-split-fields, .homepage-social-icons-container, .homepage-buttons, nav, nav .nav-logo, nav .dropdown-list .nav-user, nav .dropdown-list .nav-user-name, nav .dropdown-list .nav-user-avatar, nav .dropdown-list-menu-item, .overview-total-balance, .overview-total-income, .overview-total-expenses, .overview-total-debts {
+form, .form-split-fields, .homepage-social-icons-container, .homepage-buttons, nav, nav .nav-logo, nav .dropdown-list .nav-user, nav .dropdown-list .nav-user-name, nav .dropdown-list .nav-user-avatar, nav .dropdown-list-menu-item, .overview-total-balance, .overview-total-income, .overview-total-expenses, .overview-total-debts, .add-expenses-container .add-expenses-buttons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -20,7 +20,7 @@ form, .form-split-fields, .homepage-social-icons-container, .homepage-buttons, n
           align-items: center;
 }
 
-.homepage-container, .app-container, .input-container, nav .dropdown-list, nav .dropdown-list-menu {
+.homepage-container, .app-container, .input-container, nav .dropdown-list, nav .dropdown-list-menu, .add-expenses-container, .add-expenses-button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -94,6 +94,14 @@ form, .form-split-fields, .homepage-social-icons-container, .homepage-buttons, n
 .secondary-button:active {
   -webkit-box-shadow: rgba(50, 50, 93, 0.25) 0px 5px 5px -5px inset, rgba(0, 0, 0, 0.3) 0px 18px 25px -18px inset;
           box-shadow: rgba(50, 50, 93, 0.25) 0px 5px 5px -5px inset, rgba(0, 0, 0, 0.3) 0px 18px 25px -18px inset;
+}
+
+.round-button {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  font-size: 70pt;
+  line-height: 0;
 }
 
 form {
@@ -434,6 +442,30 @@ nav .dropdown-list-menu-item:hover {
 .overview-total-debts p:nth-child(2) {
   font-size: 80px;
   font-weight: 700;
+}
+
+.add-expenses-container {
+  row-gap: 25px;
+}
+
+.add-expenses-container .add-expenses-header {
+  font-size: 25pt;
+}
+
+.add-expenses-container .add-expenses-buttons {
+  row-gap: 20px;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+}
+
+.add-expenses-button-header {
+  font-size: 25pt;
+  font-weight: 500;
+}
+
+.add-expenses-button-button {
+  width: 120px;
+  height: 120px;
 }
 
 * {

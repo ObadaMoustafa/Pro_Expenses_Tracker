@@ -94,7 +94,7 @@ function SignUp({ showLoginForm }) {
           type="password"
         />
         <Input
-          label="favorite Currency"
+          label="Currency"
           placeholder="EUR by default"
           name="currency"
           value={currency}

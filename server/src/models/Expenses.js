@@ -7,8 +7,7 @@ const expensesSchema = new Schema({
       {
         date: String,
         amount: Number,
-        expensesCategory: String,
-        expensesSubcategory: String,
+        title: String,
       },
     ],
     default: null,
@@ -18,7 +17,7 @@ const expensesSchema = new Schema({
       {
         date: String,
         amount: Number,
-        expensesCategory: String,
+        title: String,
       },
     ],
     default: null,

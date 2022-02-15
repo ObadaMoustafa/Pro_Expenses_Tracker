@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import PrimaryButton from "../buttons/PrimaryButton";
 
 function Form({ children, onSubmit, formWidth, className }) {
   //write code here

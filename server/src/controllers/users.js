@@ -20,7 +20,7 @@ export const signUpProcess = async (req, res) => {
       throw new Error("Password doesn't match");
 
     // create hash to secure the password
-    const hash = bcrypt.hashSync(password, 10);
+    const hashedPassword = bcrypt.hashSync(password, 10);
 
     // if no currency use EUR
     let theCurrency = currency;
@@ -30,8 +30,17 @@ export const signUpProcess = async (req, res) => {
 
     // if everything is okay we can create a new account
     // return the user object to response without the password
-    const result = await createNewUser(name, email, hash, theCurrency, gender);
+    const result = await createNewUser(
+      name,
+      email,
+      hashedPassword,
+      theCurrency,
+      gender
+    );
+
+    // we create expenses document with empty expenses and income arrays.
     const userExpensesDocument = createExpensesDocument(result._id);
+
     res.status(200).json({
       success: true,
       result,

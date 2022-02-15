@@ -20,6 +20,5 @@ function PrimaryButton({ href, text, width, icon, onClick, disabled }) {
 PrimaryButton.propTypes = {
   ...commonProps,
   disabled: propTypes.bool,
-  testID: propTypes.string,
 };
 export default PrimaryButton;

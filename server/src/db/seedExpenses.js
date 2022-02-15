@@ -5,7 +5,7 @@ export const seedExpenses = async () => {
 
 const dataToSeed = [
   {
-    userId: "62080199a9c52293e8d91610",
+    userId: "620aa9618bf7aec0d83f21ce",
     expenses: [
       {
         date: "2022-01-01",

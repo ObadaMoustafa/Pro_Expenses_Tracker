@@ -5,7 +5,7 @@ export const seedDebts = async () => {
 
 const dataToSeed = [
   {
-    userId: "62080199a9c52293e8d91610",
+    userId: "620aa9618bf7aec0d83f21ce",
     title: "From Ahmed to pay my house rent",
     date: "2021-12-15",
     amount: 850,
@@ -38,7 +38,7 @@ const dataToSeed = [
     ],
   },
   {
-    userId: "62080199a9c52293e8d91610",
+    userId: "620aa9618bf7aec0d83f21ce",
     title: "From Faddy to renew my passport",
     date: "2022-01-05",
     amount: 1600,
