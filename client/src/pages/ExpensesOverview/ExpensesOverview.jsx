@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import NoRecord from "./components/NoRecord";
 import ShowOverView from "./components/ShowOverView";
 import { expensesContext } from "../../context/expensesContext";
 import { userContext } from "../../context/userContext";
 import useFetch from "../../hooks/useFetch";
 import LoadingOrError from "../../components/loading&errors/LoadingOrError";
+import AddDifferentExpenses from "./components/AddDifferentExpenses";
 
 function ExpensesOverview() {
   //will use new user to show or redirect to add expenses page if there is no records for user
@@ -26,6 +26,7 @@ function ExpensesOverview() {
     performFetch();
     return () => cancelFetch();
   }, []);
+
   return (
     <>
       <LoadingOrError
@@ -33,7 +34,15 @@ function ExpensesOverview() {
         isErr={error ? true : false}
         errMsg={error}
       />
-      {userExpenses ? <ShowOverView /> : <NoRecord />}
+
+      {userExpenses ? (
+        <ShowOverView />
+      ) : (
+        <p className="add-expenses-header">
+          At least you need to add one expenses to show the overview page
+        </p>
+      )}
+      <AddDifferentExpenses />
     </>
   );
 }

@@ -3,12 +3,12 @@ import LoadingOrError from "../../../components/loading&errors/LoadingOrError";
 import useFetch from "../../../hooks/useFetch";
 import fetchOptions from "../../../utils/fetchOptions";
 import PropTypes from "prop-types";
-import Form from "../../../components/Form/Form";
-import Input from "../../../components/Form/Input";
+import Form from "../../../components/Forms/Form";
+import Input from "../../../components/Forms/Input";
 import { userContext } from "../../../context/userContext";
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../../components/buttons/PrimaryButton";
-import SplitFields from "../../../components/Form/SplitFields";
+import SplitFields from "../../../components/Forms/SplitFields";
 
 function SignUp({ showLoginForm }) {
   const [name, setName] = useState("");

@@ -6,7 +6,7 @@
   margin: 0 auto;
 }
 
-form, .form-split-fields, .homepage-social-icons-container, .homepage-buttons, nav, nav .nav-logo, nav .dropdown-list .nav-user, nav .dropdown-list .nav-user-name, nav .dropdown-list .nav-user-avatar, nav .dropdown-list-menu-item, .overview-total-balance, .overview-total-income, .overview-total-expenses, .overview-total-debts, .add-expenses-container .add-expenses-buttons {
+form, .form-split-fields, .homepage-social-icons-container, .homepage-buttons, nav, nav .nav-logo, nav .dropdown-list .nav-user, nav .dropdown-list .nav-user-name, nav .dropdown-list .nav-user-avatar, nav .dropdown-list-menu-item, .result-card, .add-expenses-container .add-expenses-buttons {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -376,72 +376,34 @@ nav .dropdown-list-menu-item:hover {
   }
 }
 
-.overview-total-balance {
+.result-card {
+  width: 100%;
   -webkit-column-gap: 20px;
           column-gap: 20px;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 80px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+  background: #664e00;
+  background: -webkit-gradient(linear, left top, right top, from(#664e00), to(#ffc400));
+  background: linear-gradient(90deg, #664e00 0%, #ffc400 100%);
 }
 
-.overview-total-balance p:first-child {
-  font-size: 35pt;
-  font-weight: 900;
+.result-card-title {
+  font-size: 1.4rem;
+  width: 150px;
+  color: white;
+  text-align: left;
 }
 
-.overview-total-balance p:nth-child(2) {
-  font-size: 80px;
-  font-weight: 700;
-}
-
-.overview-total-income {
-  -webkit-column-gap: 20px;
-          column-gap: 20px;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-}
-
-.overview-total-income p:first-child {
-  font-size: 35pt;
-  font-weight: 900;
-}
-
-.overview-total-income p:nth-child(2) {
-  font-size: 80px;
-  font-weight: 700;
-}
-
-.overview-total-expenses {
-  -webkit-column-gap: 20px;
-          column-gap: 20px;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-}
-
-.overview-total-expenses p:first-child {
-  font-size: 35pt;
-  font-weight: 900;
-}
-
-.overview-total-expenses p:nth-child(2) {
-  font-size: 80px;
-  font-weight: 700;
-}
-
-.overview-total-debts {
-  -webkit-column-gap: 20px;
-          column-gap: 20px;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-}
-
-.overview-total-debts p:first-child {
-  font-size: 35pt;
-  font-weight: 900;
-}
-
-.overview-total-debts p:nth-child(2) {
-  font-size: 80px;
-  font-weight: 700;
+.result-card-amount {
+  font-size: 2rem;
+  font-weight: 600;
+  width: 150px;
+  text-align: right;
 }
 
 .add-expenses-container {
@@ -454,8 +416,8 @@ nav .dropdown-list-menu-item:hover {
 
 .add-expenses-container .add-expenses-buttons {
   row-gap: 20px;
-  -webkit-column-gap: 20px;
-          column-gap: 20px;
+  -webkit-column-gap: 50px;
+          column-gap: 50px;
 }
 
 .add-expenses-button-header {

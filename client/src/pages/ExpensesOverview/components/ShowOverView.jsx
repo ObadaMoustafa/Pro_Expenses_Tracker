@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import Form from "../../../components/Form/Form";
-import SplitFields from "../../../components/Form/SplitFields";
-import Input from "../../../components/Form/Input";
+import Form from "../../../components/Forms/Form";
+import SplitFields from "../../../components/Forms/SplitFields";
+import Input from "../../../components/Forms/Input";
 import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import { resultByDateRange } from "../../../utils/expensesCalculation";
 import { expensesContext } from "../../../context/expensesContext";
+import ResultCard from "./ResultCard";
 
 function ShowOverView() {
   //write code here
@@ -54,26 +55,18 @@ function ShowOverView() {
             setValue={setToDate}
             width="30%"
           />
-          <PrimaryButton text="Submit" width="150px" />
+          <PrimaryButton
+            text="Filter"
+            width="150px"
+            icon="fa-solid fa-filter-circle-dollar"
+          />
         </SplitFields>
       </Form>
 
-      <div className="overview-total-balance">
-        <p>Balance</p>
-        <p style={{ color: balance > 0 ? "green" : "red" }}>{balance} €</p>
-      </div>
-      <div className="overview-total-income">
-        <p>Income</p>
-        <p>{income} €</p>
-      </div>
-      <div className="overview-total-expenses">
-        <p>Expenses</p>
-        <p>{expenses} €</p>
-      </div>
-      <div className="overview-total-debts">
-        <p>Paid Debts</p>
-        <p>{debts} €</p>
-      </div>
+      <ResultCard title="Balance" amount={balance} />
+      <ResultCard title="Income" amount={income} />
+      <ResultCard title="Expenses" amount={expenses} />
+      <ResultCard title="Paid Debts" amount={debts} />
     </>
   );
 }

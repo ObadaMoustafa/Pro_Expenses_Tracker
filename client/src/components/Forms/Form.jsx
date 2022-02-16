@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Form({ children, onSubmit, formWidth, className }) {
+function Form({ children, onSubmit, formHeader, formWidth, className }) {
   //write code here
 
   return (
@@ -10,6 +10,7 @@ function Form({ children, onSubmit, formWidth, className }) {
       style={{ width: formWidth }}
       className={className}
     >
+      <h2>{formHeader}</h2>
       {children}
     </form>
   );

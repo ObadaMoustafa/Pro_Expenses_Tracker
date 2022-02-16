@@ -9,7 +9,7 @@ import PrimaryButton from "../buttons/PrimaryButton";
 import fetchOptions from "../../utils/fetchOptions";
 import LoadingOrError from "../loading&errors/LoadingOrError";
 
-function AddExpensesForm() {
+function AddExpensesForm({ type }) {
   //write code here
   const { setUserExpenses } = useContext(expensesContext);
   const { currentUser } = useContext(userContext);
@@ -17,7 +17,7 @@ function AddExpensesForm() {
   const [amount, setAmount] = useState("0");
   const [date, setDate] = useState("");
   const { isLoading, error, performFetch } = useFetch(
-    `/expenses/addExpenses/${currentUser._id}`,
+    `/expenses/${type}/${currentUser._id}`,
     async (res) => await setUserExpenses(res.result)
   );
 
@@ -32,7 +32,10 @@ function AddExpensesForm() {
   }
   return (
     <>
-      <Form onSubmit={addExpenses}>
+      <Form
+        onSubmit={addExpenses}
+        formHeader={type === "addExpenses" ? "Add Expenses" : "Add Income"}
+      >
         <Input label="Title" name="title" value={title} setValue={setTitle} />
         <Input
           label="Date"
@@ -58,5 +61,7 @@ function AddExpensesForm() {
   );
 }
 
-AddExpensesForm.propTypes = {};
+AddExpensesForm.propTypes = {
+  type: PropTypes.oneOf(["addExpenses", "addIncome"]).isRequired,
+};
 export default AddExpensesForm;

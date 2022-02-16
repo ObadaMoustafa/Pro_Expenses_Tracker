@@ -3,7 +3,11 @@ import React from "react";
 function Loading() {
   //write code here
 
-  return <div>Loading...</div>;
+  return (
+    <div className="fa-3x">
+      <i className="fas fa-sync fa-spin"></i>
+    </div>
+  );
 }
 
 export default Loading;
