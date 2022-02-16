@@ -1,0 +1,27 @@
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+
+function ResultCard({ title, amount }) {
+  //write code here
+  const [amountInlineStyle, setAmountInlineStyle] = useState({});
+  useEffect(() => {
+    if (title === "Balance" || title === "Income") {
+      setAmountInlineStyle({
+        color: amount > 0 ? "green" : "red",
+      });
+    } else {
+      setAmountInlineStyle({ color: amount > 0 ? "red" : "green" });
+    }
+  }, [amount]);
+  return (
+    <div className="result-card">
+      <p className="result-card-title">{title}:</p>
+      <p className="result-card-amount" style={amountInlineStyle}>
+        {amount} €
+      </p>
+    </div>
+  );
+}
+
+ResultCard.propTypes = {};
+export default ResultCard;

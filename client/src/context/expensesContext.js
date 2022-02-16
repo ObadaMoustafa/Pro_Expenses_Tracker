@@ -3,7 +3,11 @@ import { sumArrayValues } from "../utils/expensesCalculation";
 
 export const expensesContext = createContext();
 export const ExpensesProvider = ({ children }) => {
-  const [userExpenses, setUserExpenses] = useState(null);
+  const [userExpenses, setUserExpenses] = useState({
+    expenses: null,
+    income: null,
+    debts: null,
+  });
 
   const [balance, setBalance] = useState(0);
   const [income, setIncome] = useState(0);
@@ -13,9 +17,10 @@ export const ExpensesProvider = ({ children }) => {
   useEffect(() => {
     if (userExpenses) {
       const { expenses, income, debts } = userExpenses;
-      if (expenses) setExpenses(sumArrayValues(expenses));
-      if (income) setIncome(sumArrayValues(income));
-      if (debts) setDebts(sumArrayValues(debts));
+      expenses ? setExpenses(sumArrayValues(expenses)) : setExpenses(null);
+      income ? setIncome(sumArrayValues(income)) : setIncome(null);
+      debts ? setDebts(sumArrayValues(debts)) : setDebts(null);
+      console.log("context changed", userExpenses);
     }
   }, [userExpenses]);
 

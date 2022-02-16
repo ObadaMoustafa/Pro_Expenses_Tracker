@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddExpensesOption from "../../../components/add_expenses/AddExpensesOption";
-import AddExpensesForm from "../../../components/Forms/AddExpensesForm";
+import AddExpensesForm from "../../../components/forms/AddExpensesForm";
 
 function AddDifferentExpenses() {
   //write code here

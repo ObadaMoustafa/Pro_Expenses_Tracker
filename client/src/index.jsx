@@ -3,13 +3,14 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-import Homepage from "./pages/Homepage/Homepage";
-import WelcomeMsg from "./pages/Homepage/components/WelcomeMsg";
+import Homepage from "./pages/homepage/Homepage";
+import WelcomeMsg from "./pages/homepage/components/WelcomeMsg";
 import { UserProvider } from "./context/userContext";
 import ProtectedPage from "./components/ProtectedPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import ExpensesOverview from "./pages/ExpensesOverview/ExpensesOverview";
+import ExpensesOverview from "./pages/expenses_overview/ExpensesOverview";
 import { ExpensesProvider } from "./context/expensesContext";
+import ShowAllExpenses from "./pages/show_all_expenses/ShowAllExpenses";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -22,6 +23,10 @@ ReactDOM.render(
           <Route exact path="/start" element={<ProtectedPage />}>
             <Route path="/start" element={<App />}>
               <Route path="/start/overview" element={<ExpensesOverview />} />
+              <Route
+                path="/start/show_all_expenses"
+                element={<ShowAllExpenses />}
+              />
             </Route>
           </Route>
           <Route path="*" element={<NotFoundPage />} />

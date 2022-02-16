@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import Nav from "./components/Nav/Nav";
+import Nav from "./components/nav/Nav";
 import "./style/App.css";
 
 function App() {

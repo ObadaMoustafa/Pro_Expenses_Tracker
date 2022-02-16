@@ -35,10 +35,10 @@ function UserAvatar() {
         </div>
       </div>
       <div className={`dropdown-list-menu ${menuClass}`}>
-        <Link to="addExpenses" className="dropdown-list-menu-item">
-          Add Expenses
+        <Link to="overview" className="dropdown-list-menu-item">
+          Balance Overview
         </Link>
-        <Link to="/hfhf" className="dropdown-list-menu-item">
+        <Link to="show_all_expenses" className="dropdown-list-menu-item">
           Expenses
         </Link>
         <Link to="/hfhf" className="dropdown-list-menu-item">

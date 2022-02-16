@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import Form from "../../../components/Forms/Form";
-import SplitFields from "../../../components/Forms/SplitFields";
-import Input from "../../../components/Forms/Input";
+import Form from "../../../components/forms/Form";
+import SplitFields from "../../../components/forms/SplitFields";
+import Input from "../../../components/forms/Input";
 import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import { resultByDateRange } from "../../../utils/expensesCalculation";
 import { expensesContext } from "../../../context/expensesContext";
@@ -58,15 +58,17 @@ function ShowOverView() {
           <PrimaryButton
             text="Filter"
             width="150px"
-            icon="fa-solid fa-filter-circle-dollar"
+            icon="fas fa-funnel-dollar"
           />
         </SplitFields>
       </Form>
 
-      <ResultCard title="Balance" amount={balance} />
-      <ResultCard title="Income" amount={income} />
-      <ResultCard title="Expenses" amount={expenses} />
-      <ResultCard title="Paid Debts" amount={debts} />
+      <div className="result-cards-container">
+        <ResultCard title="Balance" amount={balance} />
+        <ResultCard title="Income" amount={income} />
+        <ResultCard title="Expenses" amount={expenses} />
+        <ResultCard title="Paid Debts" amount={debts} />
+      </div>
     </>
   );
 }

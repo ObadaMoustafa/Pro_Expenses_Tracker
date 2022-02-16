@@ -4,8 +4,8 @@ import { userContext } from "../../../context/userContext";
 import useFetch from "../../../hooks/useFetch";
 import fetchOptions from "../../../utils/fetchOptions";
 import PropTypes from "prop-types";
-import Form from "../../../components/Forms/Form";
-import Input from "../../../components/Forms/Input";
+import Form from "../../../components/forms/Form";
+import Input from "../../../components/forms/Input";
 import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../../components/buttons/PrimaryButton";
 
