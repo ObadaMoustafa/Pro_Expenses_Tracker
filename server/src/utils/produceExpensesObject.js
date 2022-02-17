@@ -9,7 +9,7 @@ async function produceExpensesObject(userId) {
   // if the user doesn't has expenses
   let totalExpenses = [];
   let totalIncome = [];
-  let debts = [];
+  let paidDebts = [];
 
   // set totalExpenses
   if (expenses.length > 0)
@@ -24,13 +24,13 @@ async function produceExpensesObject(userId) {
 
   if (userDebts.length > 0) {
     const payHistories = userDebts.map((debt) => debt.payHistory);
-    payHistories.forEach((payHistory) => debts.push(...payHistory));
-    debts.sort((a, b) => {
+    payHistories.forEach((payHistory) => paidDebts.push(...payHistory));
+    paidDebts.sort((a, b) => {
       return new Date(b.date) - new Date(a.date);
     });
   }
 
-  return { expenses: totalExpenses, income: totalIncome, debts };
+  return { expenses: totalExpenses, income: totalIncome, paidDebts };
 }
 
 export default produceExpensesObject;

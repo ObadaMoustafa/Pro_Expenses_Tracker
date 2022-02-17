@@ -21,19 +21,17 @@ function AddDifferentExpenses() {
   return (
     <>
       <div className="add-expenses-container">
-        <div className="add-expenses-buttons">
-          <AddExpensesOption
-            header="Expenses"
-            onClick={showExpensesForm}
-            buttonText={isExpensesFrom ? "-" : "+"}
-          />
-          <AddExpensesOption
-            header="Income"
-            onClick={showIncomeForm}
-            buttonText={isIncomeFrom ? "-" : "+"}
-          />
-          <AddExpensesOption header="debts" buttonText="+" />
-        </div>
+        <AddExpensesOption
+          header="Expenses"
+          onClick={showExpensesForm}
+          buttonText={isExpensesFrom ? "-" : "+"}
+        />
+        <AddExpensesOption
+          header="Income"
+          onClick={showIncomeForm}
+          buttonText={isIncomeFrom ? "-" : "+"}
+        />
+        <AddExpensesOption header="debts" buttonText="+" />
       </div>
       <div id="form-section">
         {isExpensesFrom && <AddExpensesForm type="addExpenses" />}

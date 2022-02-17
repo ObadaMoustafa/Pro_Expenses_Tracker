@@ -1,0 +1,30 @@
+.add-expenses-container {
+  width: 100%;
+  flex-direction: row;
+  column-gap: 20px;
+}
+.add-expenses-button-header {
+  font-size: 1.8rem;
+}
+.add-expenses-button-button {
+  width: 90px;
+  height: 90px;
+
+  .round-button {
+    font-size: 45pt;
+  }
+}
+
+@media only screen and (max-width: $media-screen-width) {
+  .add-expenses-button-header {
+    font-size: 1rem;
+  }
+  .add-expenses-button-button {
+    width: 50px;
+    height: 50px;
+
+    .round-button {
+      font-size: 15pt;
+    }
+  }
+}

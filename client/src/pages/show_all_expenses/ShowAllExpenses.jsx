@@ -1,12 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import FilterByDateForm from "../../components/forms/FilterByDateForm";
 import { expensesContext } from "../../context/expensesContext";
 import ExpensesTransaction from "./components/ExpensesTransaction";
 
 function ShowAllExpenses() {
   //write code here
-  const { userExpenses } = useContext(expensesContext);
-  const { expenses, income } = userExpenses;
+  const {
+    userExpenses,
+    expensesArray,
+    setExpensesArray,
+    setIncomeArray,
+    setPaidDebtsArray,
+  } = useContext(expensesContext);
+  const { expenses, income, paidDebts } = userExpenses;
+
+  useEffect(() => {
+    setExpensesArray(expenses);
+    setIncomeArray(income);
+    setPaidDebtsArray(paidDebts);
+  }, []);
   return (
     <>
       <h2>
@@ -15,17 +27,16 @@ function ShowAllExpenses() {
       </h2>
       <FilterByDateForm />
       <div className="expenses-transactions-container">
-        {expenses &&
-          expenses.map((singleExpenses) => (
-            <ExpensesTransaction
-              title={singleExpenses.title}
-              amount={singleExpenses.amount}
-              transactionId={singleExpenses._id}
-              date={singleExpenses.date}
-              type="expenses"
-              key={singleExpenses._id}
-            />
-          ))}
+        {expensesArray.map((singleExpenses) => (
+          <ExpensesTransaction
+            title={singleExpenses.title}
+            amount={singleExpenses.amount}
+            transactionId={singleExpenses._id}
+            date={singleExpenses.date}
+            key={singleExpenses._id}
+            type="expenses"
+          />
+        ))}
       </div>
     </>
   );

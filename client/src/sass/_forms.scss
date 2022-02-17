@@ -1,0 +1,9 @@
+.form-split-fields {
+  .input-container {
+    flex-grow: 2;
+    width: auto;
+  }
+  .primary-button {
+    flex-grow: 1;
+  }
+}

@@ -9,45 +9,59 @@ import SplitFields from "./SplitFields";
 function FilterByDateForm() {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const { userExpenses, setExpensesArray, setIncomeArray, setDebtsArray } =
+  const { userExpenses, setExpensesArray, setIncomeArray, setPaidDebtsArray } =
     useContext(expensesContext);
 
-  useEffect(() => {
-    if (fromDate.length > 0 && toDate.length > 0) {
-      const { expenses, income, debts } = userExpenses;
-      console.log("userExpenses before filter", userExpenses);
-      if (expenses.length > 0) {
-        const filteredExpenses = resultByDateRange(expenses, fromDate, toDate);
-        setExpensesArray(filteredExpenses);
-      }
-      if (income.length > 0) {
-        const filteredIncome = resultByDateRange(income, fromDate, toDate);
-        setIncomeArray(filteredIncome);
-      }
-      if (debts.length > 0) {
-        const filteredDebts = resultByDateRange(debts, fromDate, toDate);
-        setDebtsArray(filteredDebts);
-      }
-      console.log("userExpenses after filter", userExpenses);
+  //restart the arrays in context for every render
+  // useEffect(() => {
+  //   setExpensesArray(userExpenses.expenses);
+  //   setIncomeArray(userExpenses.income);
+  //   setPaidDebtsArray(userExpenses.paidDebts);
+  // }, []);
+
+  function handleFilter(e) {
+    e.preventDefault();
+
+    const { expenses, income, paidDebts } = userExpenses;
+    console.log("userExpenses before filter", userExpenses);
+    if (expenses.length > 0) {
+      const filteredExpenses = resultByDateRange(expenses, fromDate, toDate);
+      setExpensesArray(filteredExpenses);
     }
-  }, [fromDate, toDate]);
+    if (income.length > 0) {
+      const filteredIncome = resultByDateRange(income, fromDate, toDate);
+      setIncomeArray(filteredIncome);
+    }
+    if (paidDebts.length > 0) {
+      const filteredDebts = resultByDateRange(paidDebts, fromDate, toDate);
+      setPaidDebtsArray(filteredDebts);
+    }
+    console.log("userExpenses after filter", userExpenses);
+  }
 
   return (
-    <Form formWidth="100%" formHeader="Filter results by Date">
+    <Form
+      formHeader="Filter results by Date"
+      onSubmit={handleFilter}
+      formWidth="100%"
+    >
       <SplitFields>
         <Input
           type="date"
           label="From Date"
           value={fromDate}
           setValue={setFromDate}
-          width="30%"
         />
         <Input
           type="date"
           label="To Date"
           value={toDate}
           setValue={setToDate}
-          width="30%"
+        />
+        <PrimaryButton
+          text="Filter"
+          width="150px"
+          icon="fas fa-funnel-dollar"
         />
       </SplitFields>
     </Form>

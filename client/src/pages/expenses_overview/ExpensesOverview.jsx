@@ -21,6 +21,7 @@ function ExpensesOverview() {
       }
     }
   );
+
   // performing the first fetch for total user history
   useEffect(() => {
     performFetch();

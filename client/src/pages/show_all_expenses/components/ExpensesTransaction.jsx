@@ -13,8 +13,6 @@ function ExpensesTransaction({ transactionId, title, amount, type, date }) {
     `/expenses/deleteExpenses/${currentUser._id}/${transactionId}`,
     async (res) => {
       await setUserExpenses(res.result);
-      console.log(res.result);
-      console.log(userExpenses);
     }
   );
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { expensesContext } from "../../../context/expensesContext";
 import ResultCard from "./ResultCard";
@@ -6,7 +6,7 @@ import FilterByDateForm from "../../../components/forms/FilterByDateForm";
 
 function ShowOverView() {
   //write code here
-  const { totalBalance, totalIncome, totalExpenses, totalDebts } =
+  const { totalBalance, totalIncome, totalExpenses, totalPaidDebts } =
     useContext(expensesContext);
 
   return (
@@ -17,7 +17,7 @@ function ShowOverView() {
         <ResultCard title="Balance" amount={totalBalance} />
         <ResultCard title="Income" amount={totalIncome} />
         <ResultCard title="Expenses" amount={totalExpenses} />
-        <ResultCard title="Paid Debts" amount={totalDebts} />
+        <ResultCard title="Paid Debts" amount={totalPaidDebts} />
       </div>
     </>
   );
