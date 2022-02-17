@@ -10,9 +10,13 @@ export function sumArrayValues(arrOfObjects) {
 //1- arr = the array of objects for any kind of expenses
 //2- from and to = dates to filter the data and calculate the amount keys inside it
 //3- set state function from the component to change it with new calculation
-export function resultByDateRange(arr, from, to, setValueFn) {
-  const wantedDatesArr = arr.filter(
-    (obj) => obj.date >= from && obj.date <= to
-  );
-  setValueFn(sumArrayValues(wantedDatesArr));
+export function resultByDateRange(arr, from, to) {
+  if (arr.length > 0) {
+    const wantedDatesArr = arr.filter(
+      (obj) => obj.date >= from && obj.date <= to
+    );
+    return wantedDatesArr;
+  } else {
+    return [];
+  }
 }

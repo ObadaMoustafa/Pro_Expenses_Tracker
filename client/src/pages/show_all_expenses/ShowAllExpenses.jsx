@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import FilterByDateForm from "../../components/forms/FilterByDateForm";
 import { expensesContext } from "../../context/expensesContext";
 import ExpensesTransaction from "./components/ExpensesTransaction";
 
@@ -12,6 +13,7 @@ function ShowAllExpenses() {
         This is all your expenses transactions and you can also show by date
         range
       </h2>
+      <FilterByDateForm />
       <div className="expenses-transactions-container">
         {expenses &&
           expenses.map((singleExpenses) => (

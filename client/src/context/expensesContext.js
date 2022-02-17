@@ -4,43 +4,66 @@ import { sumArrayValues } from "../utils/expensesCalculation";
 export const expensesContext = createContext();
 export const ExpensesProvider = ({ children }) => {
   const [userExpenses, setUserExpenses] = useState({
-    expenses: null,
-    income: null,
-    debts: null,
+    expenses: [],
+    income: [],
+    debts: [],
   });
 
-  const [balance, setBalance] = useState(0);
-  const [income, setIncome] = useState(0);
-  const [expenses, setExpenses] = useState(0);
-  const [debts, setDebts] = useState(0);
+  // specially for filtration to keep the original data
+  const [expensesArray, setExpensesArray] = useState(userExpenses.expenses);
+  const [incomeArray, setIncomeArray] = useState(userExpenses.income);
+  const [debtsArray, setDebtsArray] = useState(userExpenses.debts);
 
+  // first lets change the they arrays every time userExpenses change
   useEffect(() => {
-    if (userExpenses) {
-      const { expenses, income, debts } = userExpenses;
-      expenses ? setExpenses(sumArrayValues(expenses)) : setExpenses(null);
-      income ? setIncome(sumArrayValues(income)) : setIncome(null);
-      debts ? setDebts(sumArrayValues(debts)) : setDebts(null);
-      console.log("context changed", userExpenses);
-    }
+    setExpensesArray(userExpenses.expenses);
+    setIncomeArray(userExpenses.income);
+    setDebtsArray(userExpenses.debts);
+    console.log("context changed", userExpenses);
   }, [userExpenses]);
+
+  const [totalBalance, setTotalBalance] = useState(0);
+  const [totalExpenses, setTotalExpenses] = useState(0);
+  const [totalIncome, setTotalIncome] = useState(0);
+  const [totalDebts, setTotalDebts] = useState(0);
+
+  // change the results when the arrays states changed .. that guarantee to keep the original data and present the filtered one
+  useEffect(() => {
+    expensesArray.length > 0
+      ? setTotalExpenses(sumArrayValues(expensesArray))
+      : setTotalExpenses(0);
+    incomeArray.length > 0
+      ? setTotalIncome(sumArrayValues(incomeArray))
+      : setTotalIncome(0);
+    debtsArray.length > 0
+      ? setTotalDebts(sumArrayValues(debtsArray))
+      : setTotalDebts(0);
+    console.log("Arrays chanced", { expensesArray, incomeArray, debtsArray });
+  }, [expensesArray, incomeArray, debtsArray]);
 
   // calculating the balance to be dynamic with transactions;
   useEffect(() => {
-    const totalBalance = income - expenses - debts;
-    setBalance(totalBalance);
-  }, [income, expenses, debts]);
+    const totalBalance = totalIncome - totalExpenses - totalDebts;
+    setTotalBalance(totalBalance);
+  }, [totalIncome, totalExpenses, totalDebts]);
 
   const sharedValues = {
     userExpenses,
     setUserExpenses,
-    balance,
-    setBalance,
-    income,
-    setIncome,
-    expenses,
-    setExpenses,
-    debts,
-    setDebts,
+    expensesArray,
+    setExpensesArray,
+    incomeArray,
+    setIncomeArray,
+    debtsArray,
+    setDebtsArray,
+    totalBalance,
+    setTotalBalance,
+    totalExpenses,
+    setTotalExpenses,
+    totalIncome,
+    setTotalIncome,
+    totalDebts,
+    setTotalDebts,
   };
   return (
     <expensesContext.Provider value={sharedValues}>

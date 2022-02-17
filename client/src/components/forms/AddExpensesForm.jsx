@@ -18,7 +18,7 @@ function AddExpensesForm({ type }) {
   const [date, setDate] = useState("");
   const { isLoading, error, performFetch } = useFetch(
     `/expenses/${type}/${currentUser._id}`,
-    async (res) => await setUserExpenses(res.result)
+    (res) => setUserExpenses(res.result)
   );
 
   function addExpenses() {
