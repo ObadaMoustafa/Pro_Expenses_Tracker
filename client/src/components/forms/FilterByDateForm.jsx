@@ -6,8 +6,9 @@ import Form from "./Form";
 import Input from "./Input";
 import SplitFields from "./SplitFields";
 import { format, subDays } from "date-fns";
+import PropTypes from "prop-types";
 
-function FilterByDateForm() {
+function FilterByDateForm({ type }) {
   const [fromDate, setFromDate] = useState(
     format(subDays(new Date(), 30), "yyyy-MM-dd")
   );
@@ -17,19 +18,32 @@ function FilterByDateForm() {
 
   function handleFilter(e) {
     e.preventDefault();
-
     const { expenses, income, paidDebts } = userExpenses;
-    if (expenses.length > 0) {
+    // updateExpensesArrays();
+    // filtration method for overview page
+    if (type === "overview") {
+      if (expenses.length > 0) {
+        const filteredExpenses = resultByDateRange(expenses, fromDate, toDate);
+        setExpensesArray(filteredExpenses);
+      }
+      if (income.length > 0) {
+        const filteredIncome = resultByDateRange(income, fromDate, toDate);
+        setIncomeArray(filteredIncome);
+      }
+      if (paidDebts.length > 0) {
+        const filteredDebts = resultByDateRange(paidDebts, fromDate, toDate);
+        setPaidDebtsArray(filteredDebts);
+      }
+    }
+    //filtration method for expenses page
+    else if (type === "expenses") {
       const filteredExpenses = resultByDateRange(expenses, fromDate, toDate);
       setExpensesArray(filteredExpenses);
     }
-    if (income.length > 0) {
+    //filtration method for income page
+    else if (type === "income") {
       const filteredIncome = resultByDateRange(income, fromDate, toDate);
       setIncomeArray(filteredIncome);
-    }
-    if (paidDebts.length > 0) {
-      const filteredDebts = resultByDateRange(paidDebts, fromDate, toDate);
-      setPaidDebtsArray(filteredDebts);
     }
   }
 
@@ -61,5 +75,7 @@ function FilterByDateForm() {
     </Form>
   );
 }
-
+FilterByDateForm.propTypes = {
+  type: PropTypes.oneOf(["overview", "expenses", "income"]).isRequired,
+};
 export default FilterByDateForm;

@@ -14,13 +14,11 @@ export const ExpensesProvider = ({ children }) => {
   const [incomeArray, setIncomeArray] = useState(userExpenses.income);
   const [paidDebtsArray, setPaidDebtsArray] = useState(userExpenses.paidDebts);
 
-  // first lets change the they arrays every time userExpenses change
-  useEffect(() => {
+  function updateExpensesArrays() {
     setExpensesArray(userExpenses.expenses);
     setIncomeArray(userExpenses.income);
     setPaidDebtsArray(userExpenses.paidDebts);
-  }, [userExpenses]);
-
+  }
   const [totalBalance, setTotalBalance] = useState(0);
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [totalIncome, setTotalIncome] = useState(0);
@@ -62,6 +60,7 @@ export const ExpensesProvider = ({ children }) => {
     setTotalIncome,
     totalPaidDebts,
     setTotalPaidDebts,
+    updateExpensesArrays,
   };
   return (
     <expensesContext.Provider value={sharedValues}>

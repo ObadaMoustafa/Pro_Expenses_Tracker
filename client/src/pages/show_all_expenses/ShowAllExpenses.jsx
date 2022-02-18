@@ -28,7 +28,7 @@ function ShowAllExpenses() {
   return (
     <>
       <h2>All Expenses Transactions without paid debts</h2>
-      <FilterByDateForm />
+      <FilterByDateForm type="expenses" />
       <div className="expenses-transactions-container">
         {expensesArray.map((singleExpenses) => (
           <ExpensesTransaction

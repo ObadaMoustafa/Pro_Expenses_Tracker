@@ -8,13 +8,22 @@ import fetchOptions from "../utils/fetchOptions";
 function ExpensesTransaction({ transactionId, title, amount, type, date }) {
   //write code here
   const { currentUser } = useContext(userContext);
-  const { setUserExpenses, userExpenses } = useContext(expensesContext);
+  const { setUserExpenses, userExpenses, setExpensesArray, setIncomeArray } =
+    useContext(expensesContext);
   const deletePath =
     type === "expenses" ? "expenses/deleteExpenses" : "expenses/deleteIncome";
   const { performFetch, cancelFetch } = useFetch(
     `/${deletePath}/${currentUser._id}/${transactionId}`,
     async (res) => {
       await setUserExpenses(res.result);
+      if (type === "expenses")
+        setExpensesArray((prev) =>
+          prev.filter((transaction) => transaction._id !== transactionId)
+        );
+      if (type === "income")
+        setIncomeArray((prev) =>
+          prev.filter((transaction) => transaction._id !== transactionId)
+        );
     }
   );
 
@@ -43,7 +52,7 @@ ExpensesTransaction.propTypes = {
   transactionId: PropTypes.string,
   title: PropTypes.string,
   amount: PropTypes.number,
-  type: PropTypes.string,
+  type: PropTypes.oneOf(["expenses", "income"]).isRequired,
   date: PropTypes.string,
 };
 export default ExpensesTransaction;

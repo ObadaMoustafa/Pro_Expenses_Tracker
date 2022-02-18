@@ -28,7 +28,7 @@ function ShowAllIncome() {
   return (
     <>
       <h2>All income Transactions</h2>
-      <FilterByDateForm />
+      <FilterByDateForm type="income" />
       <div className="expenses-transactions-container">
         {incomeArray.map((singleExpenses) => (
           <ExpensesTransaction
