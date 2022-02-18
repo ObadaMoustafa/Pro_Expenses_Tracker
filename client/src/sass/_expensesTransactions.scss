@@ -1,0 +1,21 @@
+.expenses-transactions-container {
+  width: 100%;
+
+  .expenses-transaction {
+    height: 50px;
+    padding: 10px;
+    flex-wrap: nowrap;
+    .expenses-transaction-part1 {
+      justify-content: flex-start;
+      column-gap: 10px;
+      .expenses-transaction-part1-title {
+        width: 120px;
+      }
+      .expenses-transaction-part1-date,
+      .expenses-transaction-part1-amount {
+        width: 90px;
+        flex-grow: 0;
+      }
+    }
+  }
+}

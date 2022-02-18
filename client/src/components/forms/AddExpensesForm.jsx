@@ -8,20 +8,33 @@ import { userContext } from "../../context/userContext";
 import PrimaryButton from "../buttons/PrimaryButton";
 import fetchOptions from "../../utils/fetchOptions";
 import LoadingOrError from "../loading&errors/LoadingOrError";
+import { format } from "date-fns";
 
 function AddExpensesForm({ type }) {
   //write code here
   const { setUserExpenses } = useContext(expensesContext);
   const { currentUser } = useContext(userContext);
   const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState("0");
-  const [date, setDate] = useState("");
+  const [amount, setAmount] = useState("");
+  const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd"));
+  const apiUrl =
+    type === "expenses" ? "expenses/addExpenses" : "expenses/addIncome";
   const { isLoading, error, performFetch } = useFetch(
-    `/expenses/${type}/${currentUser._id}`,
-    (res) => setUserExpenses(res.result)
+    `/${apiUrl}/${currentUser._id}`,
+    (res) => {
+      setUserExpenses(res.result);
+      clearFields();
+    }
   );
 
-  function addExpenses() {
+  function clearFields() {
+    setTitle("");
+    setAmount("");
+    setDate(format(new Date(), "yyyy-MM-dd"));
+  }
+
+  function addExpenses(e) {
+    e.preventDefault();
     const reqBody = {
       title,
       date,
@@ -34,9 +47,15 @@ function AddExpensesForm({ type }) {
     <>
       <Form
         onSubmit={addExpenses}
-        formHeader={type === "addExpenses" ? "Add Expenses" : "Add Income"}
+        formHeader={type === "expenses" ? "Add Expenses" : "Add Income"}
       >
-        <Input label="Title" name="title" value={title} setValue={setTitle} />
+        <Input
+          label="Title"
+          name="title"
+          value={title}
+          setValue={setTitle}
+          maxLength="12"
+        />
         <Input
           label="Date"
           name="date"
@@ -45,10 +64,12 @@ function AddExpensesForm({ type }) {
           setValue={setDate}
         />
         <Input
+          type="tel"
           label="Amount"
           name="amount"
           value={amount}
           setValue={setAmount}
+          maxLength="7"
         />
         <PrimaryButton text="Add" width="50%" />
       </Form>
@@ -62,6 +83,6 @@ function AddExpensesForm({ type }) {
 }
 
 AddExpensesForm.propTypes = {
-  type: PropTypes.oneOf(["addExpenses", "addIncome"]).isRequired,
+  type: PropTypes.oneOf(["expenses", "income"]).isRequired,
 };
 export default AddExpensesForm;

@@ -19,7 +19,6 @@ export const ExpensesProvider = ({ children }) => {
     setExpensesArray(userExpenses.expenses);
     setIncomeArray(userExpenses.income);
     setPaidDebtsArray(userExpenses.paidDebts);
-    console.log("context changed", userExpenses);
   }, [userExpenses]);
 
   const [totalBalance, setTotalBalance] = useState(0);
@@ -38,11 +37,6 @@ export const ExpensesProvider = ({ children }) => {
     paidDebtsArray.length > 0
       ? setTotalPaidDebts(sumArrayValues(paidDebtsArray))
       : setTotalPaidDebts(0);
-    console.log("Arrays chanced", {
-      expensesArray,
-      incomeArray,
-      paidDebtsArray,
-    });
   }, [expensesArray, incomeArray, paidDebtsArray]);
 
   // calculating the balance to be dynamic with transactions;

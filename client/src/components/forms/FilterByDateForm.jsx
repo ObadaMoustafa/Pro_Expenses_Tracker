@@ -1,29 +1,24 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { expensesContext } from "../../context/expensesContext";
 import { resultByDateRange } from "../../utils/expensesCalculation";
 import PrimaryButton from "../buttons/PrimaryButton";
 import Form from "./Form";
 import Input from "./Input";
 import SplitFields from "./SplitFields";
+import { format, subDays } from "date-fns";
 
 function FilterByDateForm() {
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
+  const [fromDate, setFromDate] = useState(
+    format(subDays(new Date(), 30), "yyyy-MM-dd")
+  );
+  const [toDate, setToDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const { userExpenses, setExpensesArray, setIncomeArray, setPaidDebtsArray } =
     useContext(expensesContext);
-
-  //restart the arrays in context for every render
-  // useEffect(() => {
-  //   setExpensesArray(userExpenses.expenses);
-  //   setIncomeArray(userExpenses.income);
-  //   setPaidDebtsArray(userExpenses.paidDebts);
-  // }, []);
 
   function handleFilter(e) {
     e.preventDefault();
 
     const { expenses, income, paidDebts } = userExpenses;
-    console.log("userExpenses before filter", userExpenses);
     if (expenses.length > 0) {
       const filteredExpenses = resultByDateRange(expenses, fromDate, toDate);
       setExpensesArray(filteredExpenses);
@@ -36,7 +31,6 @@ function FilterByDateForm() {
       const filteredDebts = resultByDateRange(paidDebts, fromDate, toDate);
       setPaidDebtsArray(filteredDebts);
     }
-    console.log("userExpenses after filter", userExpenses);
   }
 
   return (

@@ -1,0 +1,20 @@
+@mixin app-con-width {
+  @media only screen and (max-width: 600px) {
+    width: 95%;
+  }
+  @media only screen and (min-width: 601px) {
+    width: 50%;
+  }
+}
+.app-container {
+  @include app-con-width;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  row-gap: 20px;
+  text-align: center;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+  padding: 20px 0;
+}

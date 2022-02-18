@@ -1,16 +1,18 @@
 import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import useFetch from "../../../hooks/useFetch";
-import { userContext } from "../../../context/userContext";
-import { expensesContext } from "../../../context/expensesContext";
-import fetchOptions from "../../../utils/fetchOptions";
+import useFetch from "../hooks/useFetch";
+import { userContext } from "../context/userContext";
+import { expensesContext } from "../context/expensesContext";
+import fetchOptions from "../utils/fetchOptions";
 
 function ExpensesTransaction({ transactionId, title, amount, type, date }) {
   //write code here
   const { currentUser } = useContext(userContext);
   const { setUserExpenses, userExpenses } = useContext(expensesContext);
+  const deletePath =
+    type === "expenses" ? "expenses/deleteExpenses" : "expenses/deleteIncome";
   const { performFetch, cancelFetch } = useFetch(
-    `/expenses/deleteExpenses/${currentUser._id}/${transactionId}`,
+    `/${deletePath}/${currentUser._id}/${transactionId}`,
     async (res) => {
       await setUserExpenses(res.result);
     }

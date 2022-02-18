@@ -34,8 +34,8 @@ function AddDifferentExpenses() {
         <AddExpensesOption header="debts" buttonText="+" />
       </div>
       <div id="form-section">
-        {isExpensesFrom && <AddExpensesForm type="addExpenses" />}
-        {isIncomeFrom && <AddExpensesForm type="addIncome" />}
+        {isExpensesFrom && <AddExpensesForm type="expenses" />}
+        {isIncomeFrom && <AddExpensesForm type="income" />}
       </div>
     </>
   );

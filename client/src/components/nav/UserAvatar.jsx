@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { userContext } from "../../context/userContext";
 import maleAvatar from "../../images/male-avatar.png";
 import femaleAvatar from "../../images/female-avatar.png";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 function UserAvatar() {
   //write code here
   const { currentUser, logout } = useContext(userContext);
@@ -35,15 +35,18 @@ function UserAvatar() {
         </div>
       </div>
       <div className={`dropdown-list-menu ${menuClass}`}>
-        <Link to="overview" className="dropdown-list-menu-item">
+        <NavLink to="overview" className="dropdown-list-menu-item">
           Balance Overview
-        </Link>
-        <Link to="show_all_expenses" className="dropdown-list-menu-item">
+        </NavLink>
+        <NavLink to="show_all_expenses" className="dropdown-list-menu-item">
           Expenses
-        </Link>
-        <Link to="/hfhf" className="dropdown-list-menu-item">
+        </NavLink>
+        <NavLink to="show_all_income" className="dropdown-list-menu-item">
+          Income
+        </NavLink>
+        <NavLink to="/hfhf" className="dropdown-list-menu-item">
           Debts
-        </Link>
+        </NavLink>
         <div className="dropdown-list-menu-item" onClick={logout}>
           Logout
         </div>

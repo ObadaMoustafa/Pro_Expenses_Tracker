@@ -10,7 +10,7 @@ function Form({ children, onSubmit, formHeader, formWidth, className }) {
       style={{ width: formWidth }}
       className={className}
     >
-      <h2>{formHeader}</h2>
+      <h3>{formHeader}</h3>
       {children}
     </form>
   );

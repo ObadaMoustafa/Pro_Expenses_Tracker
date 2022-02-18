@@ -5,11 +5,11 @@ import ExpensesTransaction from "../../components/ExpensesTransaction";
 import AddExpensesForm from "../../components/forms/AddExpensesForm";
 import AddExpensesOption from "../../components/add_expenses/AddExpensesOption";
 
-function ShowAllExpenses() {
+function ShowAllIncome() {
   //write code here
   const {
     userExpenses,
-    expensesArray,
+    incomeArray,
     setExpensesArray,
     setIncomeArray,
     setPaidDebtsArray,
@@ -27,17 +27,17 @@ function ShowAllExpenses() {
   }, []);
   return (
     <>
-      <h2>All Expenses Transactions without paid debts</h2>
+      <h2>All income Transactions</h2>
       <FilterByDateForm />
       <div className="expenses-transactions-container">
-        {expensesArray.map((singleExpenses) => (
+        {incomeArray.map((singleExpenses) => (
           <ExpensesTransaction
             title={singleExpenses.title}
             amount={singleExpenses.amount}
             transactionId={singleExpenses._id}
             date={singleExpenses.date}
             key={singleExpenses._id}
-            type="expenses"
+            type="income"
           />
         ))}
       </div>
@@ -47,10 +47,10 @@ function ShowAllExpenses() {
         onClick={showForm}
       />
       <div id="add_expenses_form">
-        {shouldShowForm && <AddExpensesForm type="expenses" />}
+        {shouldShowForm && <AddExpensesForm type="income" />}
       </div>
     </>
   );
 }
 
-export default ShowAllExpenses;
+export default ShowAllIncome;

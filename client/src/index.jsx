@@ -11,6 +11,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ExpensesOverview from "./pages/expenses_overview/ExpensesOverview";
 import { ExpensesProvider } from "./context/expensesContext";
 import ShowAllExpenses from "./pages/show_all_expenses/ShowAllExpenses";
+import ShowAllIncome from "./pages/show_all_income/ShowAllIncome";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -26,6 +27,10 @@ ReactDOM.render(
               <Route
                 path="/start/show_all_expenses"
                 element={<ShowAllExpenses />}
+              />
+              <Route
+                path="/start/show_all_income"
+                element={<ShowAllIncome />}
               />
             </Route>
           </Route>

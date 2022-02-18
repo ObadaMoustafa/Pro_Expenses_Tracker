@@ -87,3 +87,29 @@ export const addIncome = async (req, res) => {
     });
   }
 };
+
+export const deleteIncome = async (req, res) => {
+  try {
+    const { userId, incomeId } = req.params;
+
+    const oldExpensesObject = await Expenses.findOne({ userId });
+    const newExpensesObject = oldExpensesObject.income.filter(
+      (singleExpenses) => singleExpenses._id.toString() !== incomeId
+    );
+    oldExpensesObject.income = newExpensesObject;
+    await oldExpensesObject.save();
+
+    const allExpenses = await produceExpensesObject(userId);
+
+    res.status(200).json({
+      success: true,
+      result: allExpenses,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};
