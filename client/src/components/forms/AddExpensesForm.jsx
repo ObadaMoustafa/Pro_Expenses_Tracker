@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import Form from "./Form";
 import Input from "./Input";
@@ -25,23 +25,24 @@ function AddExpensesForm({ type }) {
     async (res) => {
       clearFields();
       await setUserExpenses(res.result);
+
+      // for adding the new transaction in the filtration mode.
       if (type === "expenses")
         setExpensesArray((prev) => [
-          { title, date, amount: Number(amount), _id: res._id },
           ...prev,
+          { title, date, amount: Number(amount), _id: res._id },
         ]);
       if (type === "income")
         setIncomeArray((prev) => [
-          { title, date, amount: Number(amount), _id: res._id },
           ...prev,
+          { title, date, amount: Number(amount), _id: res._id },
         ]);
+
+      //TODO still need paid debts transactions
     }
   );
 
   // to stop Propagation when clicking anywhere in the form to prevent it to be hidden;
-  function stopPropagate(e) {
-    e.stopPropagation();
-  }
 
   function clearFields() {
     setTitle("");
@@ -64,12 +65,11 @@ function AddExpensesForm({ type }) {
       <Form
         onSubmit={addExpenses}
         formHeader={type === "expenses" ? "Add Expenses" : "Add Income"}
-        onClick={stopPropagate}
       >
         <Input
           label="Title"
           name="title"
-          placeholder="e.g. grocery"
+          placeholder={`e.g. ${type === "expenses" ? "Grocery" : "Salary"}`}
           value={title}
           setValue={setTitle}
           maxLength="12"

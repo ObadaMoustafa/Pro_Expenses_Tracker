@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import PropTypes from "prop-types";
-import useFetch from "../hooks/useFetch";
-import { userContext } from "../context/userContext";
-import { expensesContext } from "../context/expensesContext";
-import fetchOptions from "../utils/fetchOptions";
+import useFetch from "../../hooks/useFetch";
+import { userContext } from "../../context/userContext";
+import { expensesContext } from "../../context/expensesContext";
+import fetchOptions from "../../utils/fetchOptions";
 
 function ExpensesTransaction({ transactionId, title, amount, type, date }) {
   //write code here
@@ -24,6 +24,8 @@ function ExpensesTransaction({ transactionId, title, amount, type, date }) {
         setIncomeArray((prev) =>
           prev.filter((transaction) => transaction._id !== transactionId)
         );
+
+      //TODO still need paid debts transactions
     }
   );
 

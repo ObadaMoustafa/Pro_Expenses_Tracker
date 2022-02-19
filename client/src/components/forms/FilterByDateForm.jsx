@@ -45,6 +45,8 @@ function FilterByDateForm({ type }) {
       const filteredIncome = resultByDateRange(income, fromDate, toDate);
       setIncomeArray(filteredIncome);
     }
+
+    //TODO still need paid debts transactions
   }
 
   return (

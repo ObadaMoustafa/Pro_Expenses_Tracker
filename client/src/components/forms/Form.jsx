@@ -10,12 +10,15 @@ function Form({
   ...rest
 }) {
   //write code here
-
+  function stopPropagate(e) {
+    e.stopPropagation();
+  }
   return (
     <form
       onSubmit={onSubmit}
       style={{ width: formWidth }}
       className={className}
+      onClick={stopPropagate}
       {...rest}
     >
       <h3>{formHeader}</h3>
