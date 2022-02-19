@@ -2,18 +2,62 @@
   width: 100%;
 
   .expenses-transaction {
-    height: 50px;
-    padding: 10px;
+    min-height: 40px;
+    padding: 0px 10px;
     flex-wrap: nowrap;
-    .expenses-transaction-part1 {
+    &-part1 {
       justify-content: flex-start;
-      column-gap: 10px;
-      .expenses-transaction-part1-title {
-        width: 120px;
+      column-gap: 30px;
+      &-title {
       }
-      .expenses-transaction-part1-date,
-      .expenses-transaction-part1-amount {
+      &-date,
+      &-amount {
         width: 90px;
+        flex-grow: 0;
+      }
+      &-amount {
+        font-size: 1.3rem;
+        font-weight: 500;
+        flex-grow: 1;
+      }
+    }
+  }
+}
+
+.forms-buttons {
+  display: flex;
+  column-gap: 10px;
+  width: 100%;
+  padding-bottom: 5px;
+  &-icon {
+    cursor: pointer;
+    border-radius: $border-radius;
+    background-color: $second-color;
+    padding: 8px;
+
+    &:hover {
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    }
+
+    &:active {
+      box-shadow: rgb(204, 219, 232) 1px 1px 2px 0px inset,
+        rgba(255, 255, 255, 0.5) -1px -1px 2px 1px inset;
+    }
+  }
+  i {
+    font-size: 1.2rem;
+    color: white;
+  }
+}
+
+@media only screen and (max-width: $media-screen-width) {
+  .expenses-transaction {
+    height: 60px;
+    &-part1 {
+      column-gap: 15px !important;
+      &-amount {
         flex-grow: 0;
       }
     }

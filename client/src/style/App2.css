@@ -85,34 +85,90 @@
 }
 
 .expenses-transactions-container .expenses-transaction {
-  height: 50px;
-  padding: 10px;
+  min-height: 40px;
+  padding: 0px 10px;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
 }
 
-.expenses-transactions-container .expenses-transaction .expenses-transaction-part1 {
+.expenses-transactions-container .expenses-transaction-part1 {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  -webkit-column-gap: 10px;
-          column-gap: 10px;
+  -webkit-column-gap: 30px;
+          column-gap: 30px;
 }
 
-.expenses-transactions-container .expenses-transaction .expenses-transaction-part1 .expenses-transaction-part1-title {
-  width: 120px;
-}
-
-.expenses-transactions-container .expenses-transaction .expenses-transaction-part1 .expenses-transaction-part1-date,
-.expenses-transactions-container .expenses-transaction .expenses-transaction-part1 .expenses-transaction-part1-amount {
+.expenses-transactions-container .expenses-transaction-part1-date, .expenses-transactions-container .expenses-transaction-part1-amount {
   width: 90px;
   -webkit-box-flex: 0;
       -ms-flex-positive: 0;
           flex-grow: 0;
 }
 
+.expenses-transactions-container .expenses-transaction-part1-amount {
+  font-size: 1.3rem;
+  font-weight: 500;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.forms-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+  width: 100%;
+  padding-bottom: 5px;
+}
+
+.forms-buttons-icon {
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #003566;
+  padding: 8px;
+}
+
+.forms-buttons-icon:hover {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+          box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.forms-buttons-icon:active {
+  -webkit-box-shadow: #ccdbe8 1px 1px 2px 0px inset, rgba(255, 255, 255, 0.5) -1px -1px 2px 1px inset;
+          box-shadow: #ccdbe8 1px 1px 2px 0px inset, rgba(255, 255, 255, 0.5) -1px -1px 2px 1px inset;
+}
+
+.forms-buttons i {
+  font-size: 1.2rem;
+  color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  .expenses-transaction {
+    height: 60px;
+  }
+  .expenses-transaction-part1 {
+    -webkit-column-gap: 15px !important;
+            column-gap: 15px !important;
+  }
+  .expenses-transaction-part1-amount {
+    -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+            flex-grow: 0;
+  }
+}
+
 h2,
 h3 {
   width: 100%;
   text-align: left;
+}
+
+.section-title {
+  font-weight: normal;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(61, 61, 61, 0.315);
 }

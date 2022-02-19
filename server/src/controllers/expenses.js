@@ -24,8 +24,9 @@ export const addExpenses = async (req, res) => {
     const oldExpensesObject = await Expenses.findOne({ userId });
     await oldExpensesObject.expenses.push(req.body);
     await oldExpensesObject.save();
-    const _id =
-      oldExpensesObject.expenses[oldExpensesObject.expenses.length - 1]._id;
+    const _id = await oldExpensesObject.expenses[
+      oldExpensesObject.expenses.length - 1
+    ]._id;
     const allExpenses = await produceExpensesObject(userId);
 
     res.status(200).json({
