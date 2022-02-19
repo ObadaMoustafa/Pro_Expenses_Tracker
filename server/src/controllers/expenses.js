@@ -24,12 +24,14 @@ export const addExpenses = async (req, res) => {
     const oldExpensesObject = await Expenses.findOne({ userId });
     await oldExpensesObject.expenses.push(req.body);
     await oldExpensesObject.save();
-
+    const _id =
+      oldExpensesObject.expenses[oldExpensesObject.expenses.length - 1]._id;
     const allExpenses = await produceExpensesObject(userId);
 
     res.status(200).json({
       success: true,
       result: allExpenses,
+      _id,
     });
   } catch (error) {
     console.log(error);
@@ -72,12 +74,15 @@ export const addIncome = async (req, res) => {
     const oldExpensesObject = await Expenses.findOne({ userId });
     await oldExpensesObject.income.push(req.body);
     await oldExpensesObject.save();
+    const _id =
+      oldExpensesObject.income[oldExpensesObject.income.length - 1]._id;
 
     const allExpenses = await produceExpensesObject(userId);
 
     res.status(200).json({
       success: true,
       result: allExpenses,
+      _id,
     });
   } catch (error) {
     console.log(error);

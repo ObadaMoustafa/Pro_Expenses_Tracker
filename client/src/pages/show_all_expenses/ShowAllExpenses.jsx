@@ -7,27 +7,29 @@ import AddExpensesOption from "../../components/add_expenses/AddExpensesOption";
 
 function ShowAllExpenses() {
   //write code here
-  const {
-    userExpenses,
-    expensesArray,
-    setExpensesArray,
-    setIncomeArray,
-    setPaidDebtsArray,
-  } = useContext(expensesContext);
-  const { expenses, income, paidDebts } = userExpenses;
+  const { expensesArray, updateExpensesArrays } = useContext(expensesContext);
   const [shouldShowForm, setShouldShowForm] = useState(false);
   function showForm() {
-    setShouldShowForm((prev) => !prev);
-    window.location.href = "#add_expenses_form";
+    if (!shouldShowForm) {
+      setShouldShowForm(true);
+      window.location.href = "#add_expenses_form";
+    } else {
+      setShouldShowForm(false);
+      window.location.href = "#page-title";
+    }
   }
   useEffect(() => {
-    setExpensesArray(expenses);
-    setIncomeArray(income);
-    setPaidDebtsArray(paidDebts);
+    if (shouldShowForm) window.addEventListener("click", showForm);
+    return () => window.removeEventListener("click", showForm);
+  }, [shouldShowForm]);
+
+  useEffect(() => {
+    updateExpensesArrays();
   }, []);
+
   return (
     <>
-      <h2>All Expenses Transactions without paid debts</h2>
+      <h2 id="page-title">All Expenses Transactions without paid debts</h2>
       <FilterByDateForm type="expenses" />
       <div className="expenses-transactions-container">
         {expensesArray.map((singleExpenses) => (

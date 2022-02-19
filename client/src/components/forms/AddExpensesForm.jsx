@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Form from "./Form";
 import Input from "./Input";
@@ -12,7 +12,8 @@ import { format } from "date-fns";
 
 function AddExpensesForm({ type }) {
   //write code here
-  const { setUserExpenses } = useContext(expensesContext);
+  const { setUserExpenses, setExpensesArray, setIncomeArray } =
+    useContext(expensesContext);
   const { currentUser } = useContext(userContext);
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
@@ -21,11 +22,26 @@ function AddExpensesForm({ type }) {
     type === "expenses" ? "expenses/addExpenses" : "expenses/addIncome";
   const { isLoading, error, performFetch } = useFetch(
     `/${apiUrl}/${currentUser._id}`,
-    (res) => {
-      setUserExpenses(res.result);
+    async (res) => {
       clearFields();
+      await setUserExpenses(res.result);
+      if (type === "expenses")
+        setExpensesArray((prev) => [
+          { title, date, amount: Number(amount), _id: res._id },
+          ...prev,
+        ]);
+      if (type === "income")
+        setIncomeArray((prev) => [
+          { title, date, amount: Number(amount), _id: res._id },
+          ...prev,
+        ]);
     }
   );
+
+  // to stop Propagation when clicking anywhere in the form to prevent it to be hidden;
+  function stopPropagate(e) {
+    e.stopPropagation();
+  }
 
   function clearFields() {
     setTitle("");
@@ -48,10 +64,12 @@ function AddExpensesForm({ type }) {
       <Form
         onSubmit={addExpenses}
         formHeader={type === "expenses" ? "Add Expenses" : "Add Income"}
+        onClick={stopPropagate}
       >
         <Input
           label="Title"
           name="title"
+          placeholder="e.g. grocery"
           value={title}
           setValue={setTitle}
           maxLength="12"
@@ -64,12 +82,13 @@ function AddExpensesForm({ type }) {
           setValue={setDate}
         />
         <Input
-          type="tel"
+          type="number"
           label="Amount"
           name="amount"
+          placeholder="between 0.1 to 9999999"
           value={amount}
           setValue={setAmount}
-          maxLength="7"
+          max="9999999"
         />
         <PrimaryButton text="Add" width="50%" />
       </Form>

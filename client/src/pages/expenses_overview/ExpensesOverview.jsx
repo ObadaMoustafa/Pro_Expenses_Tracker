@@ -16,20 +16,20 @@ function ExpensesOverview() {
     `/expenses/getExpenses/${currentUser._id}`,
     (res) => {
       setUserExpenses(res.result);
-      const { expenses, income, paidDebts } = res.result;
-      const isResult =
-        expenses.length > 0 || income.length > 0 || paidDebts.length > 0;
-      if (isResult) {
-        setIsRecord(true);
-      } else {
-        setIsRecord(false);
-      }
     }
   );
 
-  // first lets change the they arrays every time userExpenses change
+  // update the arrays and update the isRecord state once userExpenses change.
   useEffect(() => {
     updateExpensesArrays();
+    const { expenses, income, paidDebts } = userExpenses;
+    const isResult =
+      expenses.length > 0 || income.length > 0 || paidDebts.length > 0;
+    if (isResult) {
+      setIsRecord(true);
+    } else {
+      setIsRecord(false);
+    }
   }, [userExpenses]);
 
   // performing the first fetch for total user history

@@ -7,23 +7,14 @@ import AddExpensesOption from "../../components/add_expenses/AddExpensesOption";
 
 function ShowAllIncome() {
   //write code here
-  const {
-    userExpenses,
-    incomeArray,
-    setExpensesArray,
-    setIncomeArray,
-    setPaidDebtsArray,
-  } = useContext(expensesContext);
-  const { expenses, income, paidDebts } = userExpenses;
+  const { incomeArray, updateExpensesArrays } = useContext(expensesContext);
   const [shouldShowForm, setShouldShowForm] = useState(false);
   function showForm() {
     setShouldShowForm((prev) => !prev);
     window.location.href = "#add_expenses_form";
   }
   useEffect(() => {
-    setExpensesArray(expenses);
-    setIncomeArray(income);
-    setPaidDebtsArray(paidDebts);
+    updateExpensesArrays();
   }, []);
   return (
     <>

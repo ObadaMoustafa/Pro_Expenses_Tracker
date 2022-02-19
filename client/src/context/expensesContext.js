@@ -19,6 +19,7 @@ export const ExpensesProvider = ({ children }) => {
     setIncomeArray(userExpenses.income);
     setPaidDebtsArray(userExpenses.paidDebts);
   }
+
   const [totalBalance, setTotalBalance] = useState(0);
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [totalIncome, setTotalIncome] = useState(0);
