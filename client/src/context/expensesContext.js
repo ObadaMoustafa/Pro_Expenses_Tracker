@@ -27,16 +27,17 @@ export const ExpensesProvider = ({ children }) => {
 
   // change the results when the arrays states changed .. that guarantee to keep the original data and present the filtered one
   useEffect(() => {
-    expensesArray.length > 0
-      ? setTotalExpenses(sumArrayValues(expensesArray))
+    const { expenses, income, paidDebts } = userExpenses;
+    expenses.length > 0
+      ? setTotalExpenses(sumArrayValues(expenses))
       : setTotalExpenses(0);
-    incomeArray.length > 0
-      ? setTotalIncome(sumArrayValues(incomeArray))
+    income.length > 0
+      ? setTotalIncome(sumArrayValues(income))
       : setTotalIncome(0);
-    paidDebtsArray.length > 0
-      ? setTotalPaidDebts(sumArrayValues(paidDebtsArray))
+    paidDebts.length > 0
+      ? setTotalPaidDebts(sumArrayValues(paidDebts))
       : setTotalPaidDebts(0);
-  }, [expensesArray, incomeArray, paidDebtsArray]);
+  }, [userExpenses]);
 
   // calculating the balance to be dynamic with transactions;
   useEffect(() => {
