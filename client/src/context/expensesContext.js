@@ -12,6 +12,7 @@ export const ExpensesProvider = ({ children }) => {
   // specially for filtration to keep the original data
   const [expensesArray, setExpensesArray] = useState(userExpenses.expenses);
   const [incomeArray, setIncomeArray] = useState(userExpenses.income);
+  //^ paidDebtsArray is only for overview Page
   const [paidDebtsArray, setPaidDebtsArray] = useState(userExpenses.paidDebts);
 
   function updateExpensesArrays() {

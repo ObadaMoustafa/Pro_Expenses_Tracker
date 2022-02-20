@@ -44,7 +44,7 @@ function UserAvatar() {
         <NavLink to="show_all_income" className="dropdown-list-menu-item">
           Income
         </NavLink>
-        <NavLink to="/hfhf" className="dropdown-list-menu-item">
+        <NavLink to="debts" className="dropdown-list-menu-item">
           Debts
         </NavLink>
         <div className="dropdown-list-menu-item" onClick={logout}>

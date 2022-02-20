@@ -7,6 +7,7 @@ import Input from "./Input";
 import SplitFields from "./SplitFields";
 import { format, subDays } from "date-fns";
 import PropTypes from "prop-types";
+import { debtsContext } from "../../context/debtsContext";
 
 function FilterByDateForm({ type }) {
   const [fromDate, setFromDate] = useState(
@@ -16,6 +17,8 @@ function FilterByDateForm({ type }) {
   const { userExpenses, setExpensesArray, setIncomeArray, setPaidDebtsArray } =
     useContext(expensesContext);
 
+  const { debtsTransactions, setForFilterDebtsTransactions } =
+    useContext(debtsContext);
   function handleFilter(e) {
     e.preventDefault();
     const { expenses, income, paidDebts } = userExpenses;
@@ -44,6 +47,13 @@ function FilterByDateForm({ type }) {
     else if (type === "income") {
       const filteredIncome = resultByDateRange(income, fromDate, toDate);
       setIncomeArray(filteredIncome);
+    } else if (type === "paidDebts") {
+      const filteredPaidDebts = resultByDateRange(
+        debtsTransactions,
+        fromDate,
+        toDate
+      );
+      setForFilterDebtsTransactions(filteredPaidDebts);
     }
 
     //TODO still need paid debts transactions
@@ -78,6 +88,7 @@ function FilterByDateForm({ type }) {
   );
 }
 FilterByDateForm.propTypes = {
-  type: PropTypes.oneOf(["overview", "expenses", "income"]).isRequired,
+  type: PropTypes.oneOf(["overview", "expenses", "income", "paidDebts"])
+    .isRequired,
 };
 export default FilterByDateForm;

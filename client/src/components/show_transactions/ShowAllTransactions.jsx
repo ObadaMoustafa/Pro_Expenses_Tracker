@@ -4,14 +4,19 @@ import { expensesContext } from "../../context/expensesContext";
 import FilterByDateForm from "../forms/FilterByDateForm";
 import ExpensesTransaction from "./ExpensesTransaction";
 import AddExpensesForm from "../forms/AddExpensesForm";
+import PayDebtsForm from "../forms/PayDebtsForm";
+import { debtsContext } from "../../context/debtsContext";
 
 function ShowAllTransactions({ type, headerTitle }) {
   const { expensesArray, updateExpensesArrays, incomeArray } =
     useContext(expensesContext);
+
+  const { forFilterDebtsTransactions } = useContext(debtsContext);
   // specify which array gonna use from expenses context
   let transactionArray;
   if (type === "expenses") transactionArray = expensesArray;
   else if (type === "income") transactionArray = incomeArray;
+  else if (type === "paidDebts") transactionArray = forFilterDebtsTransactions;
   //TODO still need paid debts transactions
 
   const [shouldShowFilterForm, setShouldShowFilterForm] = useState(false);
@@ -56,15 +61,18 @@ function ShowAllTransactions({ type, headerTitle }) {
         </div>
       </div>
       {shouldShowFilterForm && <FilterByDateForm type={type} />}
-      {shouldShowAddForm && <AddExpensesForm type={type} />}
+      {shouldShowAddForm && (type === "expenses" || type === "income") && (
+        <AddExpensesForm type={type} />
+      )}
+      {shouldShowAddForm && type === "paidDebts" && <PayDebtsForm />}
       <h2 className="section-title">{headerTitle}</h2>
       <div className="expenses-transactions-container">
         {transactionArray.map((singleExpenses) => (
           <ExpensesTransaction
             title={singleExpenses.title}
+            date={singleExpenses.date}
             amount={singleExpenses.amount}
             transactionId={singleExpenses._id}
-            date={singleExpenses.date}
             key={singleExpenses._id}
             type={type}
           />
@@ -75,7 +83,7 @@ function ShowAllTransactions({ type, headerTitle }) {
 }
 
 ShowAllTransactions.propTypes = {
-  type: PropTypes.oneOf(["expenses", "income"]).isRequired,
+  type: PropTypes.oneOf(["expenses", "income", "paidDebts"]).isRequired,
   headerTitle: PropTypes.string,
 };
 export default ShowAllTransactions;

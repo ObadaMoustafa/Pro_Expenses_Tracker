@@ -17,7 +17,7 @@ function ResultCard({ title, amount }) {
     <div className="result-card">
       <p className="result-card-title">{title}:</p>
       <p className="result-card-amount" style={amountInlineStyle}>
-        {amount} €
+        {amount.toFixed(2)} €
       </p>
     </div>
   );

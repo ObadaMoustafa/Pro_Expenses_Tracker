@@ -89,6 +89,7 @@ function AddExpensesForm({ type }) {
           value={amount}
           setValue={setAmount}
           max="9999999"
+          step="0.01"
         />
         <PrimaryButton text="Add" width="50%" />
       </Form>
