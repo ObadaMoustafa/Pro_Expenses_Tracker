@@ -3,10 +3,10 @@ const { Schema, SchemaTypes } = mongoose;
 
 const debtsSchema = new Schema({
   userId: { type: SchemaTypes.ObjectId, ref: "users", required: true },
-  title: String,
-  date: String,
-  amount: Number,
-  deadLine: String,
+  title: { type: String, required: true },
+  date: { type: String, required: true },
+  amount: { type: Number, required: true },
+  deadLine: { type: String, required: true },
   payHistory: [
     {
       date: String,

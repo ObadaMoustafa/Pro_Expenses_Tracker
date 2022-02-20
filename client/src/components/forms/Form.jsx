@@ -1,14 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Form({
-  children,
-  onSubmit,
-  formHeader,
-  formWidth,
-  className,
-  ...rest
-}) {
+function Form({ children, onSubmit, formHeader, formWidth, ...rest }) {
   //write code here
   function stopPropagate(e) {
     e.stopPropagation();
@@ -17,7 +10,6 @@ function Form({
     <form
       onSubmit={onSubmit}
       style={{ width: formWidth }}
-      className={className}
       onClick={stopPropagate}
       {...rest}
     >
@@ -28,7 +20,7 @@ function Form({
 }
 
 Form.propTypes = {
-  // children: PropTypes.array,
+  children: PropTypes.array,
   onSubmit: PropTypes.func,
   text: PropTypes.string,
   width: PropTypes.string,
