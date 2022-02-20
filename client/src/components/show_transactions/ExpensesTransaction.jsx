@@ -4,49 +4,86 @@ import useFetch from "../../hooks/useFetch";
 import { userContext } from "../../context/userContext";
 import { expensesContext } from "../../context/expensesContext";
 import fetchOptions from "../../utils/fetchOptions";
+import { debtsContext } from "../../context/debtsContext";
+import LoadingOrError from "../loading&errors/LoadingOrError";
 
 function ExpensesTransaction({ transactionId, title, amount, type, date }) {
   //write code here
   const { currentUser } = useContext(userContext);
-  const { setUserExpenses, userExpenses, setExpensesArray, setIncomeArray } =
-    useContext(expensesContext);
-  const deletePath =
-    type === "expenses" ? "expenses/deleteExpenses" : "expenses/deleteIncome";
-  const { performFetch, cancelFetch } = useFetch(
-    `/${deletePath}/${currentUser._id}/${transactionId}`,
+  const {
+    setUserExpenses,
+    userExpenses,
+    userDebts,
+    setExpensesArray,
+    setIncomeArray,
+  } = useContext(expensesContext);
+  const { setDebtsTransactions, setUserDebts, setForFilterDebtsTransactions } =
+    useContext(debtsContext);
+
+  let deleteApiPath;
+  if (type === "expenses")
+    deleteApiPath = `/expenses/deleteExpenses/${currentUser._id}/${transactionId}`;
+  if (type === "income")
+    deleteApiPath = `/expenses/deleteIncome/${currentUser._id}/${transactionId}`;
+  if (type === "paidDebts")
+    deleteApiPath = `/debts/deletePaidDebtsTransaction/${currentUser._id}`;
+
+  const { performFetch, cancelFetch, isLoading, error } = useFetch(
+    deleteApiPath,
     async (res) => {
-      await setUserExpenses(res.result);
-      if (type === "expenses")
+      if (type === "expenses") {
+        await setUserExpenses(res.result);
         setExpensesArray((prev) =>
           prev.filter((transaction) => transaction._id !== transactionId)
         );
-      if (type === "income")
+      } else if (type === "income") {
+        await setUserExpenses(res.result);
         setIncomeArray((prev) =>
           prev.filter((transaction) => transaction._id !== transactionId)
         );
-
-      //TODO still need paid debts transactions
+      } else if (type === "paidDebts") {
+        await setUserDebts(res.result);
+        await setDebtsTransactions(res.allTransactions);
+        setForFilterDebtsTransactions((prev) =>
+          prev.filter((transaction) => transaction._id !== transactionId)
+        );
+      }
     }
   );
 
   useEffect(() => {
     return () => cancelFetch();
-  }, [userExpenses]);
+  }, [userExpenses, userDebts]);
 
   function deleteTransaction() {
-    performFetch(fetchOptions("DELETE"));
+    if (type === "paidDebts") {
+      const reqBody = {
+        debtTitle: title,
+        transactionId,
+      };
+      performFetch(fetchOptions("DELETE", reqBody));
+    } else {
+      performFetch(fetchOptions("DELETE"));
+    }
   }
   return (
-    <div className="expenses-transaction">
-      <div className="expenses-transaction-part1">
-        <p className="expenses-transaction-part1-title">{title}</p>
-        <p className="expenses-transaction-part1-date">{date}</p>
-        <p className="expenses-transaction-part1-amount">{amount} €</p>
+    <>
+      <LoadingOrError
+        isLoading={isLoading}
+        isErr={error ? true : false}
+        errMsg={error}
+      />
+      <div className="expenses-transaction">
+        <div className="expenses-transaction-part1">
+          <p className="expenses-transaction-part1-title">{title}</p>
+          <p className="expenses-transaction-part1-date">{date}</p>
+          <p className="expenses-transaction-part1-amount">{amount} €</p>
+        </div>
+        <div className="expenses-transaction-part2">
+          <i className="fas fa-trash" onClick={deleteTransaction}></i>
+        </div>
       </div>
-      <div className="expenses-transaction-part2">
-        <i className="fas fa-trash" onClick={deleteTransaction}></i>
-      </div>
-    </div>
+    </>
   );
 }
 
@@ -54,7 +91,7 @@ ExpensesTransaction.propTypes = {
   transactionId: PropTypes.string,
   title: PropTypes.string,
   amount: PropTypes.number,
-  type: PropTypes.oneOf(["expenses", "income"]).isRequired,
+  type: PropTypes.oneOf(["expenses", "income", "paidDebts"]).isRequired,
   date: PropTypes.string,
 };
 export default ExpensesTransaction;

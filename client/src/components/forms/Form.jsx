@@ -20,7 +20,7 @@ function Form({ children, onSubmit, formHeader, formWidth, ...rest }) {
 }
 
 Form.propTypes = {
-  children: PropTypes.array,
+  // children: PropTypes.array,
   onSubmit: PropTypes.func,
   text: PropTypes.string,
   width: PropTypes.string,

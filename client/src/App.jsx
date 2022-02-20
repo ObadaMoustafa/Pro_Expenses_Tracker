@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Nav from "./components/nav/Nav";
+import { DebtsProvider } from "./context/debtsContext";
+import { ExpensesProvider } from "./context/expensesContext";
 import "./style/App.css";
 import "./style/App2.css";
 
@@ -9,10 +11,14 @@ function App() {
   useEffect(() => navigate("overview"), []);
   return (
     <>
-      <Nav />
-      <div className="app-container">
-        <Outlet />
-      </div>
+      <DebtsProvider>
+        <ExpensesProvider>
+          <Nav />
+          <div className="app-container">
+            <Outlet />
+          </div>
+        </ExpensesProvider>
+      </DebtsProvider>
     </>
   );
 }
