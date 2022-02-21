@@ -1,25 +1,46 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { userContext } from "../../context/userContext";
 
-function ShowPaidDebtTransactions() {
+function ShowPaidDebtTransactions({ debtObject }) {
   //write code here
-
+  const { currentUser } = useContext(userContext);
+  const { _id, title, payHistory, hasPaid, amount } = debtObject;
+  const icon = hasPaid ? (
+    <i className="fas fa-check-circle" style={{ color: "green" }}></i>
+  ) : (
+    <i className="fas fa-times-circle" style={{ color: "red" }}></i>
+  );
   return (
     <>
-      <h3>Debt title</h3>
-      <div className="expenses-transaction">
-        <div className="expenses-transaction-part1">
-          <p className="expenses-transaction-part1-title">{title}</p>
-          <p className="expenses-transaction-part1-date">{date}</p>
-          <p className="expenses-transaction-part1-amount">{amount} €</p>
-        </div>
-        <div className="expenses-transaction-part2">
-          <i className="fas fa-trash" onClick={deleteTransaction}></i>
-        </div>
-      </div>
+      {payHistory.length > 0 && (
+        <>
+          <h3>
+            {title} <br /> amount {amount}
+            {currentUser.currency} {icon}
+          </h3>
+          {payHistory.map((payTransaction) => (
+            <div className="expenses-transaction" key={payTransaction._id}>
+              <div className="expenses-transaction-part1">
+                <p className="expenses-transaction-part1-date">
+                  {payTransaction.date}
+                </p>
+                <p className="expenses-transaction-part1-amount">
+                  {payTransaction.amount} €
+                </p>
+              </div>
+              <div className="expenses-transaction-part2">
+                <i className="fas fa-trash"></i>
+              </div>
+            </div>
+          ))}
+        </>
+      )}
     </>
   );
 }
 
-ShowPaidDebtTransactions.propTypes = {};
+ShowPaidDebtTransactions.propTypes = {
+  debtObject: PropTypes.object,
+};
 export default ShowPaidDebtTransactions;

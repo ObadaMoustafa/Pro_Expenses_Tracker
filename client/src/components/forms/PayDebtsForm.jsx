@@ -14,7 +14,6 @@ function PayDebtsForm() {
   //write code here
   const { currentUser } = useContext(userContext);
   const {
-    userDebts,
     setUserDebts,
     setDebtsTransactions,
     setForFilterDebtsTransactions,

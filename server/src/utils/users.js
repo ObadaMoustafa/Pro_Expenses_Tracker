@@ -13,17 +13,11 @@ export function isRightPassword(password, confirmPassword) {
   return isPasswordMatch;
 }
 
-export async function createNewUser(
-  name,
-  email,
-  hashedPassword,
-  currency,
-  gender
-) {
+export async function createNewUser(name, email, password, currency, gender) {
   const newUser = await Users.create({
     name,
     email,
-    password: hashedPassword,
+    password,
     currency,
     gender,
   });
