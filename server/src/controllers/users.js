@@ -6,13 +6,14 @@ import {
   isRightPassword,
   isValidEmail,
 } from "../utils/users.js";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 export const signUpProcess = async (req, res) => {
   const { name, email, password, confirmPassword, currency, gender } = req.body;
 
   try {
     //check if the email is valid
-    if (!(await isValidEmail(email)))
+    if (!(await isValidEmail(email.toLowerCase())))
       throw new Error("This email is already exists .. you may need to login");
     // check if passwords are match
     console.log("is match pass:", isRightPassword(password, confirmPassword));
@@ -23,16 +24,16 @@ export const signUpProcess = async (req, res) => {
     const hashedPassword = bcrypt.hashSync(password, 10);
 
     // if no currency use EUR
-    let theCurrency = currency;
-    if (currency === "") {
-      theCurrency = "EUR";
-    }
-
+    let theCurrency = getSymbolFromCurrency(currency);
+    if (!theCurrency)
+      throw new Error(
+        "This currency code isn't available please right a right code like EGP , USD or EUR"
+      );
     // if everything is okay we can create a new account
     // return the user object to response without the password
     const result = await createNewUser(
       name,
-      email,
+      email.toLowerCase(),
       hashedPassword,
       theCurrency,
       gender
@@ -64,7 +65,7 @@ export const login = async (req, res) => {
         "like any website in the world => Email and password are required to login"
       );
     // check if email is exist
-    const loginUser = await Users.findOne({ email });
+    const loginUser = await Users.findOne({ email: email.toLowerCase() });
     if (!loginUser)
       throw new Error(
         "This Email is not exist .. maybe you need to create and account"

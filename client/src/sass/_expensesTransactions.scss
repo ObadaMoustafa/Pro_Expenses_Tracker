@@ -1,26 +1,25 @@
 .expenses-transactions-container {
   width: 100%;
-
-  .expenses-transaction {
-    min-height: 40px;
-    padding: 0px 10px;
-    flex-wrap: nowrap;
-    background-color: $first-color;
-    &-part1 {
-      justify-content: flex-start;
-      column-gap: 30px;
-      &-title {
-      }
-      &-date,
-      &-amount {
-        width: 90px;
-        flex-grow: 0;
-      }
-      &-amount {
-        font-size: 1.3rem;
-        font-weight: 500;
-        flex-grow: 1;
-      }
+}
+.expenses-transaction {
+  min-height: 40px;
+  padding: 0px 10px;
+  flex-wrap: nowrap;
+  background-color: $first-color;
+  &-part1 {
+    justify-content: flex-start;
+    column-gap: 30px;
+    &-title {
+    }
+    &-date,
+    &-amount {
+      width: 90px;
+      flex-grow: 0;
+    }
+    &-amount {
+      font-size: 1.3rem;
+      font-weight: 500;
+      flex-grow: 1;
     }
   }
 }

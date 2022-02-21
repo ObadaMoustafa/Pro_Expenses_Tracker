@@ -84,7 +84,7 @@
   width: 100%;
 }
 
-.expenses-transactions-container .expenses-transaction {
+.expenses-transaction {
   min-height: 40px;
   padding: 0px 10px;
   -ms-flex-wrap: nowrap;
@@ -92,7 +92,7 @@
   background-color: #001d3d;
 }
 
-.expenses-transactions-container .expenses-transaction-part1 {
+.expenses-transaction-part1 {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -100,14 +100,14 @@
           column-gap: 30px;
 }
 
-.expenses-transactions-container .expenses-transaction-part1-date, .expenses-transactions-container .expenses-transaction-part1-amount {
+.expenses-transaction-part1-date, .expenses-transaction-part1-amount {
   width: 90px;
   -webkit-box-flex: 0;
       -ms-flex-positive: 0;
           flex-grow: 0;
 }
 
-.expenses-transactions-container .expenses-transaction-part1-amount {
+.expenses-transaction-part1-amount {
   font-size: 1.3rem;
   font-weight: 500;
   -webkit-box-flex: 1;
