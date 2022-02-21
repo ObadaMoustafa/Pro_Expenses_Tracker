@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { userContext } from "../../../context/userContext";
 
 function ResultCard({ title, amount }) {
   //write code here
+  const { currentUser } = useContext(userContext);
   const [amountInlineStyle, setAmountInlineStyle] = useState({});
   useEffect(() => {
     if (title === "Balance" || title === "Income") {
@@ -17,7 +19,7 @@ function ResultCard({ title, amount }) {
     <div className="result-card">
       <p className="result-card-title">{title}:</p>
       <p className="result-card-amount" style={amountInlineStyle}>
-        {amount.toFixed(2)} €
+        {amount.toFixed(2)} {currentUser.currency}
       </p>
     </div>
   );

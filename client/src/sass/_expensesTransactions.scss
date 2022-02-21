@@ -1,6 +1,16 @@
+.debt-title {
+  font-weight: normal;
+  span {
+    font-style: italic;
+    font-weight: 500;
+    color: red;
+  }
+}
+
 .expenses-transactions-container {
   width: 100%;
 }
+
 .expenses-transaction {
   min-height: 40px;
   padding: 0px 10px;
@@ -11,12 +21,12 @@
     column-gap: 30px;
     &-title {
     }
-    &-date,
-    &-amount {
+    &-date {
       width: 90px;
       flex-grow: 0;
     }
     &-amount {
+      width: 90px;
       font-size: 1.3rem;
       font-weight: 500;
       flex-grow: 1;
@@ -58,7 +68,7 @@
     &-part1 {
       column-gap: 15px !important;
       &-amount {
-        flex-grow: 0;
+        flex-grow: 1;
       }
     }
   }
