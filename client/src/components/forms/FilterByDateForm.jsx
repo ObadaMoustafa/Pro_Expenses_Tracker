@@ -47,16 +47,7 @@ function FilterByDateForm({ type }) {
     else if (type === "income") {
       const filteredIncome = resultByDateRange(income, fromDate, toDate);
       setIncomeArray(filteredIncome);
-    } else if (type === "paidDebts") {
-      const filteredPaidDebts = resultByDateRange(
-        debtsTransactions,
-        fromDate,
-        toDate
-      );
-      setForFilterDebtsTransactions(filteredPaidDebts);
     }
-
-    //TODO still need paid debts transactions
   }
 
   return (
@@ -88,7 +79,6 @@ function FilterByDateForm({ type }) {
   );
 }
 FilterByDateForm.propTypes = {
-  type: PropTypes.oneOf(["overview", "expenses", "income", "paidDebts"])
-    .isRequired,
+  type: PropTypes.oneOf(["overview", "expenses", "income"]).isRequired,
 };
 export default FilterByDateForm;
