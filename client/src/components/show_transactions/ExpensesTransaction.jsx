@@ -25,8 +25,6 @@ function ExpensesTransaction({ transactionId, title, amount, type, date }) {
     deleteApiPath = `/expenses/deleteExpenses/${currentUser._id}/${transactionId}`;
   if (type === "income")
     deleteApiPath = `/expenses/deleteIncome/${currentUser._id}/${transactionId}`;
-  if (type === "paidDebts")
-    deleteApiPath = `/debts/deletePaidDebtsTransaction/${currentUser._id}`;
 
   const { performFetch, cancelFetch, isLoading, error } = useFetch(
     deleteApiPath,
@@ -41,12 +39,6 @@ function ExpensesTransaction({ transactionId, title, amount, type, date }) {
         setIncomeArray((prev) =>
           prev.filter((transaction) => transaction._id !== transactionId)
         );
-      } else if (type === "paidDebts") {
-        await setUserDebts(res.result);
-        await setDebtsTransactions(res.allTransactions);
-        setForFilterDebtsTransactions((prev) =>
-          prev.filter((transaction) => transaction._id !== transactionId)
-        );
       }
     }
   );
@@ -56,15 +48,7 @@ function ExpensesTransaction({ transactionId, title, amount, type, date }) {
   }, [userExpenses, userDebts]);
 
   function deleteTransaction() {
-    if (type === "paidDebts") {
-      const reqBody = {
-        debtTitle: title,
-        transactionId,
-      };
-      performFetch(fetchOptions("DELETE", reqBody));
-    } else {
-      performFetch(fetchOptions("DELETE"));
-    }
+    performFetch(fetchOptions("DELETE"));
   }
   return (
     <>
@@ -91,7 +75,7 @@ ExpensesTransaction.propTypes = {
   transactionId: PropTypes.string,
   title: PropTypes.string,
   amount: PropTypes.number,
-  type: PropTypes.oneOf(["expenses", "income", "paidDebts"]).isRequired,
+  type: PropTypes.oneOf(["expenses", "income"]).isRequired,
   date: PropTypes.string,
 };
 export default ExpensesTransaction;

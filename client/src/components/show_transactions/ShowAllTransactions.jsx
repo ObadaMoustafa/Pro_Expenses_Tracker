@@ -4,32 +4,27 @@ import { expensesContext } from "../../context/expensesContext";
 import FilterByDateForm from "../forms/FilterByDateForm";
 import ExpensesTransaction from "./ExpensesTransaction";
 import AddExpensesForm from "../forms/AddExpensesForm";
-import PayDebtsForm from "../forms/PayDebtsForm";
-import { debtsContext } from "../../context/debtsContext";
+import FormsButtonsBar from "./FormsButtonsBar";
 
 function ShowAllTransactions({ type, headerTitle }) {
   const { expensesArray, updateExpensesArrays, incomeArray } =
     useContext(expensesContext);
 
-  const { forFilterDebtsTransactions } = useContext(debtsContext);
   // specify which array gonna use from expenses context
   let transactionArray;
   if (type === "expenses") transactionArray = expensesArray;
   else if (type === "income") transactionArray = incomeArray;
-  else if (type === "paidDebts") transactionArray = forFilterDebtsTransactions;
   //TODO still need paid debts transactions
 
   const [shouldShowFilterForm, setShouldShowFilterForm] = useState(false);
   const [shouldShowAddForm, setShouldShowAddForm] = useState(false);
 
   function showFilterForm(e) {
-    e.stopPropagation();
     setShouldShowFilterForm(true);
     setShouldShowAddForm(false);
   }
 
   function showِAddForm(e) {
-    e.stopPropagation();
     setShouldShowFilterForm(false);
     setShouldShowAddForm(true);
   }
@@ -43,28 +38,21 @@ function ShowAllTransactions({ type, headerTitle }) {
     updateExpensesArrays();
   }, []);
 
+  const formBar = [
+    {
+      icon: "fas fa-filter",
+      func: showFilterForm,
+    },
+    {
+      icon: "fas fa-plus-circle",
+      func: showِAddForm,
+    },
+  ];
   return (
     <>
-      <div className="forms-buttons">
-        <div className="forms-buttons-icon" onClick={showFilterForm}>
-          <i className="fas fa-filter"></i>
-        </div>
-        <div className="forms-buttons-icon" onClick={showِAddForm}>
-          <i className="fas fa-plus-circle"></i>
-        </div>
-        <div
-          className="forms-buttons-icon"
-          onClick={hideForms}
-          title="hide forms"
-        >
-          <i className="fas fa-eye-slash"></i>
-        </div>
-      </div>
+      <FormsButtonsBar hideFormsFunc={hideForms} buttons={formBar} />
       {shouldShowFilterForm && <FilterByDateForm type={type} />}
-      {shouldShowAddForm && (type === "expenses" || type === "income") && (
-        <AddExpensesForm type={type} />
-      )}
-      {shouldShowAddForm && type === "paidDebts" && <PayDebtsForm />}
+      {shouldShowAddForm && <AddExpensesForm type={type} />}
       <h2 className="section-title">{headerTitle}</h2>
       <div className="expenses-transactions-container">
         {transactionArray.map((singleExpenses) => (
@@ -83,7 +71,7 @@ function ShowAllTransactions({ type, headerTitle }) {
 }
 
 ShowAllTransactions.propTypes = {
-  type: PropTypes.oneOf(["expenses", "income", "paidDebts"]).isRequired,
+  type: PropTypes.oneOf(["expenses", "income"]).isRequired,
   headerTitle: PropTypes.string,
 };
 export default ShowAllTransactions;
