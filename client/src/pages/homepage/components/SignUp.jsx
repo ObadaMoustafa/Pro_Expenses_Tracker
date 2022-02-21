@@ -42,6 +42,11 @@ function SignUp({ showLoginForm }) {
 
   return (
     <>
+      <LoadingOrError
+        isLoading={isLoading}
+        isErr={error ? true : false}
+        errMsg={error}
+      />
       <Form onSubmit={handleSignUp}>
         <Input
           label="Name"
@@ -71,7 +76,7 @@ function SignUp({ showLoginForm }) {
         </SplitFields>
         <Input
           label="Email"
-          placeholder="expamle@email.com"
+          placeholder="example@email.com"
           type="email"
           name="email"
           value={email}
@@ -95,22 +100,16 @@ function SignUp({ showLoginForm }) {
         />
         <Input
           label="Currency"
-          placeholder="EUR by default"
+          placeholder="e.g. EUR , EGP"
           name="currency"
           value={currency}
           setValue={setCurrency}
-          isRequired={false}
         />
         <PrimaryButton text="Sign up!" width="100%" />
       </Form>
       <p onClick={showLoginForm} className="hyper-link">
         already has an account .. login here
       </p>
-      <LoadingOrError
-        isLoading={isLoading}
-        isErr={error ? true : false}
-        errMsg={error}
-      />
     </>
   );
 }

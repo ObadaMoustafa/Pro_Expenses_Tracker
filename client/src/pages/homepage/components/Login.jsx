@@ -32,6 +32,11 @@ function Login({ showSignUpForm }) {
 
   return (
     <>
+      <LoadingOrError
+        isLoading={isLoading}
+        isErr={error ? true : false}
+        errMsg={error}
+      />
       <Form onSubmit={handleLogin}>
         <Input
           label="Email"
@@ -55,12 +60,6 @@ function Login({ showSignUpForm }) {
       <p onClick={showSignUpForm} className="hyper-link">
         Or create a new account
       </p>
-
-      <LoadingOrError
-        isLoading={isLoading}
-        isErr={error ? true : false}
-        errMsg={error}
-      />
     </>
   );
 }
