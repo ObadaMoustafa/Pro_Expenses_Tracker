@@ -9,7 +9,6 @@ export const DebtsProvider = ({ children }) => {
   const [needToPay, setNeedToPay] = useState([]);
 
   useEffect(() => {
-    console.log("user Debts context", userDebts);
     if (userDebts.length > 0) {
       setUserDebts((prev) => prev.sort((a, b) => a.hasPaid - b.hasPaid));
       setNeedToPay(userDebts.filter((debt) => debt.hasPaid === false));
