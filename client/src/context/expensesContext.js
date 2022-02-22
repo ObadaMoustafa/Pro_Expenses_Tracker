@@ -30,15 +30,15 @@ export const ExpensesProvider = ({ children }) => {
   useEffect(() => {
     const { expenses, income, paidDebts } = userExpenses;
     expenses.length > 0
-      ? setTotalExpenses(sumArrayValues(expenses))
+      ? setTotalExpenses(sumArrayValues(expensesArray))
       : setTotalExpenses(0);
     income.length > 0
-      ? setTotalIncome(sumArrayValues(income))
+      ? setTotalIncome(sumArrayValues(incomeArray))
       : setTotalIncome(0);
     paidDebts.length > 0
-      ? setTotalPaidDebts(sumArrayValues(paidDebts))
+      ? setTotalPaidDebts(sumArrayValues(paidDebtsArray))
       : setTotalPaidDebts(0);
-  }, [userExpenses]);
+  }, [userExpenses, expensesArray, incomeArray, paidDebtsArray]);
 
   // calculating the balance to be dynamic with transactions;
   useEffect(() => {

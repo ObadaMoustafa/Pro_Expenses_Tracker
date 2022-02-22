@@ -40,8 +40,8 @@ function DebtCard({ debtObject }) {
 
         {/* edit and delete card icons */}
         <div className="debt-card-header-icons">
-          <i className="fas fa-edit"></i>
-          <i className="fas fa-trash-alt"></i>
+          <i className="fas fa-edit" title="Edit Debt"></i>
+          <i className="fas fa-trash-alt" title="Delete Debt"></i>
         </div>
 
         {/* all debt transactions */}

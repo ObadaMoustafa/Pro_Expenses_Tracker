@@ -42,7 +42,7 @@ function PayDebtTransaction({ payDebtTransaction, debtId }) {
             {amount} {currentUser.currency}
           </p>
         </div>
-        <div className="debt-transaction-part2">
+        <div className="debt-transaction-part2" title="Delete Transaction">
           <i className="fas fa-trash" onClick={deleteTransaction}></i>
         </div>
       </div>
