@@ -7,7 +7,7 @@ import FilterByDateForm from "../../components/forms/FilterByDateForm";
 import CreateDebtForm from "../../components/forms/CreateDebtForm";
 import PayDebtsForm from "../../components/forms/PayDebtsForm";
 import FormsButtonsBar from "../../components/show_transactions/FormsButtonsBar";
-import ShowPaidDebtTransactions from "../../components/show_transactions/ShowPaidDebtTransactions";
+import DebtCard from "./components/DebtCard";
 
 function ShowAllDebts() {
   //write code here
@@ -85,10 +85,7 @@ function ShowAllDebts() {
       <h2 className="section-title">Click on Debt to see it's details</h2>
       {userDebts.length > 0 &&
         userDebts.map((debtObject) => (
-          <ShowPaidDebtTransactions
-            debtObject={debtObject}
-            key={debtObject._id}
-          />
+          <DebtCard debtObject={debtObject} key={debtObject._id} />
         ))}
       <LoadingOrError
         isLoading={isLoading}

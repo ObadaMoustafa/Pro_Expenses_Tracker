@@ -98,14 +98,18 @@ export const payDebts = async (req, res) => {
 export const deletePaidDebtTransaction = async (req, res) => {
   try {
     const { userId } = req.params;
-    const { debtTitle, transactionId } = req.body;
+    const { debtId, transactionId } = req.body;
+    const debtToModify = await Debts.findById(debtId);
 
-    const debtToModify = await Debts.findOne({ title: debtTitle, userId });
+    // filter the payHistory to delete the specific transaction
     const payHistory = debtToModify.payHistory;
     const newPayHistory = payHistory.filter(
       (transaction) => transaction._id.toString() !== transactionId
     );
+
+    // modify the payHistory and hasPaid keys
     debtToModify.payHistory = newPayHistory;
+    debtToModify.hasPaid = false;
     await debtToModify.save();
 
     const userDebts = await Debts.find({ userId });
