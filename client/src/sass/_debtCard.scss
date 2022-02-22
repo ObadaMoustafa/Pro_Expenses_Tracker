@@ -11,6 +11,7 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    column-gap: 10px;
     &-title {
       font-weight: normal;
       span {

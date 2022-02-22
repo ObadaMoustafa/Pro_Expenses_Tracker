@@ -95,6 +95,28 @@ export const payDebts = async (req, res) => {
   }
 };
 
+export const deleteDebt = async (req, res) => {
+  try {
+    const { userId, debtId } = req.params;
+    await Debts.findByIdAndDelete(debtId);
+
+    const userDebts = await Debts.find({ userId });
+    const allTransactions = producePaidDebtsTransactions(userDebts);
+
+    res.status(200).json({
+      success: true,
+      result: userDebts,
+      allTransactions,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};
+
 export const deletePaidDebtTransaction = async (req, res) => {
   try {
     const { userId } = req.params;
