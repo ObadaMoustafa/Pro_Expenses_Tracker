@@ -217,6 +217,8 @@ nav .dropdown-list .show-menu {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
 }
 
 .debt-card-header-title {
