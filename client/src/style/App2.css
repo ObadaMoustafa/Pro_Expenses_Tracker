@@ -80,14 +80,8 @@
   }
 }
 
-.debt-title {
-  font-weight: normal;
-}
-
-.debt-title span {
-  font-style: italic;
-  font-weight: 500;
-  color: red;
+nav .dropdown-list .show-menu {
+  height: 250px;
 }
 
 .expenses-transactions-container {
@@ -196,6 +190,53 @@
       -ms-flex-align: center;
           align-items: center;
   row-gap: 20px;
+}
+
+.debt-card {
+  background-color: #e6b000;
+  border-radius: 5px;
+  padding: 10px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.debt-card-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.debt-card-header-title {
+  font-weight: normal;
+}
+
+.debt-card-header-title span {
+  font-style: italic;
+  font-weight: 500;
+  color: red;
+}
+
+.debt-card-header-icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 8px;
+          column-gap: 8px;
+}
+
+.debt-card-header-icons i {
+  cursor: pointer;
+  font-size: 15pt;
+  color: #001d3d;
+  font-weight: 50;
+}
+
+.debt-card-header-icons i:hover {
+  color: red;
 }
 
 h2,

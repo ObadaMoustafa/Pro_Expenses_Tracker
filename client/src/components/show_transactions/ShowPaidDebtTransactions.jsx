@@ -26,15 +26,21 @@ function ShowPaidDebtTransactions({ debtObject }) {
 
   const needToPay = amount - totalPaid;
   return (
-    <div className="expenses-transactions-container">
-      <h3 className="debt-title">
-        {title} - amount {amount} {currency} {icon} <br />
-        {needToPay > 0 && (
-          <span>
-            {needToPay} {currency} Not Paid
-          </span>
-        )}
-      </h3>
+    <div className="expenses-transactions-container debt-card">
+      <div className="debt-card-header">
+        <h3 className="debt-card-header-title">
+          {title} - amount {amount} {currency} {icon} <br />
+          {needToPay > 0 && (
+            <span>
+              {needToPay} {currency} Not Paid
+            </span>
+          )}
+        </h3>
+        <div className="debt-card-header-icons">
+          <i class="fas fa-edit"></i>
+          <i class="fas fa-trash-alt"></i>
+        </div>
+      </div>
       {payHistory.map((payTransaction) => (
         <div className="expenses-transaction" key={payTransaction._id}>
           <div className="expenses-transaction-part1">

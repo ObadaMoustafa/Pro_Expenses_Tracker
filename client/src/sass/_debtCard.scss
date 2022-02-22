@@ -1,0 +1,33 @@
+.debt-card {
+  background-color: darken($color: $third-color, $amount: 5);
+  border-radius: $border-radius;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  &-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    &-title {
+      font-weight: normal;
+      span {
+        font-style: italic;
+        font-weight: 500;
+        color: red;
+      }
+    }
+
+    &-icons {
+      display: flex;
+      column-gap: 8px;
+      i {
+        cursor: pointer;
+        font-size: 15pt;
+        color: $first-color;
+        font-weight: 50;
+      }
+      i:hover {
+        color: red;
+      }
+    }
+  }
+}
