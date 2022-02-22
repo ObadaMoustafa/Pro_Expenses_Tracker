@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import React, { useContext, useState } from "react";
 import { debtsContext } from "../../context/debtsContext";
+import { expensesContext } from "../../context/expensesContext";
 import { userContext } from "../../context/userContext";
 import useFetch from "../../hooks/useFetch";
 import fetchOptions from "../../utils/fetchOptions";
@@ -13,6 +14,7 @@ import SelectInput from "./SelectInput";
 function PayDebtsForm() {
   //write code here
   const { currentUser } = useContext(userContext);
+  const { setUserExpenses } = useContext(expensesContext);
   const {
     setUserDebts,
     setDebtsTransactions,
@@ -26,7 +28,10 @@ function PayDebtsForm() {
 
   const apiUri = `/debts/payDebt/${currentUser._id}/${debtId}`;
   const { performFetch, isLoading, error } = useFetch(apiUri, (res) => {
-    setUserDebts(res.result);
+    const { expenses, income, paidDebts, userDebts } = res.result;
+
+    setUserExpenses({ expenses, income, paidDebts });
+    setUserDebts(userDebts);
     setDebtsTransactions(res.allTransactions);
     setForFilterDebtsTransactions(res.allTransactions);
     clearFields();

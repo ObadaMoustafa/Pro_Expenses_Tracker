@@ -30,7 +30,7 @@ async function produceExpensesObject(userId) {
     });
   }
 
-  return { expenses: totalExpenses, income: totalIncome, paidDebts };
+  return { expenses: totalExpenses, income: totalIncome, paidDebts, userDebts };
 }
 
 export default produceExpensesObject;

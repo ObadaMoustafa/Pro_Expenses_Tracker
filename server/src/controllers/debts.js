@@ -1,5 +1,6 @@
 import Debts from "../models/debts.js";
 import Users from "../models/Users.js";
+import produceExpensesObject from "../utils/produceExpensesObject.js";
 import { producePaidDebtsTransactions } from "../utils/producePaidDebtsTransactions.js";
 import { sumArrayAmounts } from "../utils/sumArrayAmounts.js";
 
@@ -76,12 +77,13 @@ export const payDebts = async (req, res) => {
     await theDebt.save();
 
     // prepare the result
-    const userDebts = await Debts.find({ userId });
-    const allTransactions = producePaidDebtsTransactions(userDebts);
+    // we use this function to change in both expensesContext and debtsContext;
+    const allExpenses = await produceExpensesObject(userId);
+    const allTransactions = producePaidDebtsTransactions(allExpenses.userDebts);
 
     res.status(200).json({
       success: true,
-      result: userDebts,
+      result: allExpenses,
       allTransactions,
     });
   } catch (error) {

@@ -24,25 +24,22 @@ function AddExpensesForm({ type }) {
     `/${apiUrl}/${currentUser._id}`,
     async (res) => {
       clearFields();
-      await setUserExpenses(res.result);
+      const { expenses, income, paidDebts } = res.result;
+      await setUserExpenses({ expenses, income, paidDebts });
 
       // for adding the new transaction in the filtration mode.
       if (type === "expenses")
         setExpensesArray((prev) => [
-          ...prev,
           { title, date, amount: Number(amount), _id: res._id },
+          ...prev,
         ]);
       if (type === "income")
         setIncomeArray((prev) => [
-          ...prev,
           { title, date, amount: Number(amount), _id: res._id },
+          ...prev,
         ]);
-
-      //TODO still need paid debts transactions
     }
   );
-
-  // to stop Propagation when clicking anywhere in the form to prevent it to be hidden;
 
   function clearFields() {
     setTitle("");
