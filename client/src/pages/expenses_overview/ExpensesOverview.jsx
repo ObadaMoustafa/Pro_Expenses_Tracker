@@ -5,17 +5,22 @@ import { userContext } from "../../context/userContext";
 import useFetch from "../../hooks/useFetch";
 import LoadingOrError from "../../components/loading&errors/LoadingOrError";
 import AddDifferentExpenses from "./components/AddDifferentExpenses";
+import { debtsContext } from "../../context/debtsContext";
 
 function ExpensesOverview() {
   //will use new user to show or redirect to add expenses page if there is no records for user
   const { userExpenses, setUserExpenses, updateExpensesArrays } =
     useContext(expensesContext);
+  const { setUserDebts } = useContext(debtsContext);
   const { currentUser } = useContext(userContext);
   const [isRecord, setIsRecord] = useState(false);
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     `/expenses/getExpenses/${currentUser._id}`,
     (res) => {
-      setUserExpenses(res.result);
+      const { expenses, income, paidDebts, userDebts } = res.result;
+
+      setUserExpenses({ expenses, income, paidDebts });
+      setUserDebts(userDebts);
     }
   );
 
