@@ -198,6 +198,15 @@ nav .dropdown-list .show-menu {
   padding: 10px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 10px;
 }
 
 .debt-card-header {
@@ -236,6 +245,64 @@ nav .dropdown-list .show-menu {
 }
 
 .debt-card-header-icons i:hover {
+  color: red;
+}
+
+.debt-transaction {
+  min-height: 40px;
+  padding: 0px 10px;
+  background-color: #001d3d;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 5px;
+}
+
+.debt-transaction-part1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 30px;
+          column-gap: 30px;
+}
+
+.debt-transaction-part1-date {
+  width: 90px;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+}
+
+.debt-transaction-part1-amount {
+  text-align: left;
+  width: 90px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.debt-transaction-part2 {
+  cursor: pointer;
+}
+
+.debt-transaction-part2:hover {
   color: red;
 }
 

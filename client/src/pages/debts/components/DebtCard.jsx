@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { userContext } from "../../context/userContext";
+import { userContext } from "../../../context/userContext";
+import PayDebtTransaction from "./PayDebtTransaction";
 
-function ShowPaidDebtTransactions({ debtObject }) {
+function DebtCard({ debtObject }) {
   //write code here
   const { currentUser } = useContext(userContext);
   const { currency } = currentUser;
@@ -26,7 +27,7 @@ function ShowPaidDebtTransactions({ debtObject }) {
 
   const needToPay = amount - totalPaid;
   return (
-    <div className="expenses-transactions-container debt-card">
+    <div className="debt-card">
       <div className="debt-card-header">
         <h3 className="debt-card-header-title">
           {title} - amount {amount} {currency} {icon} <br />
@@ -36,31 +37,27 @@ function ShowPaidDebtTransactions({ debtObject }) {
             </span>
           )}
         </h3>
+
+        {/* edit and delete card icons */}
         <div className="debt-card-header-icons">
-          <i class="fas fa-edit"></i>
-          <i class="fas fa-trash-alt"></i>
+          <i className="fas fa-edit"></i>
+          <i className="fas fa-trash-alt"></i>
         </div>
+
+        {/* all debt transactions */}
       </div>
       {payHistory.map((payTransaction) => (
-        <div className="expenses-transaction" key={payTransaction._id}>
-          <div className="expenses-transaction-part1">
-            <p className="expenses-transaction-part1-date">
-              {payTransaction.date}
-            </p>
-            <p className="expenses-transaction-part1-amount">
-              {payTransaction.amount} {currency}
-            </p>
-          </div>
-          <div className="expenses-transaction-part2">
-            <i className="fas fa-trash"></i>
-          </div>
-        </div>
+        <PayDebtTransaction
+          payDebtTransaction={payTransaction}
+          debtId={_id}
+          key={payTransaction._id}
+        />
       ))}
     </div>
   );
 }
 
-ShowPaidDebtTransactions.propTypes = {
+DebtCard.propTypes = {
   debtObject: PropTypes.object,
 };
-export default ShowPaidDebtTransactions;
+export default DebtCard;
