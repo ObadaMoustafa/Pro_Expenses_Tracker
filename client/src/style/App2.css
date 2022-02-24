@@ -308,6 +308,47 @@ nav .dropdown-list .show-menu {
   color: red;
 }
 
+.popup-form-bg {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.87);
+  top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.popup-form-bg .popup-form {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.popup-form-bg .popup-form form {
+  background-color: #ffc300;
+}
+
+.popup-form-bg .popup-form .close-form-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  background-color: #ffc300;
+  width: 25px;
+  height: 25px;
+  -webkit-transform: translate(8px, -8px);
+          transform: translate(8px, -8px);
+  cursor: pointer;
+}
+
 h2,
 h3 {
   width: 100%;

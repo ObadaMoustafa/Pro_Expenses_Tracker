@@ -6,6 +6,7 @@ import useFetch from "../../../hooks/useFetch";
 import { debtsContext } from "../../../context/debtsContext";
 import LoadingOrError from "../../../components/loading&errors/LoadingOrError";
 import fetchOptions from "../../../utils/fetchOptions";
+import EditDebtDetailsForm from "../../../components/forms/EditDebtDetailsForm";
 
 function DebtCard({ debtObject }) {
   //write code here
@@ -14,6 +15,7 @@ function DebtCard({ debtObject }) {
   const { currency } = currentUser;
   const { _id, title, payHistory, hasPaid, amount } = debtObject;
   const [totalPaid, setTotalPaid] = useState(0);
+  const [shouldShowEditForm, setShouldShowEditForm] = useState(false);
 
   // icon for paid and still need to paid logo (right and wrong);
   const icon = hasPaid ? (
@@ -33,6 +35,11 @@ function DebtCard({ debtObject }) {
   useEffect(() => {
     return () => cancelFetch();
   }, []);
+
+  // show the popup form to edit debt details
+  function showEditDebtForm() {
+    setShouldShowEditForm(true);
+  }
 
   function deleteDebtCard() {
     performFetch(fetchOptions("DELETE"));
@@ -67,7 +74,11 @@ function DebtCard({ debtObject }) {
 
           {/* edit and delete card icons */}
           <div className="debt-card-header-icons">
-            <i className="fas fa-edit" title="Edit Debt"></i>
+            <i
+              className="fas fa-edit"
+              title="Edit Debt"
+              onClick={showEditDebtForm}
+            ></i>
             <i
               className="fas fa-trash-alt"
               title="Delete Debt"
@@ -85,6 +96,12 @@ function DebtCard({ debtObject }) {
           />
         ))}
       </div>
+      {shouldShowEditForm && (
+        <EditDebtDetailsForm
+          setHideForm={setShouldShowEditForm}
+          debtObject={debtObject}
+        />
+      )}
     </>
   );
 }
