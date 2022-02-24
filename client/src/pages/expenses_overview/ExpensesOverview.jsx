@@ -53,8 +53,10 @@ function ExpensesOverview() {
       {isRecord ? (
         <ShowOverView />
       ) : (
-        <p className="add-expenses-header">
-          At least you need to add one expenses to show the overview page
+        <p className="no-record-msg">
+          Welcome {currentUser.name}! <br />
+          <br /> To see your account overview you need to add at least one
+          expenses
         </p>
       )}
       <AddDifferentExpenses />
