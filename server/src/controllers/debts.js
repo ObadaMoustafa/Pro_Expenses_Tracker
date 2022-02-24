@@ -150,3 +150,24 @@ export const deletePaidDebtTransaction = async (req, res) => {
     });
   }
 };
+export const editDebtDetails = async (req, res) => {
+  try {
+    const { userId, debtId } = req.params;
+    await Debts.findByIdAndUpdate(debtId, req.body);
+
+    const userDebts = await Debts.find({ userId });
+    const allTransactions = producePaidDebtsTransactions(userDebts);
+
+    res.status(200).json({
+      success: true,
+      result: userDebts,
+      allTransactions,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};

@@ -3,6 +3,7 @@ import {
   createNewDebt,
   deleteDebt,
   deletePaidDebtTransaction,
+  editDebtDetails,
   getUserDebts,
   payDebts,
 } from "../controllers/debts.js";
@@ -16,5 +17,6 @@ debtsRouter.delete(
   "/deletePaidDebtsTransaction/:userId/",
   deletePaidDebtTransaction
 );
+debtsRouter.put("/editDebtDetails/:userId/:debtId/", editDebtDetails);
 
 export default debtsRouter;

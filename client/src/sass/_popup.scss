@@ -1,0 +1,31 @@
+.popup-form-bg {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.87);
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .popup-form {
+    width: fit-content;
+
+    form {
+      background-color: $third-color;
+    }
+
+    .close-form-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      border-radius: 50%;
+      background-color: $third-color;
+      width: 25px;
+      height: 25px;
+      transform: translate(8px, -8px);
+      cursor: pointer;
+    }
+  }
+}
