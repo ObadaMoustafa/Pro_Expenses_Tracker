@@ -10,7 +10,10 @@
   align-items: center;
 
   .popup-form {
-    width: fit-content;
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     form {
       background-color: $third-color;

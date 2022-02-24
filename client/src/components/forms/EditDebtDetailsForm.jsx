@@ -33,7 +33,6 @@ function EditDebtDetailsForm({ setHideForm, debtObject }) {
       amount,
       deadLineDate,
     };
-
     performFetch(fetchOptions("PUT", reqBody));
   }
 
