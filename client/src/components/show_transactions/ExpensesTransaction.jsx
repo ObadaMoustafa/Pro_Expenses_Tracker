@@ -4,7 +4,6 @@ import useFetch from "../../hooks/useFetch";
 import { userContext } from "../../context/userContext";
 import { expensesContext } from "../../context/expensesContext";
 import fetchOptions from "../../utils/fetchOptions";
-import { debtsContext } from "../../context/debtsContext";
 import LoadingOrError from "../loading&errors/LoadingOrError";
 
 function ExpensesTransaction({ transactionId, title, amount, type, date }) {
@@ -17,8 +16,6 @@ function ExpensesTransaction({ transactionId, title, amount, type, date }) {
     setExpensesArray,
     setIncomeArray,
   } = useContext(expensesContext);
-  const { setDebtsTransactions, setUserDebts, setForFilterDebtsTransactions } =
-    useContext(debtsContext);
 
   let deleteApiPath;
   if (type === "expenses")

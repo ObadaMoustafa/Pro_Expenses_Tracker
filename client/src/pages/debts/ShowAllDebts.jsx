@@ -3,7 +3,6 @@ import { debtsContext } from "../../context/debtsContext";
 import { userContext } from "../../context/userContext";
 import useFetch from "../../hooks/useFetch";
 import LoadingOrError from "../../components/loading&errors/LoadingOrError";
-import FilterByDateForm from "../../components/forms/FilterByDateForm";
 import CreateDebtForm from "../../components/forms/CreateDebtForm";
 import PayDebtsForm from "../../components/forms/PayDebtsForm";
 import FormsButtonsBar from "../../components/show_transactions/FormsButtonsBar";
@@ -12,18 +11,13 @@ import DebtCard from "./components/DebtCard";
 function ShowAllDebts() {
   //write code here
   const { currentUser } = useContext(userContext);
-  const {
-    userDebts,
-    setUserDebts,
-    setDebtsTransactions,
-    setForFilterDebtsTransactions,
-  } = useContext(debtsContext);
+  const { userDebts, setUserDebts, setForFilterDebtsTransactions } =
+    useContext(debtsContext);
 
   const { performFetch, isLoading, error, cancelFetch } = useFetch(
     `/debts/getUserDebts/${currentUser._id}`,
     (res) => {
       setUserDebts(res.result);
-      setDebtsTransactions(res.allTransactions);
       setForFilterDebtsTransactions(res.allTransactions);
     }
   );

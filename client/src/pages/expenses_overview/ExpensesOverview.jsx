@@ -18,15 +18,14 @@ function ExpensesOverview() {
     `/expenses/getExpenses/${currentUser._id}`,
     (res) => {
       const { expenses, income, paidDebts, userDebts } = res.result;
-
-      setUserExpenses({ expenses, income, paidDebts });
       setUserDebts(userDebts);
+      setUserExpenses({ expenses, income, paidDebts });
+      updateExpensesArrays(expenses, income, paidDebts);
     }
   );
 
   // update the arrays and update the isRecord state once userExpenses change.
   useEffect(() => {
-    updateExpensesArrays();
     const { expenses, income, paidDebts } = userExpenses;
     const isResult =
       expenses.length > 0 || income.length > 0 || paidDebts.length > 0;

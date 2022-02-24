@@ -14,13 +14,9 @@ import SelectInput from "./SelectInput";
 function PayDebtsForm() {
   //write code here
   const { currentUser } = useContext(userContext);
-  const { setUserExpenses } = useContext(expensesContext);
-  const {
-    setUserDebts,
-    setDebtsTransactions,
-    setForFilterDebtsTransactions,
-    needToPay,
-  } = useContext(debtsContext);
+  const { setUserExpenses, setPaidDebtsArray } = useContext(expensesContext);
+  const { setUserDebts, setForFilterDebtsTransactions, needToPay } =
+    useContext(debtsContext);
 
   const [debtId, setDebtId] = useState("none");
   const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd"));
@@ -32,9 +28,11 @@ function PayDebtsForm() {
 
     setUserExpenses({ expenses, income, paidDebts });
     setUserDebts(userDebts);
-    setDebtsTransactions(res.allTransactions);
     setForFilterDebtsTransactions(res.allTransactions);
     clearFields();
+
+    // this line for overview page so we don't care a bout _id;
+    setPaidDebtsArray((prev) => [{ date, amount: Number(amount) }, ...prev]);
   });
 
   function clearFields() {

@@ -7,9 +7,9 @@ import AddExpensesForm from "../forms/AddExpensesForm";
 import FormsButtonsBar from "./FormsButtonsBar";
 
 function ShowAllTransactions({ type, headerTitle }) {
-  const { expensesArray, updateExpensesArrays, incomeArray } =
+  const { userExpenses, expensesArray, updateExpensesArrays, incomeArray } =
     useContext(expensesContext);
-
+  const { expenses, income, paidDebts } = userExpenses;
   // specify which array gonna use from expenses context
   let transactionArray;
   if (type === "expenses") transactionArray = expensesArray;
@@ -35,7 +35,7 @@ function ShowAllTransactions({ type, headerTitle }) {
   }
 
   useEffect(() => {
-    updateExpensesArrays();
+    updateExpensesArrays(expenses, income, paidDebts);
   }, []);
 
   const formBar = [
