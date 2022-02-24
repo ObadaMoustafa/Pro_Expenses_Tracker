@@ -77,7 +77,7 @@ function PayDebtsForm() {
             <PrimaryButton text="submit" width="50%" />
           </>
         ) : (
-          <p>You should add debts first to pay for it</p>
+          <p>You should add debts first to be able to pay for it</p>
         )}
       </Form>
     </>

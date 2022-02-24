@@ -323,3 +323,12 @@ h3 {
 nav {
   width: 100%;
 }
+
+.no-record-msg {
+  font-size: 2rem;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  font-weight: 600;
+  color: white;
+  text-shadow: 0px 0px 10px #003566, 0px 0px 10px #003566, 0px 0px 10px #003566;
+}
