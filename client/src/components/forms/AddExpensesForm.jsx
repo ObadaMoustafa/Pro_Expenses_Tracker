@@ -22,10 +22,10 @@ function AddExpensesForm({ type }) {
     type === "expenses" ? "expenses/addExpenses" : "expenses/addIncome";
   const { isLoading, error, performFetch } = useFetch(
     `/${apiUrl}/${currentUser._id}`,
-    async (res) => {
+    (res) => {
       clearFields();
       const { expenses, income, paidDebts } = res.result;
-      await setUserExpenses({ expenses, income, paidDebts });
+      setUserExpenses({ expenses, income, paidDebts });
 
       // for adding the new transaction in the filtration mode.
       if (type === "expenses")

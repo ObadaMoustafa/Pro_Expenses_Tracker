@@ -15,10 +15,10 @@ export const ExpensesProvider = ({ children }) => {
   //^ paidDebtsArray is only for overview Page
   const [paidDebtsArray, setPaidDebtsArray] = useState(userExpenses.paidDebts);
 
-  function updateExpensesArrays() {
-    setExpensesArray(userExpenses.expenses);
-    setIncomeArray(userExpenses.income);
-    setPaidDebtsArray(userExpenses.paidDebts);
+  function updateExpensesArrays(expenses, income, paidDebts) {
+    setExpensesArray(expenses);
+    setIncomeArray(income);
+    setPaidDebtsArray(paidDebts);
   }
 
   const [totalBalance, setTotalBalance] = useState(0);
@@ -38,7 +38,7 @@ export const ExpensesProvider = ({ children }) => {
     paidDebts.length > 0
       ? setTotalPaidDebts(sumArrayValues(paidDebtsArray))
       : setTotalPaidDebts(0);
-  }, [userExpenses, expensesArray, incomeArray, paidDebtsArray]);
+  }, [expensesArray, incomeArray, paidDebtsArray]);
 
   // calculating the balance to be dynamic with transactions;
   useEffect(() => {
