@@ -153,7 +153,27 @@ export const deletePaidDebtTransaction = async (req, res) => {
 export const editDebtDetails = async (req, res) => {
   try {
     const { userId, debtId } = req.params;
-    await Debts.findByIdAndUpdate(debtId, req.body);
+    const { amount } = req.body;
+    const userObject = await Users.findById(userId);
+    const debt = await Debts.findById(debtId);
+
+    // totalPaidHistory
+    const totalPaidAmount = sumArrayAmounts(debt.payHistory);
+
+    if (amount < totalPaidAmount)
+      throw new Error(
+        `You already paid ${totalPaidAmount} ${userObject.currency} for this debt .. you can't modify the amount less than ${totalPaidAmount} ${userObject.currency}`
+      );
+
+    //start updating the debt
+    if (Number(amount) === totalPaidAmount) {
+      debt.hasPaid = true;
+    } else {
+      debt.hasPaid = false;
+    }
+
+    await debt.updateOne(req.body);
+    await debt.save();
 
     const userDebts = await Debts.find({ userId });
     const allTransactions = producePaidDebtsTransactions(userDebts);

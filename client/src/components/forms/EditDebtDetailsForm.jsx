@@ -48,12 +48,12 @@ function EditDebtDetailsForm({ setHideForm, debtObject }) {
     <div className="popup-form-bg">
       <div className="popup-form">
         <Form formHeader="Edit debt details" onSubmit={saveEdits}>
-          <Input label="title" value={title} setValue={setTitle} />
           <LoadingOrError
             isLoading={isLoading}
             isErr={error ? true : false}
             errMsg={error}
           />
+          <Input label="title" value={title} setValue={setTitle} />
           <Input
             label="Start date"
             type="date"
@@ -72,10 +72,10 @@ function EditDebtDetailsForm({ setHideForm, debtObject }) {
             value={deadLineDate}
             setValue={setDeadLineDate}
           />
-          <button onClick={hideForm} className="close-form-btn">
+          <PrimaryButton text="Save" width="150px" />
+          <button onClick={hideForm} className="close-form-btn" type="button">
             X
           </button>
-          <PrimaryButton text="Save" width="150px" />
         </Form>
       </div>
     </div>

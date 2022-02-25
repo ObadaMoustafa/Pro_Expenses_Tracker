@@ -223,6 +223,8 @@ nav .dropdown-list .show-menu {
 
 .debt-card-header-title {
   font-weight: normal;
+  text-align: left;
+  cursor: pointer;
 }
 
 .debt-card-header-title span {

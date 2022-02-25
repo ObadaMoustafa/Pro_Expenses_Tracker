@@ -14,6 +14,8 @@
     column-gap: 10px;
     &-title {
       font-weight: normal;
+      text-align: left;
+      cursor: pointer;
       span {
         font-style: italic;
         font-weight: 500;
