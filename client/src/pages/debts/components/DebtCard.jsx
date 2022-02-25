@@ -7,22 +7,15 @@ import { debtsContext } from "../../../context/debtsContext";
 import LoadingOrError from "../../../components/loading&errors/LoadingOrError";
 import fetchOptions from "../../../utils/fetchOptions";
 import EditDebtDetailsForm from "../../../components/forms/EditDebtDetailsForm";
+import DebtCardDetails from "./DebtCardDetails";
 
 function DebtCard({ debtObject }) {
   //write code here
   const { setUserDebts } = useContext(debtsContext);
   const { currentUser } = useContext(userContext);
   const { currency } = currentUser;
-  const { _id, title, payHistory, hasPaid, amount } = debtObject;
-  const [totalPaid, setTotalPaid] = useState(0);
+  const { _id, payHistory } = debtObject;
   const [shouldShowEditForm, setShouldShowEditForm] = useState(false);
-
-  // icon for paid and still need to paid logo (right and wrong);
-  const icon = hasPaid ? (
-    <i className="fas fa-check-circle" style={{ color: "green" }}></i>
-  ) : (
-    <i className="fas fa-times-circle" style={{ color: "red" }}></i>
-  );
 
   // performing fetch to delete the whole debt card
   const { performFetch, isLoading, error, cancelFetch } = useFetch(
@@ -44,16 +37,7 @@ function DebtCard({ debtObject }) {
   function deleteDebtCard() {
     performFetch(fetchOptions("DELETE"));
   }
-  useEffect(() => {
-    if (payHistory.length > 0)
-      setTotalPaid(
-        payHistory
-          .map((transaction) => transaction.amount)
-          .reduce((a, b) => a + b)
-      );
-  }, [payHistory]);
 
-  const needToPay = amount - totalPaid;
   return (
     <>
       <LoadingOrError
@@ -63,15 +47,7 @@ function DebtCard({ debtObject }) {
       />
       <div className="debt-card">
         <div className="debt-card-header">
-          <h3 className="debt-card-header-title">
-            {title} - amount {amount} {currency} {icon} <br />
-            {needToPay > 0 && (
-              <span>
-                {needToPay} {currency} Not Paid
-              </span>
-            )}
-          </h3>
-
+          <DebtCardDetails debtObject={debtObject} currency={currency} />
           {/* edit and delete card icons */}
           <div className="debt-card-header-icons">
             <i

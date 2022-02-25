@@ -11,8 +11,8 @@ export const DebtsProvider = ({ children }) => {
   useEffect(() => {
     if (userDebts.length > 0) {
       setUserDebts((prev) => prev.sort((a, b) => a.hasPaid - b.hasPaid));
-      setNeedToPay(userDebts.filter((debt) => debt.hasPaid === false));
     }
+    setNeedToPay(userDebts.filter((debt) => debt.hasPaid === false));
   }, [userDebts]);
   const sharedValues = {
     userDebts,
