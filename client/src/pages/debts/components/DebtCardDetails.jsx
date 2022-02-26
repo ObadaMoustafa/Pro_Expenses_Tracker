@@ -14,21 +14,19 @@ function DebtCardDetails({ debtObject, currency }) {
     <i
       className="fas fa-check-circle"
       style={{ color: "green" }}
-      title="Debt has been paid successfully"
-    ></i>
+      title="Debt has been paid successfully"></i>
   ) : (
     <i
       className="fas fa-times-circle"
       style={{ color: "red" }}
-      title="Debt hasn't been paid yet"
-    ></i>
+      title="Debt hasn't been paid yet"></i>
   );
 
   useEffect(() => {
     if (payHistory.length > 0) {
       setTotalPaid(
         payHistory
-          .map((transaction) => transaction.amount)
+          .map(transaction => transaction.amount)
           .reduce((a, b) => a + b)
       );
     } else {
@@ -53,24 +51,26 @@ function DebtCardDetails({ debtObject, currency }) {
           )}
         </summary>
         <table>
-          <tr>
-            <td>Debt title:</td>
-            <td>{title}</td>
-          </tr>
-          <tr>
-            <td>Start date</td>
-            <td>{startDate}</td>
-          </tr>
-          <tr>
-            <td>Total debt amount</td>
-            <td>
-              {amount} {currency}
-            </td>
-          </tr>
-          <tr>
-            <td>Deadline date</td>
-            <td>{deadLineDate}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>Debt title:</td>
+              <td>{title}</td>
+            </tr>
+            <tr>
+              <td>Start date</td>
+              <td>{startDate}</td>
+            </tr>
+            <tr>
+              <td>Debt amount</td>
+              <td>
+                {amount} {currency}
+              </td>
+            </tr>
+            <tr>
+              <td>Deadline date</td>
+              <td>{deadLineDate}</td>
+            </tr>
+          </tbody>
         </table>
       </details>
     </>

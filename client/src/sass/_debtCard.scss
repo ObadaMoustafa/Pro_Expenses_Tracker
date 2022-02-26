@@ -13,13 +13,33 @@
     justify-content: space-between;
     column-gap: 10px;
     &-title {
+      flex-grow: 1;
       font-weight: normal;
       text-align: left;
-      cursor: pointer;
+      summary {
+        cursor: pointer;
+      }
       span {
         font-style: italic;
         font-weight: 500;
         color: red;
+      }
+      table {
+        width: 100%;
+        tr {
+          td:first-child {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.712);
+            width: 130px;
+            font-weight: 600;
+            padding-top: 10px;
+            padding-bottom: 5px;
+          }
+          td:last-child {
+            padding-top: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgb(0, 0, 0);
+          }
+        }
       }
     }
 

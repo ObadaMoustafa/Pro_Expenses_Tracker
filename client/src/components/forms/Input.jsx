@@ -24,7 +24,7 @@ function Input({
         name={name}
         id={isOptional ? label : ""}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
         required={isRequired}
         {...rest}
       />

@@ -22,19 +22,19 @@ function AddExpensesForm({ type }) {
     type === "expenses" ? "expenses/addExpenses" : "expenses/addIncome";
   const { isLoading, error, performFetch } = useFetch(
     `/${apiUrl}/${currentUser._id}`,
-    (res) => {
+    res => {
       clearFields();
       const { expenses, income, paidDebts } = res.result;
       setUserExpenses({ expenses, income, paidDebts });
 
       // for adding the new transaction in the filtration mode.
       if (type === "expenses")
-        setExpensesArray((prev) => [
+        setExpensesArray(prev => [
           { title, date, amount: Number(amount), _id: res._id },
           ...prev,
         ]);
       if (type === "income")
-        setIncomeArray((prev) => [
+        setIncomeArray(prev => [
           { title, date, amount: Number(amount), _id: res._id },
           ...prev,
         ]);
@@ -61,8 +61,7 @@ function AddExpensesForm({ type }) {
     <>
       <Form
         onSubmit={addExpenses}
-        formHeader={type === "expenses" ? "Add Expenses" : "Add Income"}
-      >
+        formHeader={type === "expenses" ? "Add Expenses" : "Add Income"}>
         <Input
           label="Title"
           name="title"
