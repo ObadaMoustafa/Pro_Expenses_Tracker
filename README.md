@@ -34,21 +34,18 @@ npm run dev
 
 ## Technologies and npm used
 
-- Database
+- ## Database
 
-  -
   - Mongodb
   - Mongoose npm - to manage the schemas and data before going to the database
   - bcrypt npm - to hash the passwords and secure it
   - currency-symbol-map npm - to turn the currency name to the currency symbol
 
-- Use env files
+- ## Use env files
 
-  -
   - dotenv npm - to access env files for to secure important variables and keys
 
-- Frontend
-  -
+- ## Frontend
   - React and React-router-dom to be able to navigate between several pages
   - Sass to style with some functions and variables
 
