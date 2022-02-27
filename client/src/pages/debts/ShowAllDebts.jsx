@@ -16,37 +16,27 @@ function ShowAllDebts() {
 
   const { performFetch, isLoading, error, cancelFetch } = useFetch(
     `/debts/getUserDebts/${currentUser._id}`,
-    (res) => {
+    res => {
       setUserDebts(res.result);
       setForFilterDebtsTransactions(res.allTransactions);
     }
   );
 
-  const [shouldShowFilterForm, setShouldShowFilterForm] = useState(false);
   const [shouldShowCreateDebtForm, setShouldShowCreateDebtForm] =
     useState(false);
   const [shouldShowPayDebtsForm, setShouldShowPayDebtsForm] = useState(false);
 
-  function showFilterForm() {
-    setShouldShowFilterForm(true);
-    setShouldShowPayDebtsForm(false);
-    setShouldShowCreateDebtForm(false);
-  }
-
   function showِCreateDebtForm() {
-    setShouldShowFilterForm(false);
     setShouldShowPayDebtsForm(false);
     setShouldShowCreateDebtForm(true);
   }
 
   function showِPayDebtForm() {
-    setShouldShowFilterForm(false);
     setShouldShowPayDebtsForm(true);
     setShouldShowCreateDebtForm(false);
   }
 
   function hideForms() {
-    setShouldShowFilterForm(false);
     setShouldShowPayDebtsForm(false);
     setShouldShowCreateDebtForm(false);
   }
@@ -58,16 +48,14 @@ function ShowAllDebts() {
 
   const formBar = [
     {
-      icon: "fas fa-filter",
-      func: showFilterForm,
-    },
-    {
       icon: "fas fa-plus-circle",
       func: showِPayDebtForm,
+      title: "Pay for debt",
     },
     {
       icon: "bi bi-folder-plus",
       func: showِCreateDebtForm,
+      title: "Create new debt",
     },
   ];
   return (
@@ -78,7 +66,7 @@ function ShowAllDebts() {
       {shouldShowPayDebtsForm && <PayDebtsForm />}
       <h2 className="section-title">Click on Debt to see it's details</h2>
       {userDebts.length > 0 &&
-        userDebts.map((debtObject) => (
+        userDebts.map(debtObject => (
           <DebtCard debtObject={debtObject} key={debtObject._id} />
         ))}
       <LoadingOrError

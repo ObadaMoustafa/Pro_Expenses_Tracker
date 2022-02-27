@@ -9,7 +9,7 @@ function SecondaryButton({ href, text, width, icon, onClick }) {
       width={width}
       icon={icon}
       onClick={onClick}
-      type="submit"
+      type="button"
       className="secondary-button"
     />
   );

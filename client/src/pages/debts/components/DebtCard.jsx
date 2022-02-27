@@ -8,6 +8,7 @@ import LoadingOrError from "../../../components/loading&errors/LoadingOrError";
 import fetchOptions from "../../../utils/fetchOptions";
 import EditDebtDetailsForm from "../../../components/forms/EditDebtDetailsForm";
 import DebtCardDetails from "./DebtCardDetails";
+import DeleteDebtConfirmationForm from "../../../components/forms/DeleteDebtConfirmationForm";
 
 function DebtCard({ debtObject }) {
   //write code here
@@ -16,11 +17,13 @@ function DebtCard({ debtObject }) {
   const { currency } = currentUser;
   const { _id, payHistory } = debtObject;
   const [shouldShowEditForm, setShouldShowEditForm] = useState(false);
+  const [shouldShowDeleteConfirmation, setShouldShowDeleteConfirmation] =
+    useState(false);
 
   // performing fetch to delete the whole debt card
   const { performFetch, isLoading, error, cancelFetch } = useFetch(
     `/debts/deleteDebt/${currentUser._id}/${_id}`,
-    (res) => {
+    res => {
       setUserDebts(res.result);
     }
   );
@@ -34,8 +37,13 @@ function DebtCard({ debtObject }) {
     setShouldShowEditForm(true);
   }
 
-  function deleteDebtCard() {
+  function deleteDebtCard(e) {
+    e.preventDefault();
     performFetch(fetchOptions("DELETE"));
+  }
+
+  function ShowDeleteConfirmation() {
+    setShouldShowDeleteConfirmation(true);
   }
 
   return (
@@ -53,18 +61,16 @@ function DebtCard({ debtObject }) {
             <i
               className="fas fa-edit"
               title="Edit Debt"
-              onClick={showEditDebtForm}
-            ></i>
+              onClick={showEditDebtForm}></i>
             <i
               className="fas fa-trash-alt"
               title="Delete Debt"
-              onClick={deleteDebtCard}
-            ></i>
+              onClick={ShowDeleteConfirmation}></i>
           </div>
 
           {/* all debt transactions */}
         </div>
-        {payHistory.map((payTransaction) => (
+        {payHistory.map(payTransaction => (
           <PayDebtTransaction
             payDebtTransaction={payTransaction}
             debtId={_id}
@@ -76,6 +82,12 @@ function DebtCard({ debtObject }) {
         <EditDebtDetailsForm
           setHideForm={setShouldShowEditForm}
           debtObject={debtObject}
+        />
+      )}
+      {shouldShowDeleteConfirmation && (
+        <DeleteDebtConfirmationForm
+          deleteFunc={deleteDebtCard}
+          setHideForm={setShouldShowDeleteConfirmation}
         />
       )}
     </>
