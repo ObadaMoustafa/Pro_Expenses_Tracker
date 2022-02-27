@@ -406,3 +406,21 @@ nav {
   color: white;
   text-shadow: 0px 0px 10px #003566, 0px 0px 10px #003566, 0px 0px 10px #003566;
 }
+
+#linkedin:hover {
+  color: #044da0;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+
+#github:hover {
+  color: white;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}
+
+#youtube:hover {
+  color: Red;
+  -webkit-transition: 200ms;
+  transition: 200ms;
+}

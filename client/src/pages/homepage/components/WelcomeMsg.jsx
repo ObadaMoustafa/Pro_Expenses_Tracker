@@ -40,21 +40,21 @@ function WelcomeMsg() {
           href="https://www.linkedin.com/in/obada-elsharbatly/"
           target="_blank"
           rel="noreferrer"
-        >
+          id="linkedin">
           <Linkedin size={50} strokeWidth={1} />
         </a>
         <a
           href="https://github.com/ObadaElSharbatly"
           target="_blank"
           rel="noreferrer"
-        >
+          id="github">
           <GitHub size={50} strokeWidth={1} />
         </a>
         <a
           href="https://www.youtube.com/playlist?list=PLoMKCbpTTvvthiSknYuafN-XMhbz-fSlY"
           target="_blank"
           rel="noreferrer"
-        >
+          id="youtube">
           <Youtube size={50} strokeWidth={1} />
         </a>
       </div>
@@ -66,7 +66,7 @@ function WelcomeMsg() {
             icon="fas fa-sign-in-alt"
             onClick={showLoginForm}
           />
-          <SecondaryButton text="Docs" width="150px" icon="fas fa-book" />
+          {/* <SecondaryButton text="Docs" width="150px" icon="fas fa-book" /> */}
         </div>
       )}
       {canShowLoginForm && <Login showSignUpForm={showSignUpForm} />}
