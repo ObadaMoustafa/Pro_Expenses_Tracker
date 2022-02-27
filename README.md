@@ -40,6 +40,9 @@ npm run dev
   - Mongoose npm - to manage the schemas and data before going to the database
   - bcrypt npm - to hash the passwords and secure it
   - currency-symbol-map npm - to turn the currency name to the currency symbol
+  <p align="center">
+    <img width="100%" height="100%" src="./Readme_images/database_schema.png">
+  </p>
 
 - ## Use env files
 
