@@ -1,6 +1,9 @@
 # Pro_Expenses_Tracker
 
-Pro expenses tracker is a MERN stack application that requires the user to sign in to save all expenses to reach from anywhere. Users can track and filter expenses and income. Users can also manage debts and loans that need to be paid.
+<p align="center">
+    <img width="80%" height="80%" src="./Readme_images/app_photo.jpg">
+  </p>
+Pro expenses tracker is a MERN stack and responsive application that requires the user to sign in to save all expenses to reach from anywhere. Users can track and filter expenses and income. Users can also manage debts and loans that need to be paid.
 
 ## Watch Demo
 
