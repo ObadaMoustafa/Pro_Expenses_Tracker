@@ -44,7 +44,7 @@ npm run dev
   - bcrypt npm - to hash the passwords and secure it
   - currency-symbol-map npm - to turn the currency name to the currency symbol
   <p align="center">
-    <img width="100%" height="100%" src="./Readme_images/database_schema.png">
+    <img width="80%" height="80%" src="./Readme_images/database_schema.png">
   </p>
 
 - ## Use env files
