@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { debtsContext } from "../../context/debtsContext";
 import { userContext } from "../../context/userContext";
 import useFetch from "../../hooks/useFetch";
-import LoadingOrError from "../../components/loading&errors/LoadingOrError";
+import LoadingOrError from "../../components/loading_and_errors/LoadingOrError";
 import CreateDebtForm from "../../components/forms/CreateDebtForm";
 import PayDebtsForm from "../../components/forms/PayDebtsForm";
 import FormsButtonsBar from "../../components/show_transactions/FormsButtonsBar";

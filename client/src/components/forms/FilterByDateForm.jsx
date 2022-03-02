@@ -49,10 +49,9 @@ function FilterByDateForm({ type }) {
 
   return (
     <Form
-      formHeader="Filter results by Date"
+      formHeader="Filter results by date"
       onSubmit={handleFilter}
-      formWidth="100%"
-    >
+      formWidth="100%">
       <SplitFields>
         <Input
           type="date"

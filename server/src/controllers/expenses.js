@@ -20,6 +20,9 @@ export const getUserExpenses = async (req, res) => {
 export const addExpenses = async (req, res) => {
   try {
     const { userId } = req.params;
+    const { amount } = req.body;
+
+    if (amount <= 0) throw new Error("Expenses amount can't be <= 0");
 
     const oldExpensesObject = await Expenses.findOne({ userId });
     await oldExpensesObject.expenses.push(req.body);
@@ -48,7 +51,7 @@ export const deleteExpenses = async (req, res) => {
 
     const oldExpensesObject = await Expenses.findOne({ userId });
     const newExpensesObject = oldExpensesObject.expenses.filter(
-      (singleExpenses) => singleExpenses._id.toString() !== expensesId
+      singleExpenses => singleExpenses._id.toString() !== expensesId
     );
     oldExpensesObject.expenses = newExpensesObject;
     await oldExpensesObject.save();
@@ -71,6 +74,9 @@ export const deleteExpenses = async (req, res) => {
 export const addIncome = async (req, res) => {
   try {
     const { userId } = req.params;
+
+    const { amount } = req.body;
+    if (amount <= 0) throw new Error("Income amount can't be <= 0");
 
     const oldExpensesObject = await Expenses.findOne({ userId });
     await oldExpensesObject.income.push(req.body);
@@ -100,7 +106,7 @@ export const deleteIncome = async (req, res) => {
 
     const oldExpensesObject = await Expenses.findOne({ userId });
     const newExpensesObject = oldExpensesObject.income.filter(
-      (singleExpenses) => singleExpenses._id.toString() !== incomeId
+      singleExpenses => singleExpenses._id.toString() !== incomeId
     );
     oldExpensesObject.income = newExpensesObject;
     await oldExpensesObject.save();

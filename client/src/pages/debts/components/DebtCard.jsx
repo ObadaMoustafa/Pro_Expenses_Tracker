@@ -4,7 +4,7 @@ import { userContext } from "../../../context/userContext";
 import PayDebtTransaction from "./PayDebtTransaction";
 import useFetch from "../../../hooks/useFetch";
 import { debtsContext } from "../../../context/debtsContext";
-import LoadingOrError from "../../../components/loading&errors/LoadingOrError";
+import LoadingOrError from "../../../components/loading_and_errors/LoadingOrError";
 import fetchOptions from "../../../utils/fetchOptions";
 import EditDebtDetailsForm from "../../../components/forms/EditDebtDetailsForm";
 import DebtCardDetails from "./DebtCardDetails";

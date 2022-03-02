@@ -7,7 +7,7 @@ import useFetch from "../../hooks/useFetch";
 import { userContext } from "../../context/userContext";
 import PrimaryButton from "../buttons/PrimaryButton";
 import fetchOptions from "../../utils/fetchOptions";
-import LoadingOrError from "../loading&errors/LoadingOrError";
+import LoadingOrError from "../loading_and_errors/LoadingOrError";
 import { format } from "date-fns";
 
 function AddExpensesForm({ type }) {
@@ -59,6 +59,11 @@ function AddExpensesForm({ type }) {
   }
   return (
     <>
+      <LoadingOrError
+        isLoading={isLoading}
+        isErr={error ? true : false}
+        errMsg={error}
+      />
       <Form
         onSubmit={addExpenses}
         formHeader={type === "expenses" ? "Add Expenses" : "Add Income"}>
@@ -89,11 +94,6 @@ function AddExpensesForm({ type }) {
         />
         <PrimaryButton text="Add" width="50%" />
       </Form>
-      <LoadingOrError
-        isLoading={isLoading}
-        isErr={error ? true : false}
-        errMsg={error}
-      />
     </>
   );
 }

@@ -3,7 +3,7 @@ import ShowOverView from "./components/ShowOverView";
 import { expensesContext } from "../../context/expensesContext";
 import { userContext } from "../../context/userContext";
 import useFetch from "../../hooks/useFetch";
-import LoadingOrError from "../../components/loading&errors/LoadingOrError";
+import LoadingOrError from "../../components/loading_and_errors/LoadingOrError";
 import AddDifferentExpenses from "./components/AddDifferentExpenses";
 import { debtsContext } from "../../context/debtsContext";
 
@@ -16,7 +16,7 @@ function ExpensesOverview() {
   const [isRecord, setIsRecord] = useState(false);
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     `/expenses/getExpenses/${currentUser._id}`,
-    (res) => {
+    res => {
       const { expenses, income, paidDebts, userDebts } = res.result;
       setUserDebts(userDebts);
       setUserExpenses({ expenses, income, paidDebts });
@@ -64,5 +64,4 @@ function ExpensesOverview() {
   );
 }
 
-ExpensesOverview.propTypes = {};
 export default ExpensesOverview;

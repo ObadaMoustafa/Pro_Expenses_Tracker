@@ -27,6 +27,7 @@ export const getUserDebts = async (req, res) => {
 export const createNewDebt = async (req, res) => {
   try {
     const { userId } = req.params;
+    if (req.body.amount <= 0) throw new Error("Debt amount can't be <= 0");
     await Debts.create({ userId, ...req.body });
     const userDebts = await Debts.find({ userId });
 
@@ -126,7 +127,7 @@ export const deletePaidDebtTransaction = async (req, res) => {
     // filter the payHistory to delete the specific transaction
     const payHistory = debtToModify.payHistory;
     const newPayHistory = payHistory.filter(
-      (transaction) => transaction._id.toString() !== transactionId
+      transaction => transaction._id.toString() !== transactionId
     );
 
     // modify the payHistory and hasPaid keys
@@ -154,6 +155,7 @@ export const editDebtDetails = async (req, res) => {
   try {
     const { userId, debtId } = req.params;
     const { amount } = req.body;
+    if (amount <= 0) throw new Error("Debt amount can't be <= 0");
     const userObject = await Users.findById(userId);
     const debt = await Debts.findById(debtId);
 

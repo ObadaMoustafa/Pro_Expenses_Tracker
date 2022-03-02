@@ -13,7 +13,6 @@ You can [click here](https://pro-expenses-tracker.herokuapp.com/) to watch the D
 
 > Note: it's better to follow these steps in order
 
-- make a `fork` for this Repo and `clone` it in your PC.
 - Copy and rename the `.env.example` file which is in `client` and `server` folders to be `.env` and put the right value in the variables.
 - In Cli use this commands all in the `root` directory path in order
 

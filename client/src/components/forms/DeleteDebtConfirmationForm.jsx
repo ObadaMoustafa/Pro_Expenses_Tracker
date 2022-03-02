@@ -1,7 +1,6 @@
 import React from "react";
 import PrimaryButton from "../buttons/PrimaryButton";
 import SecondaryButton from "../buttons/SecondaryButton";
-import LoadingOrError from "../loading&errors/LoadingOrError";
 import Form from "./Form";
 
 function DeleteDebtConfirmationForm({ setHideForm, deleteFunc }) {

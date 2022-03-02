@@ -4,7 +4,7 @@ import { userContext } from "../../context/userContext";
 import useFetch from "../../hooks/useFetch";
 import fetchOptions from "../../utils/fetchOptions";
 import PrimaryButton from "../buttons/PrimaryButton";
-import LoadingOrError from "../loading&errors/LoadingOrError";
+import LoadingOrError from "../loading_and_errors/LoadingOrError";
 import Form from "./Form";
 import Input from "./Input";
 
@@ -19,7 +19,7 @@ function EditDebtDetailsForm({ setHideForm, debtObject }) {
 
   const { performFetch, isLoading, error, cancelFetch } = useFetch(
     `/debts/editDebtDetails/${currentUser._id}/${debtObject._id}/`,
-    async (res) => {
+    async res => {
       await setUserDebts(res.result);
       hideForm();
     }

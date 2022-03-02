@@ -5,7 +5,7 @@ import { userContext } from "../../context/userContext";
 import useFetch from "../../hooks/useFetch";
 import fetchOptions from "../../utils/fetchOptions";
 import PrimaryButton from "../buttons/PrimaryButton";
-import LoadingOrError from "../loading&errors/LoadingOrError";
+import LoadingOrError from "../loading_and_errors/LoadingOrError";
 import Form from "./Form";
 import Input from "./Input";
 
@@ -20,9 +20,9 @@ function CreateDebtForm() {
     format(addDays(new Date(), 30), "yyyy-MM-dd")
   );
 
-  const { isLoading, error, performFetch, cancelFetch } = useFetch(
+  const { isLoading, error, performFetch } = useFetch(
     `/debts/createNewDebt/${currentUser._id}`,
-    (res) => {
+    res => {
       setUserDebts(res.result);
       clearFields();
     }
@@ -52,7 +52,7 @@ function CreateDebtForm() {
         isErr={error ? true : false}
         errMsg={error}
       />
-      <Form formHeader="Create new Dept" onSubmit={handleSubmit}>
+      <Form formHeader="Create new debt" onSubmit={handleSubmit}>
         <Input
           label="Title"
           placeholder="e.g. Borrowed From X to Buy Y"

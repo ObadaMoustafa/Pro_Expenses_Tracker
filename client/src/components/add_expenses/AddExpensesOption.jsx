@@ -1,5 +1,6 @@
 import React from "react";
 import RoundButton from "../buttons/RoundButton";
+import PropTypes from "prop-types";
 
 function AddExpensesOption({ header, onClick, buttonText }) {
   //write code here
@@ -16,4 +17,9 @@ function AddExpensesOption({ header, onClick, buttonText }) {
   );
 }
 
+AddExpensesOption.propTypes = {
+  header: PropTypes.string,
+  onClick: PropTypes.func,
+  buttonText: PropTypes.string,
+};
 export default AddExpensesOption;

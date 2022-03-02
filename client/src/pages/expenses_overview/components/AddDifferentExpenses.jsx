@@ -10,7 +10,7 @@ function AddDifferentExpenses() {
   const [isDebtForm, setIsDebtForm] = useState(false);
 
   function showExpensesForm() {
-    setIsExpensesForm((pre) => !pre);
+    setIsExpensesForm(pre => !pre);
     setIsIncomeForm(false);
     setIsDebtForm(false);
     window.location.href = "#form-section";
@@ -18,14 +18,14 @@ function AddDifferentExpenses() {
 
   function showIncomeForm() {
     setIsExpensesForm(false);
-    setIsIncomeForm((pre) => !pre);
+    setIsIncomeForm(pre => !pre);
     setIsDebtForm(false);
     window.location.href = "#form-section";
   }
   function showDebtForm() {
     setIsExpensesForm(false);
     setIsIncomeForm(false);
-    setIsDebtForm((pre) => !pre);
+    setIsDebtForm(pre => !pre);
     window.location.href = "#form-section";
   }
   return (
@@ -42,7 +42,7 @@ function AddDifferentExpenses() {
           buttonText={isIncomeFrom ? "-" : "+"}
         />
         <AddExpensesOption
-          header="debts"
+          header="Debts"
           buttonText={isDebtForm ? "-" : "+"}
           onClick={showDebtForm}
         />

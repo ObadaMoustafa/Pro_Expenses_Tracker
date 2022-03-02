@@ -4,7 +4,7 @@ import useFetch from "../../../hooks/useFetch";
 import { userContext } from "../../../context/userContext";
 import { debtsContext } from "../../../context/debtsContext";
 import fetchOptions from "../../../utils/fetchOptions";
-import LoadingOrError from "../../../components/loading&errors/LoadingOrError";
+import LoadingOrError from "../../../components/loading_and_errors/LoadingOrError";
 
 function PayDebtTransaction({ payDebtTransaction, debtId }) {
   //write code here
@@ -13,7 +13,7 @@ function PayDebtTransaction({ payDebtTransaction, debtId }) {
   const { setUserDebts } = useContext(debtsContext);
   const { performFetch, isLoading, error, cancelFetch } = useFetch(
     `/debts/deletePaidDebtsTransaction/${currentUser._id}/`,
-    (res) => {
+    res => {
       setUserDebts(res.result);
     }
   );

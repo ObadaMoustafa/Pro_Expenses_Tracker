@@ -6,7 +6,7 @@ import { userContext } from "../../context/userContext";
 import useFetch from "../../hooks/useFetch";
 import fetchOptions from "../../utils/fetchOptions";
 import PrimaryButton from "../buttons/PrimaryButton";
-import LoadingOrError from "../loading&errors/LoadingOrError";
+import LoadingOrError from "../loading_and_errors/LoadingOrError";
 import Form from "./Form";
 import Input from "./Input";
 import SelectInput from "./SelectInput";
@@ -23,7 +23,7 @@ function PayDebtsForm() {
   const [amount, setAmount] = useState("");
 
   const apiUri = `/debts/payDebt/${currentUser._id}/${debtId}`;
-  const { performFetch, isLoading, error } = useFetch(apiUri, (res) => {
+  const { performFetch, isLoading, error } = useFetch(apiUri, res => {
     const { expenses, income, paidDebts, userDebts } = res.result;
 
     setUserExpenses({ expenses, income, paidDebts });
@@ -32,7 +32,7 @@ function PayDebtsForm() {
     clearFields();
 
     // this line for overview page so we don't care a bout _id;
-    setPaidDebtsArray((prev) => [{ date, amount: Number(amount) }, ...prev]);
+    setPaidDebtsArray(prev => [{ date, amount: Number(amount) }, ...prev]);
   });
 
   function clearFields() {
