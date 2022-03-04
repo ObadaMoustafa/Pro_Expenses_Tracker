@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import LoadingOrError from "../../../components/loading&errors/LoadingOrError";
+import LoadingOrError from "../../../components/loading_and_errors/LoadingOrError";
 import useFetch from "../../../hooks/useFetch";
 import fetchOptions from "../../../utils/fetchOptions";
 import PropTypes from "prop-types";
@@ -21,7 +21,7 @@ function SignUp({ showLoginForm }) {
   const navigate = useNavigate();
   const { isLoading, error, performFetch } = useFetch(
     "/users/createUser",
-    async (res) => {
+    async res => {
       await updateUser(res.result);
       navigate("/start");
     }

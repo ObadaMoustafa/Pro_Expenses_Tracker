@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import { userContext } from "../../context/userContext";
 import { expensesContext } from "../../context/expensesContext";
 import fetchOptions from "../../utils/fetchOptions";
-import LoadingOrError from "../loading&errors/LoadingOrError";
+import LoadingOrError from "../loading_and_errors/LoadingOrError";
 
 function ExpensesTransaction({ transactionId, title, amount, type, date }) {
   //write code here
