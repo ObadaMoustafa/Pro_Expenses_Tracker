@@ -7,7 +7,7 @@ function ShowAllExpenses() {
   return (
     <ShowAllTransactions
       type="expenses"
-      headerTitle="All Expenses Transactions without paid debts"
+      headerTitle="Total Expenses without paid debts"
     />
   );
 }
