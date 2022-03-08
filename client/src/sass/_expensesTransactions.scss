@@ -6,15 +6,19 @@
   min-height: 40px;
   padding: 0px 10px;
   flex-wrap: nowrap;
+  column-gap: 10px;
   background-color: $first-color;
   &-part1 {
     justify-content: flex-start;
+    flex-wrap: wrap;
     column-gap: 30px;
     &-title {
+      flex-grow: 2;
+      overflow: hidden;
     }
     &-date {
       width: 90px;
-      flex-grow: 0;
+      flex-grow: 1;
     }
     &-amount {
       width: 90px;
@@ -58,8 +62,15 @@
     height: 60px;
     &-part1 {
       column-gap: 15px !important;
+      width: 90%;
+      &-title {
+        width: 100%;
+      }
       &-amount {
         flex-grow: 1;
+      }
+      &-date {
+        flex-grow: 0;
       }
     }
   }

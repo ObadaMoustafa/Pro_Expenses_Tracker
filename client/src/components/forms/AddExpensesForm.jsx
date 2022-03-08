@@ -73,7 +73,7 @@ function AddExpensesForm({ type }) {
           placeholder={`e.g. ${type === "expenses" ? "Grocery" : "Salary"}`}
           value={title}
           setValue={setTitle}
-          maxLength="12"
+          maxLength="30"
         />
         <Input
           label="Date"

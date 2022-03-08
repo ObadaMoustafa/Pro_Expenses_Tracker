@@ -93,6 +93,8 @@ nav .dropdown-list .show-menu {
   padding: 0px 10px;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
   background-color: #001d3d;
 }
 
@@ -100,15 +102,24 @@ nav .dropdown-list .show-menu {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-column-gap: 30px;
           column-gap: 30px;
 }
 
+.expenses-transaction-part1-title {
+  -webkit-box-flex: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
+  overflow: hidden;
+}
+
 .expenses-transaction-part1-date {
   width: 90px;
-  -webkit-box-flex: 0;
-      -ms-flex-positive: 0;
-          flex-grow: 0;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 .expenses-transaction-part1-amount {
@@ -159,11 +170,20 @@ nav .dropdown-list .show-menu {
   .expenses-transaction-part1 {
     -webkit-column-gap: 15px !important;
             column-gap: 15px !important;
+    width: 90%;
+  }
+  .expenses-transaction-part1-title {
+    width: 100%;
   }
   .expenses-transaction-part1-amount {
     -webkit-box-flex: 1;
         -ms-flex-positive: 1;
             flex-grow: 1;
+  }
+  .expenses-transaction-part1-date {
+    -webkit-box-flex: 0;
+        -ms-flex-positive: 0;
+            flex-grow: 0;
   }
 }
 
