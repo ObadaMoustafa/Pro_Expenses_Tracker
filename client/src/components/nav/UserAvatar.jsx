@@ -35,6 +35,9 @@ function UserAvatar() {
         </div>
       </div>
       <div className={`dropdown-list-menu ${menuClass}`}>
+        <NavLink to="profile" className="dropdown-list-menu-item">
+          Profile
+        </NavLink>
         <NavLink to="overview" className="dropdown-list-menu-item">
           Balance Overview
         </NavLink>
