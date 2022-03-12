@@ -8,7 +8,7 @@ import Form from "./Form";
 import Input from "./Input";
 import propTypes from "prop-types";
 
-function EditNameForm({ shouldShowFormFn }) {
+function EditNameForm({ setShouldShowFormFn }) {
   const [fullName, setFullName] = useState("");
   const { updateUser, currentUser } = useContext(userContext);
   const { performFetch, isLoading, error, cancelFetch } = useFetch(
@@ -16,7 +16,7 @@ function EditNameForm({ shouldShowFormFn }) {
     res => {
       updateUser(res.result);
       setFullName("");
-      shouldShowFormFn(false);
+      setShouldShowFormFn(false);
     }
   );
 
@@ -51,6 +51,6 @@ function EditNameForm({ shouldShowFormFn }) {
   );
 }
 EditNameForm.propTypes = {
-  shouldShowFormFn: propTypes.func,
+  setShouldShowFormFn: propTypes.func,
 };
 export default EditNameForm;

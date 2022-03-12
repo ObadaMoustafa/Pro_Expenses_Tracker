@@ -1,0 +1,42 @@
+.user-field-container {
+  width: 100%;
+  background-color: $second-color;
+  border-radius: $border-radius;
+  color: white;
+  padding: 20px;
+}
+.user-field {
+  padding: 10px 0;
+  width: 100%;
+  &-info {
+    display: flex;
+
+    h3 {
+      color: white;
+      span {
+        color: $third-color;
+        font-weight: normal;
+      }
+    }
+
+    i {
+      font-size: 16pt;
+      cursor: pointer;
+    }
+
+    i:hover {
+      color: red;
+      text-shadow: 0 0 5px white;
+    }
+    i:active {
+      color: white;
+      text-shadow: none;
+    }
+  }
+  form {
+    background-color: $third-color;
+    border-radius: $border-radius;
+    margin-top: 10px;
+    color: black;
+  }
+}
