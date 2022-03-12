@@ -16,6 +16,7 @@ function Profile() {
     useState(false);
 
   // show forms functions
+  // give an event listener to window to hide the forms when click outside the form
   useEffect(() => {
     if (
       shouldShowEditNameForm ||
@@ -36,24 +37,28 @@ function Profile() {
     setShouldShowEditCurrencyForm(false);
     console.log("window clicked");
   }
+
   function showEditNameForm(e) {
     e.stopPropagation();
     setShouldShowEditNameForm(prev => !prev);
     setShouldShowEditEmailForm(false);
     setShouldShowEditCurrencyForm(false);
   }
+
   function showEditEmailForm(e) {
     e.stopPropagation();
     setShouldShowEditNameForm(false);
     setShouldShowEditEmailForm(prev => !prev);
     setShouldShowEditCurrencyForm(false);
   }
+
   function showEditCurrencyForm(e) {
     e.stopPropagation();
     setShouldShowEditNameForm(false);
     setShouldShowEditEmailForm(false);
     setShouldShowEditCurrencyForm(prev => !prev);
   }
+
   return (
     <>
       <h2>Personal info</h2>
@@ -62,21 +67,27 @@ function Profile() {
           Name: <span>{name}</span>
         </h3>
         <i className="fas fa-edit" onClick={showEditNameForm}></i>
-        {shouldShowEditNameForm && <EditNameForm />}
+        {shouldShowEditNameForm && (
+          <EditNameForm shouldShowFormFn={setShouldShowEditNameForm} />
+        )}
       </div>
       <div className="userField">
         <h3>
           Email: <span>{email}</span>
         </h3>
         <i className="fas fa-edit" onClick={showEditEmailForm}></i>
-        {shouldShowEditEmailForm && <EditEmailForm />}
+        {shouldShowEditEmailForm && (
+          <EditEmailForm shouldShowFormFn={setShouldShowEditEmailForm} />
+        )}
       </div>
       <div className="userField">
         <h3>
           Currency symbol: <span>{currency}</span>
         </h3>
         <i className="fas fa-edit" onClick={showEditCurrencyForm}></i>
-        {shouldShowEditCurrencyForm && <EditCurrencyForm />}
+        {shouldShowEditCurrencyForm && (
+          <EditCurrencyForm shouldShowFormFn={setShouldShowEditCurrencyForm} />
+        )}
       </div>
     </>
   );

@@ -1,17 +1,45 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { userContext } from "../../context/userContext";
+import useFetch from "../../hooks/useFetch";
+import fetchOptions from "../../utils/fetchOptions";
 import PrimaryButton from "../buttons/PrimaryButton";
+import LoadingOrError from "../loading_and_errors/LoadingOrError";
 import Form from "./Form";
 import Input from "./Input";
+import propTypes from "prop-types";
 
-function EditNameForm() {
+function EditNameForm({ shouldShowFormFn }) {
   const [fullName, setFullName] = useState("");
-  //! make the put request here
+  const { updateUser, currentUser } = useContext(userContext);
+  const { performFetch, isLoading, error, cancelFetch } = useFetch(
+    "/users/changeName",
+    res => {
+      updateUser(res.result);
+      setFullName("");
+      shouldShowFormFn(false);
+    }
+  );
+
+  //cleanup the fetch request
+  useEffect(() => {
+    return () => cancelFetch();
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
+    const reqBody = {
+      userId: currentUser._id,
+      newName: fullName,
+    };
+    performFetch(fetchOptions("PUT", reqBody));
   }
   return (
-    <Form formHeader="Edit your name" formWidth="100%" onSubmit={handleSubmit}>
+    <Form formHeader="Edit name" formWidth="100%" onSubmit={handleSubmit}>
+      <LoadingOrError
+        isLoading={isLoading}
+        errMsg={error}
+        isErr={error ? true : false}
+      />
       <Input
         isRequired={false}
         placeholder="Write full name"
@@ -22,5 +50,7 @@ function EditNameForm() {
     </Form>
   );
 }
-
+EditNameForm.propTypes = {
+  shouldShowFormFn: propTypes.func,
+};
 export default EditNameForm;
