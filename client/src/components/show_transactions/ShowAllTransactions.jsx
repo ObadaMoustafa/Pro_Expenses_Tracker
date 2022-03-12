@@ -63,7 +63,9 @@ function ShowAllTransactions({ type, headerTitle }) {
       <h2 className="section-title">
         {headerTitle}:{" "}
         <span style={{ fontSize: "25pt", fontWeight: "400" }}>
-          {type === "expenses" ? totalExpenses : totalIncome}{" "}
+          {type === "expenses"
+            ? totalExpenses.toFixed(2)
+            : totalIncome.toFixed(2)}{" "}
           {currentUser.currency}
         </span>{" "}
       </h2>

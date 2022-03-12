@@ -12,6 +12,7 @@ import ExpensesOverview from "./pages/expenses_overview/ExpensesOverview";
 import ShowAllExpenses from "./pages/show_all_expenses/ShowAllExpenses";
 import ShowAllIncome from "./pages/show_all_income/ShowAllIncome";
 import ShowAllDebts from "./pages/debts/ShowAllDebts";
+import Profile from "./pages/profile/Profile";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -22,6 +23,7 @@ ReactDOM.render(
         </Route>
         <Route exact path="/start" element={<ProtectedPage />}>
           <Route path="/start" element={<App />}>
+            <Route path="/start/profile" element={<Profile />} />
             <Route path="/start/overview" element={<ExpensesOverview />} />
             <Route
               path="/start/show_all_expenses"

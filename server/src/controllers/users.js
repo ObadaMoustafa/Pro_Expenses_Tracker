@@ -23,7 +23,7 @@ export const signUpProcess = async (req, res) => {
     // create hash to secure the password
     const hashedPassword = bcrypt.hashSync(password, 10);
 
-    // if no currency use EUR
+    // check if the currency is available
     let theCurrency = getSymbolFromCurrency(currency);
     if (!theCurrency)
       throw new Error(
@@ -83,6 +83,136 @@ export const login = async (req, res) => {
       currency: loginUser.currency,
       _id: loginUser._id,
       gender: loginUser.gender,
+    };
+    //login successfully
+    res.status(200).json({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      msg: `Error: ${error.message}`,
+    });
+  }
+};
+
+export const changeName = async (req, res) => {
+  const { userId, newName } = req.body;
+  try {
+    // if name is empty throw an error
+    if (!newName) throw new Error("new name shouldn't be empty");
+    //find user and check if the new name is the same as old one
+    const userObject = await Users.findById(userId);
+    if (userObject.name === newName)
+      throw new Error(`${newName} is already the current name`);
+
+    // update name
+    userObject.name = newName;
+    await userObject.save();
+
+    //find after updating
+    const userAfterUpdate = await Users.findById(userId);
+
+    // return the user object to response without the password
+    const result = {
+      name: userAfterUpdate.name,
+      email: userAfterUpdate.email,
+      currency: userAfterUpdate.currency,
+      _id: userAfterUpdate._id,
+      gender: userAfterUpdate.gender,
+    };
+    //login successfully
+    res.status(200).json({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      msg: `Error: ${error.message}`,
+    });
+  }
+};
+export const changeEmail = async (req, res) => {
+  const { userId, newEmail } = req.body;
+  try {
+    // if new email is empty throw an error
+    if (!newEmail) throw new Error("New email shouldn't be empty");
+
+    const email = newEmail.toLowerCase();
+
+    //find user and check if the new email is the same as old one
+    const userObject = await Users.findById(userId);
+    if (userObject.email === email)
+      throw new Error(`${email} is already the current email`);
+
+    //check if this email is valid to use
+    const notAValidEmail = await Users.findOne({ email: newEmail });
+    if (notAValidEmail) throw new Error("This email is not valid to use");
+
+    // update email
+    userObject.email = email;
+    await userObject.save();
+
+    //find after updating
+    const userAfterUpdate = await Users.findById(userId);
+
+    // return the user object to response without the password
+    const result = {
+      name: userAfterUpdate.name,
+      email: userAfterUpdate.email,
+      currency: userAfterUpdate.currency,
+      _id: userAfterUpdate._id,
+      gender: userAfterUpdate.gender,
+    };
+    //login successfully
+    res.status(200).json({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      msg: `Error: ${error.message}`,
+    });
+  }
+};
+
+export const changeCurrency = async (req, res) => {
+  const { userId, newCurrency } = req.body;
+  try {
+    // if new currency is empty throw an error
+    if (!newCurrency) throw new Error("new currency shouldn't be empty");
+
+    // check if the currency is available
+    let newCurrencySymbol = getSymbolFromCurrency(newCurrency);
+    if (!newCurrencySymbol)
+      throw new Error(
+        "This currency code isn't available please right a right code like EGP , USD or EUR"
+      );
+
+    //find user and check if the new currency symbol is the same as old one
+    const userObject = await Users.findById(userId);
+    if (userObject.currency === newCurrencySymbol)
+      throw new Error(
+        `${newCurrency} or ${newCurrencySymbol} is already the current currency`
+      );
+
+    // update name
+    userObject.currency = newCurrencySymbol;
+    await userObject.save();
+
+    //find after updating
+    const userAfterUpdate = await Users.findById(userId);
+
+    // return the user object to response without the password
+    const result = {
+      name: userAfterUpdate.name,
+      email: userAfterUpdate.email,
+      currency: userAfterUpdate.currency,
+      _id: userAfterUpdate._id,
+      gender: userAfterUpdate.gender,
     };
     //login successfully
     res.status(200).json({
