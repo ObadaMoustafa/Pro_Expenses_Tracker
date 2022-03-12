@@ -3,6 +3,7 @@ import EditCurrencyForm from "../../components/forms/EditCurrencyForm";
 import EditEmailForm from "../../components/forms/EditEmailForm";
 import EditNameForm from "../../components/forms/EditNameForm";
 import { userContext } from "../../context/userContext";
+import FieldsToEdit from "./conponents/FieldsToEdit";
 
 function Profile() {
   //write code here
@@ -62,32 +63,36 @@ function Profile() {
   return (
     <>
       <h2>Personal info</h2>
-      <div className="userField">
-        <h3>
-          Name: <span>{name}</span>
-        </h3>
-        <i className="fas fa-edit" onClick={showEditNameForm}></i>
-        {shouldShowEditNameForm && (
-          <EditNameForm shouldShowFormFn={setShouldShowEditNameForm} />
-        )}
-      </div>
-      <div className="userField">
-        <h3>
-          Email: <span>{email}</span>
-        </h3>
-        <i className="fas fa-edit" onClick={showEditEmailForm}></i>
-        {shouldShowEditEmailForm && (
-          <EditEmailForm shouldShowFormFn={setShouldShowEditEmailForm} />
-        )}
-      </div>
-      <div className="userField">
-        <h3>
-          Currency symbol: <span>{currency}</span>
-        </h3>
-        <i className="fas fa-edit" onClick={showEditCurrencyForm}></i>
-        {shouldShowEditCurrencyForm && (
-          <EditCurrencyForm shouldShowFormFn={setShouldShowEditCurrencyForm} />
-        )}
+      <div className="user-field-container">
+        <FieldsToEdit
+          fieldName="Name"
+          fieldValue={name}
+          showEditFormFunc={showEditNameForm}
+          shouldShowForm={shouldShowEditNameForm}
+          EditForm={
+            <EditNameForm setShouldShowFormFn={setShouldShowEditNameForm} />
+          }
+        />
+        <FieldsToEdit
+          fieldName="Email"
+          fieldValue={email}
+          showEditFormFunc={showEditEmailForm}
+          shouldShowForm={shouldShowEditEmailForm}
+          EditForm={
+            <EditEmailForm setShouldShowFormFn={setShouldShowEditEmailForm} />
+          }
+        />
+        <FieldsToEdit
+          fieldName="Currency"
+          fieldValue={currency}
+          showEditFormFunc={showEditCurrencyForm}
+          shouldShowForm={shouldShowEditCurrencyForm}
+          EditForm={
+            <EditCurrencyForm
+              setShouldShowFormFn={setShouldShowEditCurrencyForm}
+            />
+          }
+        />
       </div>
     </>
   );

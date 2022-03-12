@@ -8,7 +8,7 @@ import useFetch from "../../hooks/useFetch";
 import LoadingOrError from "../loading_and_errors/LoadingOrError";
 import fetchOptions from "../../utils/fetchOptions";
 
-function EditEmailForm({ shouldShowFormFn }) {
+function EditEmailForm({ setShouldShowFormFn }) {
   const [newEmail, setNewEmail] = useState("");
   const { updateUser, currentUser } = useContext(userContext);
   const { performFetch, isLoading, error, cancelFetch } = useFetch(
@@ -16,7 +16,7 @@ function EditEmailForm({ shouldShowFormFn }) {
     res => {
       updateUser(res.result);
       setNewEmail("");
-      shouldShowFormFn(false);
+      setShouldShowFormFn(false);
     }
   );
 
@@ -53,6 +53,6 @@ function EditEmailForm({ shouldShowFormFn }) {
 }
 
 EditEmailForm.propTypes = {
-  shouldShowFormFn: propTypes.func,
+  setShouldShowFormFn: propTypes.func,
 };
 export default EditEmailForm;

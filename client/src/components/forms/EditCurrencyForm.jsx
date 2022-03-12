@@ -8,7 +8,7 @@ import useFetch from "../../hooks/useFetch";
 import LoadingOrError from "../loading_and_errors/LoadingOrError";
 import fetchOptions from "../../utils/fetchOptions";
 
-function EditCurrencyForm({ shouldShowFormFn }) {
+function EditCurrencyForm({ setShouldShowFormFn }) {
   const [newCurrency, setNewCurrency] = useState("");
   const { updateUser, currentUser } = useContext(userContext);
   const { performFetch, isLoading, error, cancelFetch } = useFetch(
@@ -16,7 +16,7 @@ function EditCurrencyForm({ shouldShowFormFn }) {
     res => {
       updateUser(res.result);
       setNewCurrency("");
-      shouldShowFormFn(false);
+      setShouldShowFormFn(false);
     }
   );
 
@@ -51,6 +51,6 @@ function EditCurrencyForm({ shouldShowFormFn }) {
   );
 }
 EditCurrencyForm.propTypes = {
-  shouldShowFormFn: propTypes.func,
+  setShouldShowFormFn: propTypes.func,
 };
 export default EditCurrencyForm;
