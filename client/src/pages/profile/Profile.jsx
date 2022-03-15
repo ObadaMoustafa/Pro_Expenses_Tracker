@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import EditCurrencyForm from "../../components/forms/EditCurrencyForm";
 import EditEmailForm from "../../components/forms/EditEmailForm";
 import EditNameForm from "../../components/forms/EditNameForm";
+import EditPasswordForm from "../../components/forms/EditPasswordForm";
 import { userContext } from "../../context/userContext";
-import FieldsToEdit from "./conponents/FieldsToEdit";
+import FieldsToEdit from "./components/FieldsToEdit";
 
 function Profile() {
   //write code here
@@ -15,6 +16,8 @@ function Profile() {
   const [shouldShowEditEmailForm, setShouldShowEditEmailForm] = useState(false);
   const [shouldShowEditCurrencyForm, setShouldShowEditCurrencyForm] =
     useState(false);
+  const [shouldShowEditPasswordForm, setShouldShowEditPasswordForm] =
+    useState(false);
 
   // show forms functions
   // give an event listener to window to hide the forms when click outside the form
@@ -22,7 +25,8 @@ function Profile() {
     if (
       shouldShowEditNameForm ||
       shouldShowEditEmailForm ||
-      shouldShowEditCurrencyForm
+      shouldShowEditCurrencyForm ||
+      shouldShowEditPasswordForm
     )
       window.addEventListener("click", hideForms);
     return () => window.removeEventListener("click", hideForms);
@@ -30,12 +34,15 @@ function Profile() {
     shouldShowEditNameForm,
     shouldShowEditEmailForm,
     shouldShowEditCurrencyForm,
+    shouldShowEditPasswordForm,
   ]);
 
   function hideForms() {
     setShouldShowEditNameForm(false);
     setShouldShowEditEmailForm(false);
     setShouldShowEditCurrencyForm(false);
+    setShouldShowEditPasswordForm(false);
+
     console.log("window clicked");
   }
 
@@ -44,6 +51,7 @@ function Profile() {
     setShouldShowEditNameForm(prev => !prev);
     setShouldShowEditEmailForm(false);
     setShouldShowEditCurrencyForm(false);
+    setShouldShowEditPasswordForm(false);
   }
 
   function showEditEmailForm(e) {
@@ -51,6 +59,7 @@ function Profile() {
     setShouldShowEditNameForm(false);
     setShouldShowEditEmailForm(prev => !prev);
     setShouldShowEditCurrencyForm(false);
+    setShouldShowEditPasswordForm(false);
   }
 
   function showEditCurrencyForm(e) {
@@ -58,6 +67,15 @@ function Profile() {
     setShouldShowEditNameForm(false);
     setShouldShowEditEmailForm(false);
     setShouldShowEditCurrencyForm(prev => !prev);
+    setShouldShowEditPasswordForm(false);
+  }
+
+  function showEditPasswordForm(e) {
+    e.stopPropagation();
+    setShouldShowEditNameForm(false);
+    setShouldShowEditEmailForm(false);
+    setShouldShowEditCurrencyForm(false);
+    setShouldShowEditPasswordForm(prev => !prev);
   }
 
   return (
@@ -90,6 +108,17 @@ function Profile() {
           EditForm={
             <EditCurrencyForm
               setShouldShowFormFn={setShouldShowEditCurrencyForm}
+            />
+          }
+        />
+        <FieldsToEdit
+          fieldName="Password"
+          fieldValue="#####"
+          showEditFormFunc={showEditPasswordForm}
+          shouldShowForm={shouldShowEditPasswordForm}
+          EditForm={
+            <EditPasswordForm
+              setShouldShowFormFn={setShouldShowEditPasswordForm}
             />
           }
         />

@@ -226,3 +226,50 @@ export const changeCurrency = async (req, res) => {
     });
   }
 };
+
+export const changePassword = async (req, res) => {
+  const { userId, oldPassword, newPassword, confirmNewPassword } = req.body;
+  try {
+    // check if the old password is right or throw an error
+    const userObject = await Users.findByIdAndUpdate(userId);
+    const currentPassword = userObject.password;
+    const isCorrectPassword = bcrypt.compareSync(oldPassword, currentPassword);
+    if (!isCorrectPassword)
+      throw new Error(
+        "Old password is wrong .. please make sure you wrote it right or turn off the CAPS LOCK"
+      );
+
+    // throw error if the new password is the same as old one
+    if (newPassword === oldPassword)
+      throw new Error("(New password) should be different from the old one");
+    // check if the new password matches the confirmation or throw an error
+    if (newPassword !== confirmNewPassword)
+      throw new Error(
+        "(New password) and (Confirm new password) fields are not match"
+      );
+
+    // if everything is right hash the password and update it
+    const hashNewPassword = bcrypt.hashSync(newPassword, 10);
+    userObject.password = hashNewPassword;
+    await userObject.save();
+
+    // return the user object to response without the password
+    const result = {
+      name: userObject.name,
+      email: userObject.email,
+      currency: userObject.currency,
+      _id: userObject._id,
+      gender: userObject.gender,
+    };
+    //login successfully
+    res.status(200).json({
+      success: true,
+      result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      msg: `Error: ${error.message}`,
+    });
+  }
+};
