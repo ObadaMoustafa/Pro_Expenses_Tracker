@@ -21,6 +21,7 @@ function FieldsToEdit({
           onClick={showEditFormFunc}
           title={`Edit ${fieldName}`}></i>
       </div>
+      {/* EditForm prop type is expected to be a component of edit form for a specific field */}
       <div className="user-field-form">{shouldShowForm && EditForm}</div>
     </div>
   );
