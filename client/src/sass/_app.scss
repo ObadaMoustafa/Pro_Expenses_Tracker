@@ -22,3 +22,15 @@
 nav .dropdown-list .show-menu {
   height: 250px;
 }
+
+.nav-user-menu-icon {
+  display: none;
+}
+
+@media only screen and (max-width: $media-screen-width) {
+  .nav-user-menu-icon {
+    display: block;
+    color: white;
+    margin-right: 10px;
+  }
+}
