@@ -84,6 +84,18 @@ nav .dropdown-list .show-menu {
   height: 250px;
 }
 
+.nav-user-menu-icon {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .nav-user-menu-icon {
+    display: block;
+    color: white;
+    margin-right: 10px;
+  }
+}
+
 .expenses-transactions-container {
   width: 100%;
 }

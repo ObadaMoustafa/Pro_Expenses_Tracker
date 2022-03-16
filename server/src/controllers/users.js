@@ -134,6 +134,7 @@ export const changeName = async (req, res) => {
     });
   }
 };
+
 export const changeEmail = async (req, res) => {
   const { userId, newEmail } = req.body;
   try {

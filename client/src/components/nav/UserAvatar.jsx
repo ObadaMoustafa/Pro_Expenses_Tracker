@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { userContext } from "../../context/userContext";
 import maleAvatar from "../../images/male-avatar.png";
 import femaleAvatar from "../../images/female-avatar.png";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 function UserAvatar() {
   //write code here
   const { currentUser, logout } = useContext(userContext);
@@ -33,6 +33,11 @@ function UserAvatar() {
         <div className="nav-user-avatar">
           <img src={isMale ? maleAvatar : femaleAvatar} alt="user avatar" />
         </div>
+        {isMenuShow ? (
+          <i className="fas fa-times-circle nav-user-menu-icon"></i>
+        ) : (
+          <i className="fas fa-bars nav-user-menu-icon"></i>
+        )}
       </div>
       <div className={`dropdown-list-menu ${menuClass}`}>
         <NavLink to="profile" className="dropdown-list-menu-item">
