@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { userContext } from "../../context/userContext";
 import maleAvatar from "../../images/male-avatar.png";
 import femaleAvatar from "../../images/female-avatar.png";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 function UserAvatar() {
   //write code here
   const { currentUser, logout } = useContext(userContext);

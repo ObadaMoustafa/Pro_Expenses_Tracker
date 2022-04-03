@@ -81,6 +81,7 @@ function AddExpensesForm({ type }) {
           type="date"
           value={date}
           setValue={setDate}
+          max={format(new Date(), "yyyy-MM-dd")}
         />
         <Input
           type="number"

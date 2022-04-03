@@ -58,12 +58,14 @@ function FilterByDateForm({ type }) {
           label="From Date"
           value={fromDate}
           setValue={setFromDate}
+          max={format(new Date(), "yyyy-MM-dd")}
         />
         <Input
           type="date"
           label="To Date"
           value={toDate}
           setValue={setToDate}
+          max={format(new Date(), "yyyy-MM-dd")}
         />
         <PrimaryButton
           text="Filter"

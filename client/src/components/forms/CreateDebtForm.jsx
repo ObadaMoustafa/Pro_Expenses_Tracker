@@ -64,6 +64,7 @@ function CreateDebtForm() {
           type="date"
           value={startDate}
           setValue={setStartDate}
+          max={format(new Date(), "yyyy-MM-dd")}
         />
         <Input
           label="Amount"
@@ -77,6 +78,7 @@ function CreateDebtForm() {
           type="date"
           value={deadLineDate}
           setValue={setDeadLineDate}
+          min={startDate}
         />
         <PrimaryButton text="Create" width="50%" />
       </Form>
