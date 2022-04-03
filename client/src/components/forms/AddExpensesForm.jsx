@@ -1,15 +1,37 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useReducer, useEffect } from "react";
 import PropTypes from "prop-types";
 import Form from "./Form";
 import Input from "./Input";
 import { expensesContext } from "../../context/expensesContext";
-import useFetch from "../../hooks/useFetch";
 import { userContext } from "../../context/userContext";
-import PrimaryButton from "../buttons/PrimaryButton";
-import fetchOptions from "../../utils/fetchOptions";
-import LoadingOrError from "../loading_and_errors/LoadingOrError";
 import { format } from "date-fns";
+import useFetch from "../../hooks/useFetch";
+import fetchOptions from "../../utils/fetchOptions";
+import PrimaryButton from "../buttons/PrimaryButton";
+import expensesCategories from "../../data/expenses-categories.json";
+import incomeCategories from "../../data/income-categories.json";
+import SelectInput from "./SelectInput";
+import LoadingOrError from "../loading_and_errors/LoadingOrError";
 
+//put all categories for json file an array
+const expensesCategoriesOnly = expensesCategories.map(
+  expensesCategory => expensesCategory.category
+);
+
+// for useReducer
+const initialState = [];
+const reducer = (state, action) => {
+  if (action.payload !== "none") {
+    switch (action.type) {
+      case "expenses":
+        return expensesCategories.find(
+          expensesCategory => expensesCategory.category === action.payload
+        ).subcategories;
+      default:
+        return state;
+    }
+  }
+};
 function AddExpensesForm({ type }) {
   //write code here
   const { setUserExpenses, setExpensesArray, setIncomeArray } =
@@ -18,6 +40,11 @@ function AddExpensesForm({ type }) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd"));
+  const [category, setCategory] = useState("none");
+  const [subcategory, setSubcategory] = useState("none");
+  // this is to set the subcategories list for select input.
+  const [subcategories, dispatch] = useReducer(reducer, initialState);
+
   const apiUrl =
     type === "expenses" ? "expenses/addExpenses" : "expenses/addIncome";
   const { isLoading, error, performFetch } = useFetch(
@@ -41,6 +68,11 @@ function AddExpensesForm({ type }) {
     }
   );
 
+  // dispatch when the user select the category to show subcategories list in select input.
+  useEffect(() => {
+    dispatch({ type: type, payload: category });
+  }, [category]);
+
   function clearFields() {
     setTitle("");
     setAmount("");
@@ -57,6 +89,7 @@ function AddExpensesForm({ type }) {
 
     performFetch(fetchOptions("PUT", reqBody));
   }
+
   return (
     <>
       <LoadingOrError
@@ -83,6 +116,22 @@ function AddExpensesForm({ type }) {
           setValue={setDate}
           max={format(new Date(), "yyyy-MM-dd")}
         />
+        <SelectInput
+          label="Category"
+          options={
+            type === "expenses" ? expensesCategoriesOnly : incomeCategories
+          }
+          value={category}
+          setValue={setCategory}
+        />
+        {type === "expenses" && (
+          <SelectInput
+            label="subcategory"
+            options={subcategories}
+            value={subcategory}
+            setValue={setSubcategory}
+          />
+        )}
         <Input
           type="number"
           label="Amount"
