@@ -65,7 +65,13 @@ function PayDebtsForm() {
               value={debtId}
               setValue={setDebtId}
             />
-            <Input label="Date" type="date" value={date} setValue={setDate} />
+            <Input
+              label="Date"
+              type="date"
+              value={date}
+              setValue={setDate}
+              max={format(new Date(), "yyyy-MM-dd")}
+            />
             <Input
               label="Amount"
               type="number"

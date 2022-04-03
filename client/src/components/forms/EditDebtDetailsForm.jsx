@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import React, { useContext, useEffect, useState } from "react";
 import { debtsContext } from "../../context/debtsContext";
 import { userContext } from "../../context/userContext";
@@ -59,6 +60,7 @@ function EditDebtDetailsForm({ setHideForm, debtObject }) {
             type="date"
             value={startDate}
             setValue={setStartDate}
+            max={format(new Date(), "yyyy-MM-dd")}
           />
           <Input
             label="Amount"
@@ -71,6 +73,7 @@ function EditDebtDetailsForm({ setHideForm, debtObject }) {
             type="date"
             value={deadLineDate}
             setValue={setDeadLineDate}
+            min={startDate}
           />
           <PrimaryButton text="Save" width="150px" />
           <button onClick={hideForm} className="close-form-btn" type="button">
