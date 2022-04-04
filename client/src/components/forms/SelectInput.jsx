@@ -19,7 +19,8 @@ function SelectInput({
         value={value}
         onChange={e => setValue(e.target.value)}
         className="input-field"
-        style={{ color: value === "none" && "lightgray" }}>
+        style={{ color: value === "none" && "lightgray" }}
+        required>
         <option value="none" disabled style={{ color: "gray" }}>
           Select the right option
         </option>

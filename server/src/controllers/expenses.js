@@ -20,18 +20,80 @@ export const getUserExpenses = async (req, res) => {
 export const addExpenses = async (req, res) => {
   try {
     const { userId } = req.params;
-    const { amount } = req.body;
+    const { category, subcategory, title, date, amount } = req.body;
 
-    if (amount <= 0) throw new Error("Expenses amount can't be <= 0");
+    if (category === "none" || subcategory === "none")
+      throw new Error("Category and subcategory are required");
+    if (amount <= 0) throw new Error("Expenses amount can't be ZERO or LESS");
 
     const oldExpensesObject = await Expenses.findOne({ userId });
-    await oldExpensesObject.expenses.push(req.body);
+    // CHECK if the category and subcategory exist
+    const { expenses } = oldExpensesObject;
+    const categoryExists = expenses.find(
+      exCategory => exCategory.category === category
+    );
+    if (!categoryExists) {
+      // if category doesn't exist, create it
+      const newExpenses = {
+        category: category,
+        subcategory: [
+          {
+            title: subcategory,
+            expenses: [
+              {
+                title: title,
+                date: date,
+                amount: amount,
+              },
+            ],
+          },
+        ],
+      };
+      expenses.push(newExpenses);
+    } else {
+      // if category exists, check if subcategory exists
+      const subcategoryExists = categoryExists.subcategory.find(
+        exSubcategory => exSubcategory.title === subcategory
+      );
+      if (!subcategoryExists) {
+        // if subcategory doesn't exist, create it and add the expense
+        const newExpenses = {
+          title: title,
+          date: date,
+          amount: amount,
+        };
+        categoryExists.subcategory.push({
+          title: subcategory,
+          expenses: [newExpenses],
+        });
+      } else {
+        // if subcategory exists, add the expense
+        const newExpenses = {
+          title: title,
+          date: date,
+          amount: amount,
+        };
+        subcategoryExists.expenses.push(newExpenses);
+      }
+    }
+
+    // update the expenses object
     await oldExpensesObject.save();
-    const _id = await oldExpensesObject.expenses[
-      oldExpensesObject.expenses.length - 1
-    ]._id;
+
+    // get the id of the expense
+    const categoryObject = oldExpensesObject.expenses.find(
+      exCategory => exCategory.category === category
+    );
+    const subcategoryObject = categoryObject.subcategory.find(
+      exSubcategory => exSubcategory.title === subcategory
+    );
+    const expenseObject =
+      subcategoryObject.expenses[subcategoryObject.expenses.length - 1];
+    const _id = expenseObject._id;
+
     const allExpenses = await produceExpensesObject(userId);
 
+    // send the response
     res.status(200).json({
       success: true,
       result: allExpenses,
@@ -45,6 +107,7 @@ export const addExpenses = async (req, res) => {
     });
   }
 };
+
 export const deleteExpenses = async (req, res) => {
   try {
     const { userId, expensesId } = req.params;
@@ -75,14 +138,50 @@ export const addIncome = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const { amount } = req.body;
-    if (amount <= 0) throw new Error("Income amount can't be <= 0");
+    const { category, title, date, amount } = req.body;
+    if (category === "none") throw new Error("Category is required");
+    if (amount <= 0) throw new Error("Income amount can't be ZERO or LESS");
 
     const oldExpensesObject = await Expenses.findOne({ userId });
-    await oldExpensesObject.income.push(req.body);
+    const { income } = oldExpensesObject;
+
+    // CHECK if the category exists
+    const categoryExists = income.find(
+      exCategory => exCategory.category === category
+    );
+    if (!categoryExists) {
+      // if category doesn't exist, create it
+      const newIncome = {
+        category: category,
+        income: [
+          {
+            date: date,
+            amount: amount,
+            title: title,
+          },
+        ],
+      };
+      income.push(newIncome);
+    } else {
+      // if category exists, add the income
+      const newIncome = {
+        date: date,
+        amount: amount,
+        title: title,
+      };
+      categoryExists.income.push(newIncome);
+    }
+
+    // update the expenses object
     await oldExpensesObject.save();
-    const _id =
-      oldExpensesObject.income[oldExpensesObject.income.length - 1]._id;
+
+    // get the id of the expense
+    const categoryObject = oldExpensesObject.income.find(
+      inCategory => inCategory.category === category
+    );
+    const incomeObject =
+      categoryObject.income[categoryObject.income.length - 1];
+    const _id = incomeObject._id;
 
     const allExpenses = await produceExpensesObject(userId);
 

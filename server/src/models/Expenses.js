@@ -5,22 +5,37 @@ const expensesSchema = new Schema({
   expenses: {
     type: [
       {
-        date: String,
-        amount: Number,
-        title: String,
+        category: String,
+        subcategory: [
+          {
+            title: String,
+            expenses: [
+              {
+                title: String,
+                date: String,
+                amount: Number,
+              },
+            ],
+          },
+        ],
       },
     ],
-    default: null,
+    default: [],
   },
   income: {
     type: [
       {
-        date: String,
-        amount: Number,
-        title: String,
+        category: String,
+        income: [
+          {
+            date: String,
+            amount: Number,
+            title: String,
+          },
+        ],
       },
     ],
-    default: null,
+    default: [],
   },
 });
 

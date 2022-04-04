@@ -81,40 +81,25 @@ function AddExpensesForm({ type }) {
 
   function addExpenses(e) {
     e.preventDefault();
-    const reqBody = {
-      title,
-      date,
-      amount,
-    };
+    let reqBody;
+    if (type === "expenses") {
+      reqBody = { title, date, amount, category, subcategory };
+    } else {
+      reqBody = { title, date, amount, category };
+    }
 
     performFetch(fetchOptions("PUT", reqBody));
   }
 
   return (
     <>
-      <LoadingOrError
-        isLoading={isLoading}
-        isErr={error ? true : false}
-        errMsg={error}
-      />
       <Form
         onSubmit={addExpenses}
         formHeader={type === "expenses" ? "Add Expenses" : "Add Income"}>
-        <Input
-          label="Title"
-          name="title"
-          placeholder={`e.g. ${type === "expenses" ? "Grocery" : "Salary"}`}
-          value={title}
-          setValue={setTitle}
-          maxLength="30"
-        />
-        <Input
-          label="Date"
-          name="date"
-          type="date"
-          value={date}
-          setValue={setDate}
-          max={format(new Date(), "yyyy-MM-dd")}
+        <LoadingOrError
+          isLoading={isLoading}
+          isErr={error ? true : false}
+          errMsg={error}
         />
         <SelectInput
           label="Category"
@@ -132,6 +117,25 @@ function AddExpensesForm({ type }) {
             setValue={setSubcategory}
           />
         )}
+        <Input
+          label="Title"
+          name="title"
+          placeholder={`e.g. ${
+            type === "expenses" ? "Supermarket name" : "Company name"
+          }`}
+          value={title}
+          setValue={setTitle}
+          maxLength="30"
+        />
+        <Input
+          label="Date"
+          name="date"
+          type="date"
+          value={date}
+          setValue={setDate}
+          max={format(new Date(), "yyyy-MM-dd")}
+        />
+
         <Input
           type="number"
           label="Amount"
