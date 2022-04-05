@@ -71,6 +71,7 @@ function AddExpensesForm({ type }) {
   // dispatch when the user select the category to show subcategories list in select input.
   useEffect(() => {
     dispatch({ type: type, payload: category });
+    setSubcategory("none");
   }, [category]);
 
   function clearFields() {

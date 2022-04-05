@@ -21,6 +21,7 @@ export const addExpenses = async (req, res) => {
   try {
     const { userId } = req.params;
     const { category, subcategory, title, date, amount } = req.body;
+    let _id;
 
     if (category === "none" || subcategory === "none")
       throw new Error("Category and subcategory are required");
@@ -33,63 +34,64 @@ export const addExpenses = async (req, res) => {
       exCategory => exCategory.category === category
     );
     if (!categoryExists) {
-      // if category doesn't exist, create it
-      const newExpenses = {
+      // if category doesn't exist, create it and sort categories
+      const newCategoryWithInfo = {
         category: category,
         subcategory: [
           {
             title: subcategory,
             expenses: [
               {
-                title: title,
-                date: date,
-                amount: amount,
+                title,
+                date,
+                amount,
               },
             ],
           },
         ],
       };
-      expenses.push(newExpenses);
+      expenses.push(newCategoryWithInfo);
+      const lastIndex = expenses.length - 1;
+      _id = expenses[lastIndex].subcategory[0].expenses[0]._id.toString();
+      expenses.sort((a, b) => a.category.localeCompare(b.category));
     } else {
       // if category exists, check if subcategory exists
       const subcategoryExists = categoryExists.subcategory.find(
         exSubcategory => exSubcategory.title === subcategory
       );
       if (!subcategoryExists) {
-        // if subcategory doesn't exist, create it and add the expense
-        const newExpenses = {
-          title: title,
-          date: date,
-          amount: amount,
-        };
-        categoryExists.subcategory.push({
+        // if subcategory doesn't exist, create and sort it.
+        const newSubcategoryWithInfo = {
           title: subcategory,
-          expenses: [newExpenses],
-        });
-      } else {
-        // if subcategory exists, add the expense
-        const newExpenses = {
-          title: title,
-          date: date,
-          amount: amount,
+          expenses: [{ title, date, amount }],
         };
+
+        categoryExists.subcategory.push(newSubcategoryWithInfo);
+        // get the id of the last expense
+        const lastIndex = categoryExists.subcategory.length - 1;
+        _id = categoryExists.subcategory[lastIndex].expenses[0]._id.toString();
+
+        // sort subcategories.
+        categoryExists.subcategory.sort((a, b) =>
+          a.title.localeCompare(b.title)
+        );
+      } else {
+        // if subcategory exists => add the expense and sort it.
+        const newExpenses = {
+          title,
+          date,
+          amount,
+        };
+
         subcategoryExists.expenses.push(newExpenses);
+        const lastIndex = subcategoryExists.expenses.length - 1;
+        _id = subcategoryExists.expenses[lastIndex]._id.toString();
+        subcategoryExists.expenses.sort((a, b) => b.date.localeCompare(a.date));
       }
     }
 
-    // update the expenses object
+    // Save the expenses object if everything is ok
     await oldExpensesObject.save();
-
-    // get the id of the expense
-    const categoryObject = oldExpensesObject.expenses.find(
-      exCategory => exCategory.category === category
-    );
-    const subcategoryObject = categoryObject.subcategory.find(
-      exSubcategory => exSubcategory.title === subcategory
-    );
-    const expenseObject =
-      subcategoryObject.expenses[subcategoryObject.expenses.length - 1];
-    const _id = expenseObject._id;
 
     const allExpenses = await produceExpensesObject(userId);
 
@@ -137,6 +139,7 @@ export const deleteExpenses = async (req, res) => {
 export const addIncome = async (req, res) => {
   try {
     const { userId } = req.params;
+    let _id;
 
     const { category, title, date, amount } = req.body;
     if (category === "none") throw new Error("Category is required");
@@ -162,27 +165,24 @@ export const addIncome = async (req, res) => {
         ],
       };
       income.push(newIncome);
+      _id = income[income.length - 1].income[0]._id.toString();
+      income.sort((a, b) => a.category.localeCompare(b.category));
     } else {
-      // if category exists, add the income
+      // if category exists => add the income and sort it.
       const newIncome = {
         date: date,
         amount: amount,
         title: title,
       };
       categoryExists.income.push(newIncome);
+      const lastIndex = categoryExists.income.length - 1;
+      _id = categoryExists.income[lastIndex]._id.toString();
+      categoryExists.income.sort((a, b) => b.date.localeCompare(a.date));
     }
 
     // update the expenses object
     await oldExpensesObject.save();
-
-    // get the id of the expense
-    const categoryObject = oldExpensesObject.income.find(
-      inCategory => inCategory.category === category
-    );
-    const incomeObject =
-      categoryObject.income[categoryObject.income.length - 1];
-    const _id = incomeObject._id;
-
+    console.log(_id);
     const allExpenses = await produceExpensesObject(userId);
 
     res.status(200).json({

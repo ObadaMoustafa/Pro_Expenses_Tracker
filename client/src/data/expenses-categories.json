@@ -20,6 +20,10 @@
       "Parking fees",
       "Repairs",
       "Registration and DMV Fees",
+      "train",
+      "Bus",
+      "Metro",
+      "public transportation",
       "Others"
     ]
   },
