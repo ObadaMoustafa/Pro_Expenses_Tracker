@@ -2,7 +2,7 @@
 export function getAllExpensesTransactions(originalExpensesArray) {
   let expensesTransactions = [];
   originalExpensesArray.forEach(category =>
-    category.subcategory.forEach(subcategory =>
+    category.subcategories.forEach(subcategory =>
       expensesTransactions.push(...subcategory.expenses)
     )
   );
@@ -22,7 +22,7 @@ export function getAllIncomeTransactions(originalIncomeArray) {
 export function sumExpensesValues(originalExpensesArray) {
   let allExpenses = [];
   originalExpensesArray.forEach(category =>
-    category.subcategory.forEach(subcategory =>
+    category.subcategories.forEach(subcategory =>
       allExpenses.push(...subcategory.expenses)
     )
   );

@@ -6,7 +6,7 @@ const expensesSchema = new Schema({
     type: [
       {
         category: String,
-        subcategory: [
+        subcategories: [
           {
             title: String,
             expenses: [

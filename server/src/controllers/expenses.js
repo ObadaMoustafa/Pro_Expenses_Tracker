@@ -37,7 +37,7 @@ export const addExpenses = async (req, res) => {
       // if category doesn't exist, create it and sort categories
       const newCategoryWithInfo = {
         category: category,
-        subcategory: [
+        subcategories: [
           {
             title: subcategory,
             expenses: [
@@ -52,11 +52,11 @@ export const addExpenses = async (req, res) => {
       };
       expenses.push(newCategoryWithInfo);
       const lastIndex = expenses.length - 1;
-      _id = expenses[lastIndex].subcategory[0].expenses[0]._id.toString();
+      _id = expenses[lastIndex].subcategories[0].expenses[0]._id.toString();
       expenses.sort((a, b) => a.category.localeCompare(b.category));
     } else {
       // if category exists, check if subcategory exists
-      const subcategoryExists = categoryExists.subcategory.find(
+      const subcategoryExists = categoryExists.subcategories.find(
         exSubcategory => exSubcategory.title === subcategory
       );
       if (!subcategoryExists) {
@@ -66,13 +66,14 @@ export const addExpenses = async (req, res) => {
           expenses: [{ title, date, amount }],
         };
 
-        categoryExists.subcategory.push(newSubcategoryWithInfo);
+        categoryExists.subcategories.push(newSubcategoryWithInfo);
         // get the id of the last expense
-        const lastIndex = categoryExists.subcategory.length - 1;
-        _id = categoryExists.subcategory[lastIndex].expenses[0]._id.toString();
+        const lastIndex = categoryExists.subcategories.length - 1;
+        _id =
+          categoryExists.subcategories[lastIndex].expenses[0]._id.toString();
 
         // sort subcategories.
-        categoryExists.subcategory.sort((a, b) =>
+        categoryExists.subcategories.sort((a, b) =>
           a.title.localeCompare(b.title)
         );
       } else {
@@ -182,7 +183,6 @@ export const addIncome = async (req, res) => {
 
     // update the expenses object
     await oldExpensesObject.save();
-    console.log(_id);
     const allExpenses = await produceExpensesObject(userId);
 
     res.status(200).json({

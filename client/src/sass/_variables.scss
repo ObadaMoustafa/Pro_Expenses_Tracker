@@ -8,3 +8,15 @@ $border-radius: 5px;
 %border {
   border: 1px solid red;
 }
+
+%card {
+  background-color: darken($color: $third-color, $amount: 5);
+  border-radius: $border-radius;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 10px;
+}

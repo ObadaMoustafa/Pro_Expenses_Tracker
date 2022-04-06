@@ -1,3 +1,23 @@
+.debt-card, .category-card-container {
+  background-color: #e6b000;
+  border-radius: 5px;
+  padding: 10px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  row-gap: 10px;
+}
+
 .add-expenses-container {
   width: 100%;
   -webkit-box-orient: horizontal;
@@ -19,6 +39,22 @@
 
 .add-expenses-button-button .round-button {
   font-size: 45pt;
+}
+
+.delete-msg-buttons {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -222,23 +258,6 @@ nav .dropdown-list .show-menu {
       -ms-flex-align: center;
           align-items: center;
   row-gap: 20px;
-}
-
-.debt-card {
-  background-color: #e6b000;
-  border-radius: 5px;
-  padding: 10px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  row-gap: 10px;
 }
 
 .debt-card-header {
@@ -462,6 +481,78 @@ nav .dropdown-list .show-menu {
   border-radius: 5px;
   margin-top: 10px;
   color: black;
+}
+
+.category-card-container {
+  position: relative;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.category-card-container .category-card-icons {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  z-index: 1;
+}
+
+.category-card {
+  /* for every details tag or subcategory */
+  /* for every summary */
+  /* here for subcategory */
+}
+
+.category-card details {
+  margin-bottom: 10px;
+}
+
+.category-card summary {
+  text-align: left;
+  cursor: pointer;
+}
+
+.category-card-title {
+  font-weight: 500;
+}
+
+.category-card-title span {
+  font-style: italic;
+  font-weight: 500;
+  color: red;
+}
+
+.category-card-sub-title {
+  font-weight: 500;
+  color: #001d3d;
+  text-align: left;
+  margin-top: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.category-card-sub-title span {
+  font-style: italic;
+  font-weight: 900;
+  color: #240475;
+}
+
+.transactions-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 5px;
+  margin-top: 10px;
 }
 
 h2,

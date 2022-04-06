@@ -8,7 +8,7 @@ import LoadingOrError from "../../../components/loading_and_errors/LoadingOrErro
 import fetchOptions from "../../../utils/fetchOptions";
 import EditDebtDetailsForm from "../../../components/forms/EditDebtDetailsForm";
 import DebtCardDetails from "./DebtCardDetails";
-import DeleteDebtConfirmationForm from "../../../components/forms/DeleteDebtConfirmationForm";
+import DeleteConfirmationForm from "../../../components/forms/DeleteConfirmationForm";
 
 function DebtCard({ debtObject }) {
   //write code here
@@ -85,9 +85,10 @@ function DebtCard({ debtObject }) {
         />
       )}
       {shouldShowDeleteConfirmation && (
-        <DeleteDebtConfirmationForm
+        <DeleteConfirmationForm
           deleteFunc={deleteDebtCard}
           setHideForm={setShouldShowDeleteConfirmation}
+          msg="Are you sure you want to delete this debt with all it's transactions? this will affect your balance calculation"
         />
       )}
     </>
