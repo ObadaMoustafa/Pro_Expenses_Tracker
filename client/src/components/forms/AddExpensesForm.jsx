@@ -54,17 +54,9 @@ function AddExpensesForm({ type }) {
       const { expenses, income, paidDebts } = res.result;
       setUserExpenses({ expenses, income, paidDebts });
 
-      // for adding the new transaction in the filtration mode.
-      if (type === "expenses")
-        setExpensesArray(prev => [
-          { title, date, amount: Number(amount), _id: res._id },
-          ...prev,
-        ]);
-      if (type === "income")
-        setIncomeArray(prev => [
-          { title, date, amount: Number(amount), _id: res._id },
-          ...prev,
-        ]);
+      // TODO for adding the new transaction in the filtration mode.
+      // if (type === "expenses") setExpensesArray(expenses);
+      // if (type === "income") setIncomeArray(income);
     }
   );
 
