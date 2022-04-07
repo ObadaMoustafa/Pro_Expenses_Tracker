@@ -2,9 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import ExpensesTransaction from "./ExpensesTransaction";
 
-function Subcategory({ title, expenses, type }) {
+function Subcategory({ title, expenses, type, categoryId, subcategoryId }) {
   //write code here
-
   return (
     <details className="category-card-sub" open>
       <summary className="category-card-sub-title">
@@ -19,6 +18,8 @@ function Subcategory({ title, expenses, type }) {
             date={expense.date}
             amount={expense.amount}
             transactionId={expense._id}
+            categoryId={categoryId}
+            subcategoryId={subcategoryId}
           />
         ))}
       </div>
@@ -30,5 +31,7 @@ Subcategory.propTypes = {
   title: PropTypes.string.isRequired,
   expenses: PropTypes.array.isRequired,
   type: PropTypes.oneOf(["expenses", "income"]).isRequired,
+  categoryId: PropTypes.string.isRequired,
+  subcategoryId: PropTypes.string.isRequired,
 };
 export default Subcategory;

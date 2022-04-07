@@ -75,6 +75,7 @@ export const ExpensesProvider = ({ children }) => {
     setIncomeArray(income);
   }
 
+  //^ gonna delete this function to control the filtration mode
   useMemo(() => {
     const { expenses, income } = userExpenses;
     updateExpensesArrays(expenses, income);

@@ -111,19 +111,73 @@ export const addExpenses = async (req, res) => {
   }
 };
 
+export const deleteExpensesCategory = async (req, res) => {
+  try {
+    const { userId, categoryId } = req.params;
+    const oldExpensesObject = await Expenses.findOne({ userId });
+    const { expenses } = oldExpensesObject;
+    const categoryExists = expenses.find(
+      exCategory => exCategory._id.toString() === categoryId
+    );
+    if (!categoryExists)
+      throw new Error(`Category id ${categoryId} doesn't exist`);
+    const index = expenses.indexOf(categoryExists);
+    expenses.splice(index, 1);
+    await oldExpensesObject.save();
+    const allExpenses = await produceExpensesObject(userId);
+    res.status(200).json({
+      success: true,
+      result: allExpenses,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};
+
 export const deleteExpenses = async (req, res) => {
   try {
-    const { userId, expensesId } = req.params;
+    const { userId } = req.params;
+    const { categoryId, subcategoryId, transactionId } = req.body;
 
     const oldExpensesObject = await Expenses.findOne({ userId });
-    const newExpensesObject = oldExpensesObject.expenses.filter(
-      singleExpenses => singleExpenses._id.toString() !== expensesId
-    );
-    oldExpensesObject.expenses = newExpensesObject;
+    const { expenses } = oldExpensesObject;
+    // track the expense to delete or give false if it doesn't exist
+    const categoryExists = expenses.find((category, categoryIndex) => {
+      if (category._id.toString() === categoryId) {
+        // when reached the category, check the subcategories
+        category.subcategories.find((subcategory, subcategoryIndex) => {
+          if (subcategory._id.toString() === subcategoryId) {
+            // when reached the subcategory, check the expenses
+            subcategory.expenses.find((transaction, transactionIndex) => {
+              if (transaction._id.toString() === transactionId) {
+                console.log("transaction", transaction);
+                console.log("transaction id", transaction._id);
+                console.log("transaction id", transactionId);
+                // delete the transaction
+                subcategory.expenses.splice(transactionIndex, 1);
+                // if the subcategory is empty, delete it
+                if (subcategory.expenses.length === 0)
+                  category.subcategories.splice(subcategoryIndex, 1);
+                // if the category is empty, delete it
+                if (category.subcategories.length === 0)
+                  expenses.splice(categoryIndex, 1);
+              }
+            });
+          }
+        });
+        return true;
+      }
+      return false;
+    });
+
+    if (!categoryExists)
+      throw new Error(`Category id ${categoryId} doesn't exist`);
     await oldExpensesObject.save();
-
     const allExpenses = await produceExpensesObject(userId);
-
     res.status(200).json({
       success: true,
       result: allExpenses,
