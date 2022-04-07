@@ -5,18 +5,30 @@ import {
   deleteExpenses,
   deleteExpensesCategory,
   deleteIncome,
+  deleteIncomeCategory,
   getUserExpenses,
 } from "../controllers/expenses.js";
 const expensesRouter = express.Router();
 
-expensesRouter.get("/getExpenses/:userId", getUserExpenses); //get expenses and income because they are in the same collection
-expensesRouter.put("/addExpenses/:userId", addExpenses); // update only expenses array in the Expenses collection
-expensesRouter.delete("/deleteExpenses/:userId", deleteExpenses); // update only expenses array in the Expenses collection
+//get expenses and income because they are in the same collection
+expensesRouter.get("/getExpenses/:userId", getUserExpenses);
+// add an expense transaction in the desired category and subcategory
+expensesRouter.put("/addExpenses/:userId", addExpenses);
+// delete an expense transaction from the desired category and subcategory
+expensesRouter.delete("/deleteExpenses/:userId", deleteExpenses);
+// delete the whole category
 expensesRouter.delete(
   "/deleteExpensesCategory/:userId/:categoryId",
   deleteExpensesCategory
-); // update only expenses array in the Expenses collection
-expensesRouter.put("/addIncome/:userId", addIncome); // update only expenses array in the Expenses collection
-expensesRouter.delete("/deleteIncome/:userId/:incomeId", deleteIncome); // update only expenses array in the Expenses collection
+);
+// add an income transaction in the desired category
+expensesRouter.put("/addIncome/:userId", addIncome);
+// delete the whole category
+expensesRouter.delete(
+  "/deleteIncomeCategory/:userId/:categoryId",
+  deleteIncomeCategory
+);
+// delete an income transaction from the desired category
+expensesRouter.delete("/deleteIncome/:userId", deleteIncome);
 
 export default expensesRouter;

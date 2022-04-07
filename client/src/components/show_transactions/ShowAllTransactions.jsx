@@ -23,10 +23,6 @@ function ShowAllTransactions({ type, headerTitle }) {
   if (type === "expenses") transactionArray = expensesArray;
   else if (type === "income") transactionArray = incomeArray;
 
-  useEffect(() => {
-    console.log("transactionArray", transactionArray);
-  }, []);
-
   const [shouldShowFilterForm, setShouldShowFilterForm] = useState(false);
   const [shouldShowAddForm, setShouldShowAddForm] = useState(false);
 

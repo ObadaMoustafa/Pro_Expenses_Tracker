@@ -116,13 +116,15 @@ export const deleteExpensesCategory = async (req, res) => {
     const { userId, categoryId } = req.params;
     const oldExpensesObject = await Expenses.findOne({ userId });
     const { expenses } = oldExpensesObject;
-    const categoryExists = expenses.find(
-      exCategory => exCategory._id.toString() === categoryId
-    );
-    if (!categoryExists)
+    let categoryIndex;
+    const categoryObject = expenses.find((exCategory, index) => {
+      const condition = exCategory._id.toString() === categoryId;
+      if (condition) categoryIndex = index;
+      return condition;
+    });
+    if (!categoryObject)
       throw new Error(`Category id ${categoryId} doesn't exist`);
-    const index = expenses.indexOf(categoryExists);
-    expenses.splice(index, 1);
+    expenses.splice(categoryIndex, 1);
     await oldExpensesObject.save();
     const allExpenses = await produceExpensesObject(userId);
     res.status(200).json({
@@ -145,37 +147,49 @@ export const deleteExpenses = async (req, res) => {
 
     const oldExpensesObject = await Expenses.findOne({ userId });
     const { expenses } = oldExpensesObject;
-    // track the expense to delete or give false if it doesn't exist
-    const categoryExists = expenses.find((category, categoryIndex) => {
-      if (category._id.toString() === categoryId) {
-        // when reached the category, check the subcategories
-        category.subcategories.find((subcategory, subcategoryIndex) => {
-          if (subcategory._id.toString() === subcategoryId) {
-            // when reached the subcategory, check the expenses
-            subcategory.expenses.find((transaction, transactionIndex) => {
-              if (transaction._id.toString() === transactionId) {
-                console.log("transaction", transaction);
-                console.log("transaction id", transaction._id);
-                console.log("transaction id", transactionId);
-                // delete the transaction
-                subcategory.expenses.splice(transactionIndex, 1);
-                // if the subcategory is empty, delete it
-                if (subcategory.expenses.length === 0)
-                  category.subcategories.splice(subcategoryIndex, 1);
-                // if the category is empty, delete it
-                if (category.subcategories.length === 0)
-                  expenses.splice(categoryIndex, 1);
-              }
-            });
-          }
-        });
-        return true;
-      }
-      return false;
-    });
+    // track the expense to delete
+    // find category > sub > expense > delete
+    let categoryIndex;
+    let subcategoryIndex;
+    let expenseIndex;
 
-    if (!categoryExists)
-      throw new Error(`Category id ${categoryId} doesn't exist`);
+    // 1- find and check
+    const categoryObject = expenses.find((category, index) => {
+      const condition = category._id.toString() === categoryId;
+      if (condition) categoryIndex = index;
+
+      return condition;
+    });
+    if (!categoryObject) throw new Error("Category is not exists");
+
+    const subcategoryObject = categoryObject.subcategories.find(
+      (subcategory, index) => {
+        const condition = subcategory._id.toString() === subcategoryId;
+        if (condition) subcategoryIndex = index;
+
+        return condition;
+      }
+    );
+    if (!subcategoryObject) throw new Error("Subcategory is not exists");
+    const expenseObject = subcategoryObject.expenses.find((expense, index) => {
+      const condition = expense._id.toString() === transactionId;
+      if (condition) expenseIndex = index;
+
+      return condition;
+    });
+    if (!expenseObject) throw new Error("This transaction is not Exists");
+
+    // 2- deletion
+    // delete transaction
+    subcategoryObject.expenses.splice(expenseIndex, 1);
+    // Delete subcategory if it's empty
+    if (subcategoryObject.expenses.length === 0)
+      categoryObject.subcategories.splice(subcategoryIndex, 1);
+
+    // Delete Category if it's empty
+    if (categoryObject.subcategories.length === 0)
+      expenses.splice(categoryIndex, 1);
+
     await oldExpensesObject.save();
     const allExpenses = await produceExpensesObject(userId);
     res.status(200).json({
@@ -204,10 +218,10 @@ export const addIncome = async (req, res) => {
     const { income } = oldExpensesObject;
 
     // CHECK if the category exists
-    const categoryExists = income.find(
+    const categoryObject = income.find(
       exCategory => exCategory.category === category
     );
-    if (!categoryExists) {
+    if (!categoryObject) {
       // if category doesn't exist, create it
       const newIncome = {
         category: category,
@@ -229,10 +243,10 @@ export const addIncome = async (req, res) => {
         amount: amount,
         title: title,
       };
-      categoryExists.income.push(newIncome);
-      const lastIndex = categoryExists.income.length - 1;
-      _id = categoryExists.income[lastIndex]._id.toString();
-      categoryExists.income.sort((a, b) => b.date.localeCompare(a.date));
+      categoryObject.income.push(newIncome);
+      const lastIndex = categoryObject.income.length - 1;
+      _id = categoryObject.income[lastIndex]._id.toString();
+      categoryObject.income.sort((a, b) => b.date.localeCompare(a.date));
     }
 
     // update the expenses object
@@ -253,16 +267,69 @@ export const addIncome = async (req, res) => {
   }
 };
 
-export const deleteIncome = async (req, res) => {
+export const deleteIncomeCategory = async (req, res) => {
   try {
-    const { userId, incomeId } = req.params;
+    const { userId, categoryId } = req.params;
 
     const oldExpensesObject = await Expenses.findOne({ userId });
-    const newExpensesObject = oldExpensesObject.income.filter(
-      singleExpenses => singleExpenses._id.toString() !== incomeId
-    );
-    oldExpensesObject.income = newExpensesObject;
+    const { income } = oldExpensesObject;
+    let categoryIndex;
+    const categoryObject = income.find((category, index) => {
+      const condition = category._id.toString() === categoryId;
+      if (condition) categoryIndex = index;
+      return condition;
+    });
+    if (!categoryObject) throw new Error("Category is not exists");
+    income.splice(categoryIndex, 1);
     await oldExpensesObject.save();
+
+    const allExpenses = await produceExpensesObject(userId);
+
+    res.status(200).json({
+      success: true,
+      result: allExpenses,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      success: false,
+      msg: error.message,
+    });
+  }
+};
+export const deleteIncome = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { categoryId, transactionId } = req.body;
+    const ExpensesObject = await Expenses.findOne({ userId });
+    const { income } = ExpensesObject;
+    // track the expense to delete
+    // find category > transaction > delete
+    let categoryIndex;
+    let transactionIndex;
+    const categoryObject = income.find((category, index) => {
+      const condition = category._id.toString() === categoryId;
+      if (condition) categoryIndex = index;
+      return condition;
+    });
+    if (!categoryObject) throw new Error("Category is not exists");
+
+    const transactionObject = categoryObject.income.find(
+      (transaction, index) => {
+        const condition = transaction._id.toString() === transactionId;
+        if (condition) transactionIndex = index;
+        return condition;
+      }
+    );
+    if (!transactionObject) throw new Error("Income Transaction is not exists");
+
+    // 2- deletion
+    // delete transaction
+    categoryObject.income.splice(transactionIndex, 1);
+    // Delete category if it's empty
+    if (categoryObject.income.length === 0) income.splice(categoryIndex, 1);
+
+    await ExpensesObject.save();
 
     const allExpenses = await produceExpensesObject(userId);
 

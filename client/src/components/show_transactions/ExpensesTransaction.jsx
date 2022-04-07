@@ -29,16 +29,15 @@ function ExpensesTransaction({
   if (type === "expenses")
     deleteApiPath = `/expenses/deleteExpenses/${currentUser._id}`;
   if (type === "income")
-    deleteApiPath = `/expenses/deleteIncome/${currentUser._id}/${transactionId}`;
+    deleteApiPath = `/expenses/deleteIncome/${currentUser._id}`;
 
   const { performFetch, cancelFetch, isLoading, error } = useFetch(
     deleteApiPath,
     async res => {
+      await setUserExpenses(res.result);
       if (type === "expenses") {
-        await setUserExpenses(res.result);
         //^ should do something to update the expenses array
       } else if (type === "income") {
-        await setUserExpenses(res.result);
         //^ should do something to update the expenses array
       }
     }
@@ -49,11 +48,19 @@ function ExpensesTransaction({
   }, [userExpenses, userDebts]);
 
   function deleteTransaction() {
-    const reqBody = {
-      categoryId,
-      subcategoryId,
-      transactionId,
-    };
+    let reqBody;
+    if (type === "expenses") {
+      reqBody = {
+        categoryId,
+        subcategoryId,
+        transactionId,
+      };
+    } else {
+      reqBody = {
+        categoryId,
+        transactionId,
+      };
+    }
     performFetch(fetchOptions("DELETE", reqBody));
   }
   return (

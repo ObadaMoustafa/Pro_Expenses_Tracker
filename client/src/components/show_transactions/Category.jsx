@@ -14,12 +14,16 @@ function Category({ categoryTitle, options = [], categoryId, type }) {
   const [isDeleteMsg, setIsDeleteMsg] = useState(false);
   const { currentUser } = useContext(userContext);
   const { userExpenses, setUserExpenses } = useContext(expensesContext);
+  const endPoint =
+    type === "expenses"
+      ? `/expenses/deleteExpensesCategory/${currentUser._id}/${categoryId}`
+      : `/expenses/deleteIncomeCategory/${currentUser._id}/${categoryId}`;
   const { performFetch, isLoading, error, cancelFetch } = useFetch(
-    `/expenses/deleteExpensesCategory/${currentUser._id}/${categoryId}`,
+    endPoint,
     res => setUserExpenses(res.result)
   );
   useEffect(() => {
-    return cancelFetch();
+    return () => cancelFetch();
   }, [userExpenses]);
 
   function deleteCategory(e) {
@@ -64,14 +68,14 @@ function Category({ categoryTitle, options = [], categoryId, type }) {
             ))
           ) : (
             <div className="transactions-container">
-              {options.map(income => (
+              {options.map(transaction => (
                 <ExpensesTransaction
-                  key={income._id}
+                  key={transaction._id}
                   type={type}
-                  title={income.title}
-                  date={income.date}
-                  amount={income.amount}
-                  transactionId={income._id}
+                  title={transaction.title}
+                  date={transaction.date}
+                  amount={transaction.amount}
+                  transactionId={transaction._id}
                   categoryId={categoryId}
                 />
               ))}
