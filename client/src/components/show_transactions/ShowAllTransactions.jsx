@@ -6,6 +6,7 @@ import AddExpensesForm from "../forms/AddExpensesForm";
 import FormsButtonsBar from "./FormsButtonsBar";
 import { userContext } from "../../context/userContext";
 import Category from "./Category";
+import FilterExpensesForm from "../forms/FilterExpensesForm";
 
 function ShowAllTransactions({ type, headerTitle }) {
   const { currentUser } = useContext(userContext);
@@ -58,7 +59,7 @@ function ShowAllTransactions({ type, headerTitle }) {
   return (
     <>
       <FormsButtonsBar hideFormsFunc={hideForms} buttons={formBarIcons} />
-      {shouldShowFilterForm && <FilterByDateForm type={type} />}
+      {shouldShowFilterForm && <FilterExpensesForm type={type} />}
       {shouldShowAddForm && <AddExpensesForm type={type} />}
       <h2 className="section-title">
         {headerTitle}:{" "}

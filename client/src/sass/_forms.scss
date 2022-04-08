@@ -7,3 +7,24 @@
     flex-grow: 1;
   }
 }
+
+// expenses filtration form
+.select-category {
+  width: 100%;
+  text-align: left;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #000;
+}
+.category-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+
+  label {
+    width: 200px;
+    text-align: left;
+  }
+}
