@@ -1,16 +1,14 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { connectDB, disconnectDb, dropDb } from "./connectDB.js";
-import { seedDebts } from "./seedDebts.js";
 import { seedExpenses } from "./seedExpenses.js";
+import { seedIncome } from "./seedIncome.js";
 
 async function seedDb() {
   try {
     await connectDB();
-    await dropDb().dropCollection("expenses");
-    await dropDb().dropCollection("debts");
     await seedExpenses();
-    await seedDebts();
+    await seedIncome();
     console.log("done");
   } catch (error) {
     console.log(error);

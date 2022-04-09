@@ -42,8 +42,6 @@ function Profile() {
     setShouldShowEditEmailForm(false);
     setShouldShowEditCurrencyForm(false);
     setShouldShowEditPasswordForm(false);
-
-    console.log("window clicked");
   }
 
   function showEditNameForm(e) {

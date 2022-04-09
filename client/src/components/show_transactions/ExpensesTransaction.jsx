@@ -6,7 +6,15 @@ import { expensesContext } from "../../context/expensesContext";
 import fetchOptions from "../../utils/fetchOptions";
 import LoadingOrError from "../loading_and_errors/LoadingOrError";
 
-function ExpensesTransaction({ transactionId, title, amount, type, date }) {
+function ExpensesTransaction({
+  categoryId,
+  subcategoryId,
+  transactionId,
+  title,
+  amount,
+  type,
+  date,
+}) {
   //write code here
   const { currentUser } = useContext(userContext);
   const {
@@ -19,23 +27,18 @@ function ExpensesTransaction({ transactionId, title, amount, type, date }) {
 
   let deleteApiPath;
   if (type === "expenses")
-    deleteApiPath = `/expenses/deleteExpenses/${currentUser._id}/${transactionId}`;
+    deleteApiPath = `/expenses/deleteExpenses/${currentUser._id}`;
   if (type === "income")
-    deleteApiPath = `/expenses/deleteIncome/${currentUser._id}/${transactionId}`;
+    deleteApiPath = `/expenses/deleteIncome/${currentUser._id}`;
 
   const { performFetch, cancelFetch, isLoading, error } = useFetch(
     deleteApiPath,
-    async (res) => {
+    async res => {
+      await setUserExpenses(res.result);
       if (type === "expenses") {
-        await setUserExpenses(res.result);
-        setExpensesArray((prev) =>
-          prev.filter((transaction) => transaction._id !== transactionId)
-        );
+        //^ should do something to update the expenses array
       } else if (type === "income") {
-        await setUserExpenses(res.result);
-        setIncomeArray((prev) =>
-          prev.filter((transaction) => transaction._id !== transactionId)
-        );
+        //^ should do something to update the expenses array
       }
     }
   );
@@ -45,7 +48,20 @@ function ExpensesTransaction({ transactionId, title, amount, type, date }) {
   }, [userExpenses, userDebts]);
 
   function deleteTransaction() {
-    performFetch(fetchOptions("DELETE"));
+    let reqBody;
+    if (type === "expenses") {
+      reqBody = {
+        categoryId,
+        subcategoryId,
+        transactionId,
+      };
+    } else {
+      reqBody = {
+        categoryId,
+        transactionId,
+      };
+    }
+    performFetch(fetchOptions("DELETE", reqBody));
   }
   return (
     <>
@@ -71,10 +87,12 @@ function ExpensesTransaction({ transactionId, title, amount, type, date }) {
 }
 
 ExpensesTransaction.propTypes = {
-  transactionId: PropTypes.string,
-  title: PropTypes.string,
-  amount: PropTypes.number,
+  transactionId: PropTypes.string.isRequired,
+  categoryId: PropTypes.string.isRequired,
+  subcategoryId: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
   type: PropTypes.oneOf(["expenses", "income"]).isRequired,
-  date: PropTypes.string,
+  date: PropTypes.string.isRequired,
 };
 export default ExpensesTransaction;

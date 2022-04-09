@@ -1,0 +1,102 @@
+[
+  {
+    "category": "Housing",
+    "subcategories": [
+      "House rent",
+      "Property taxes",
+      "Household repairs",
+      "HOA fees",
+      "Others"
+    ]
+  },
+  {
+    "category": "Transportation",
+    "subcategories": [
+      "Car payment",
+      "Car warranty",
+      "Gas",
+      "Tires",
+      "Maintenance and oil changes",
+      "Parking fees",
+      "Repairs",
+      "Registration and DMV Fees",
+      "train",
+      "Bus",
+      "Metro",
+      "public transportation",
+      "Others"
+    ]
+  },
+  {
+    "category": "Food",
+    "subcategories": [
+      "Groceries",
+      "Restaurants",
+      "Fast food",
+      "Dining out",
+      "Coffee shops",
+      "Desserts",
+      "Snacks",
+      "Restaurant tips",
+      "Pet food",
+      "Others"
+    ]
+  },
+  {
+    "category": "Utilities",
+    "subcategories": [
+      "Electricity",
+      "Water",
+      "Gas",
+      "Phone",
+      "Internet",
+      "TV Cable",
+      "Garbage",
+      "Others"
+    ]
+  },
+  {
+    "category": "clothing",
+    "subcategories": [
+      "Adults' clothing",
+      "Adults' shoes",
+      "Children's clothing",
+      "Children's shoes",
+      "Others"
+    ]
+  },
+  {
+    "category": "Healthcare",
+    "subcategories": [
+      "Health insurance",
+      "Primary care",
+      "Dental",
+      "Vision",
+      "Medications",
+      "Urgent care",
+      "Others"
+    ]
+  },
+  {
+    "category": "Personal",
+    "subcategories": [
+      "Gym memberships",
+      "Haircuts",
+      "Salon services",
+      "Cosmetics",
+      "Babysitter",
+      "Others"
+    ]
+  },
+  {
+    "category": "Education",
+    "subcategories": [
+      "Children's college",
+      "Collage supplies",
+      "My college",
+      "School supplies",
+      "Books",
+      "Others"
+    ]
+  }
+]

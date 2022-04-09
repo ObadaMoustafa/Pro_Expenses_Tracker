@@ -1,0 +1,65 @@
+.category-card-container {
+  position: relative;
+  margin-bottom: 10px;
+  @extend %card;
+  width: 100%;
+  .category-card-icons {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+  }
+}
+
+.category-card {
+  /* for every details tag or subcategory */
+  details {
+    margin-bottom: 10px;
+  }
+  /* for every summary */
+  summary {
+    text-align: left;
+
+    cursor: pointer;
+  }
+
+  &-title {
+    font-weight: 500;
+
+    // category name
+    span {
+      font-style: italic;
+      font-weight: 500;
+      color: red;
+    }
+  }
+
+  /* here for subcategory */
+  &-sub {
+    &-title {
+      font-weight: 500;
+      color: $first-color;
+      text-align: left;
+      margin-top: 10px;
+      margin-left: 10px;
+      cursor: pointer;
+
+      //subcategory name
+      span {
+        font-style: italic;
+        font-weight: 900;
+        color: rgb(36, 4, 117);
+      }
+    }
+  }
+}
+
+.transactions-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  margin-top: 10px;
+}

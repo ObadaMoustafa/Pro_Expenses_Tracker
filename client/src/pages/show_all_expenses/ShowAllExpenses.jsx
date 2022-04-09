@@ -4,12 +4,7 @@ import ShowAllTransactions from "../../components/show_transactions/ShowAllTrans
 function ShowAllExpenses() {
   //write code here
 
-  return (
-    <ShowAllTransactions
-      type="expenses"
-      headerTitle="Total Expenses without paid debts"
-    />
-  );
+  return <ShowAllTransactions type="expenses" headerTitle="Total Expenses" />;
 }
 
 export default ShowAllExpenses;

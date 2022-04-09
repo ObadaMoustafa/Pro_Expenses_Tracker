@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { expensesContext } from "../../context/expensesContext";
-import FilterByDateForm from "../forms/FilterByDateForm";
-import ExpensesTransaction from "./ExpensesTransaction";
 import AddExpensesForm from "../forms/AddExpensesForm";
 import FormsButtonsBar from "./FormsButtonsBar";
 import { userContext } from "../../context/userContext";
+import Category from "./Category";
+import FilterExpensesForm from "../forms/FilterExpensesForm";
 
 function ShowAllTransactions({ type, headerTitle }) {
   const { currentUser } = useContext(userContext);
@@ -19,19 +19,27 @@ function ShowAllTransactions({ type, headerTitle }) {
   } = useContext(expensesContext);
   const { expenses, income, paidDebts } = userExpenses;
   // specify which array gonna use from expenses context
-  let transactionArray;
-  if (type === "expenses") transactionArray = expensesArray;
-  else if (type === "income") transactionArray = incomeArray;
+  const transactionArray = type === "expenses" ? expensesArray : incomeArray;
+  useEffect(() => {
+    if (type === "expenses") {
+      console.log("original expenses array", expenses);
+      console.log("expensesArray", expensesArray);
+    } else {
+      console.log("original income array", income);
+      console.log("incomeArray", incomeArray);
+    }
+    console.log("transactionArray", transactionArray);
+  }, [transactionArray]);
 
   const [shouldShowFilterForm, setShouldShowFilterForm] = useState(false);
   const [shouldShowAddForm, setShouldShowAddForm] = useState(false);
 
-  function showFilterForm(e) {
+  function showFilterForm() {
     setShouldShowFilterForm(true);
     setShouldShowAddForm(false);
   }
 
-  function showِAddForm(e) {
+  function showِAddForm() {
     setShouldShowFilterForm(false);
     setShouldShowAddForm(true);
   }
@@ -45,7 +53,7 @@ function ShowAllTransactions({ type, headerTitle }) {
     updateExpensesArrays(expenses, income, paidDebts);
   }, []);
 
-  const formBar = [
+  const formBarIcons = [
     {
       icon: "fas fa-filter",
       func: showFilterForm,
@@ -57,8 +65,8 @@ function ShowAllTransactions({ type, headerTitle }) {
   ];
   return (
     <>
-      <FormsButtonsBar hideFormsFunc={hideForms} buttons={formBar} />
-      {shouldShowFilterForm && <FilterByDateForm type={type} />}
+      <FormsButtonsBar hideFormsFunc={hideForms} buttons={formBarIcons} />
+      {shouldShowFilterForm && <FilterExpensesForm type={type} />}
       {shouldShowAddForm && <AddExpensesForm type={type} />}
       <h2 className="section-title">
         {headerTitle}:{" "}
@@ -70,16 +78,18 @@ function ShowAllTransactions({ type, headerTitle }) {
         </span>{" "}
       </h2>
       <div className="expenses-transactions-container">
-        {transactionArray.map(singleExpenses => (
-          <ExpensesTransaction
-            title={singleExpenses.title}
-            date={singleExpenses.date}
-            amount={singleExpenses.amount}
-            transactionId={singleExpenses._id}
-            key={singleExpenses._id}
-            type={type}
-          />
-        ))}
+        {transactionArray.length > 0 &&
+          transactionArray.map(category => (
+            <Category
+              key={category._id}
+              categoryTitle={category.category}
+              options={
+                type === "expenses" ? category.subcategories : category.income
+              }
+              categoryId={category._id}
+              type={type}
+            />
+          ))}
       </div>
     </>
   );
