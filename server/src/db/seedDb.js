@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { connectDB, disconnectDb, dropDb } from "./connectDB.js";
+import { connectDB, disconnectDb } from "./connectDB.js";
 import { seedExpenses } from "./seedExpenses.js";
 import { seedIncome } from "./seedIncome.js";
 
