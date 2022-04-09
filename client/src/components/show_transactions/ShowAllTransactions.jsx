@@ -20,16 +20,6 @@ function ShowAllTransactions({ type, headerTitle }) {
   const { expenses, income, paidDebts } = userExpenses;
   // specify which array gonna use from expenses context
   const transactionArray = type === "expenses" ? expensesArray : incomeArray;
-  useEffect(() => {
-    if (type === "expenses") {
-      console.log("original expenses array", expenses);
-      console.log("expensesArray", expensesArray);
-    } else {
-      console.log("original income array", income);
-      console.log("incomeArray", incomeArray);
-    }
-    console.log("transactionArray", transactionArray);
-  }, [transactionArray]);
 
   const [shouldShowFilterForm, setShouldShowFilterForm] = useState(false);
   const [shouldShowAddForm, setShouldShowAddForm] = useState(false);
