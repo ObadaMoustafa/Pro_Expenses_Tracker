@@ -70,6 +70,20 @@
   }
 }
 
+.form-split-fields .clear-dates-icon {
+  font-size: 25pt;
+  color: #001d3d;
+  cursor: pointer;
+}
+
+.form-split-fields .clear-dates-icon:hover {
+  text-shadow: #003566 0px 0px 2px;
+}
+
+.form-split-fields .clear-dates-icon:active {
+  text-shadow: none;
+}
+
 .form-split-fields .input-container {
   -webkit-box-flex: 2;
       -ms-flex-positive: 2;
@@ -77,10 +91,16 @@
   width: auto;
 }
 
-.form-split-fields .primary-button {
+.form-split-fields .primary-button,
+.form-split-fields .secondary-button {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+}
+
+.input-field:hover {
+  -webkit-box-shadow: #001d3d 0px 0px 5px;
+          box-shadow: #001d3d 0px 0px 5px;
 }
 
 .select-category {
@@ -110,8 +130,27 @@
 }
 
 .category-list label {
-  width: 200px;
+  width: 170px;
   text-align: left;
+  cursor: pointer;
+}
+
+.category-list label:hover {
+  text-shadow: #001d3d 0px 0px 2px;
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
+}
+
+.category-list label input {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  margin-right: 5px;
+}
+
+.category-list label input:hover {
+  -webkit-box-shadow: #001d3d 0px 0px 2px;
+          box-shadow: #001d3d 0px 0px 2px;
+  cursor: pointer;
 }
 
 .app-container {

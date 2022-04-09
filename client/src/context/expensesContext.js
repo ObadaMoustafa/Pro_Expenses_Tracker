@@ -70,6 +70,14 @@ export const ExpensesProvider = ({ children }) => {
   const [expensesArray, setExpensesArray] = useState(userExpenses.expenses);
   const [incomeArray, setIncomeArray] = useState(userExpenses.income);
 
+  // to calculate the total amount when filtering.
+  useEffect(() => {
+    setTotalIncome(sumDebtsValues(getAllIncomeTransactions(incomeArray)));
+  }, [incomeArray]);
+  useEffect(() => {
+    setTotalExpenses(sumDebtsValues(getAllExpensesTransactions(expensesArray)));
+  }, [expensesArray]);
+
   function updateExpensesArrays(expenses, income) {
     setExpensesArray(expenses);
     setIncomeArray(income);

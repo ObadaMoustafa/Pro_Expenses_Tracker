@@ -34,7 +34,6 @@ function Category({ categoryTitle, options = [], categoryId, type }) {
 
   function showAlertMsg(e) {
     setIsDeleteMsg(true);
-    console.log(categoryId);
   }
 
   return (

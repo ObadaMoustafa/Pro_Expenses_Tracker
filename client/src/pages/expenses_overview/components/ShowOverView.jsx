@@ -10,7 +10,7 @@ function ShowOverView() {
 
   return (
     <>
-      <FilterByDateForm type="overview" />
+      <FilterByDateForm />
 
       <div className="result-cards-container">
         <ResultCard title="Balance" amount={totalBalance} />

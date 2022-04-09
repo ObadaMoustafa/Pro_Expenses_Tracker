@@ -1,11 +1,29 @@
 .form-split-fields {
+  .clear-dates-icon {
+    font-size: 25pt;
+    color: $first-color;
+    cursor: pointer;
+
+    &:hover {
+      text-shadow: $second-color 0px 0px 2px;
+    }
+
+    &:active {
+      text-shadow: none;
+    }
+  }
   .input-container {
     flex-grow: 2;
     width: auto;
   }
-  .primary-button {
+  .primary-button,
+  .secondary-button {
     flex-grow: 1;
   }
+}
+
+.input-field:hover {
+  box-shadow: $first-color 0px 0px 5px;
 }
 
 // expenses filtration form
@@ -24,7 +42,22 @@
   width: 100%;
 
   label {
-    width: 200px;
+    width: 170px;
     text-align: left;
+    cursor: pointer;
+
+    &:hover {
+      text-shadow: $first-color 0px 0px 2px;
+      transform: scale(1.04);
+    }
+
+    input {
+      transform: scale(1.2);
+      margin-right: 5px;
+    }
+    input:hover {
+      box-shadow: $first-color 0px 0px 2px;
+      cursor: pointer;
+    }
   }
 }
