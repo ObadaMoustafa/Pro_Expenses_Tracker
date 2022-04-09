@@ -31,6 +31,7 @@ function FilterExpensesForm({ type }) {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [isSelectedAll, setIsSelectedAll] = useState(false);
   const [errorObject, setErrorObject] = useState({ isErr: false, msg: "" });
   const [isLoading, setIsLoading] = useState(false);
   const categoryList =
@@ -55,10 +56,26 @@ function FilterExpensesForm({ type }) {
   function resetData() {
     const checkboxes = document.querySelectorAll(".category-checkbox-input");
     checkboxes.forEach(checkbox => (checkbox.checked = false));
+    setIsSelectedAll(false);
     setSelectedCategories([]);
     resetDates();
     type === "expenses" ? setExpensesArray(expenses) : setIncomeArray(income);
   }
+
+  function selectAllCategories() {
+    setIsSelectedAll(prev => !prev);
+  }
+
+  useEffect(() => {
+    const checkboxes = document.querySelectorAll(".category-checkbox-input");
+    if (isSelectedAll) {
+      checkboxes.forEach(checkbox => (checkbox.checked = true));
+      setSelectedCategories(categoryList);
+    } else {
+      checkboxes.forEach(checkbox => (checkbox.checked = false));
+      setSelectedCategories([]);
+    }
+  }, [isSelectedAll]);
 
   function handleFilter(e) {
     e.preventDefault();
@@ -146,6 +163,17 @@ function FilterExpensesForm({ type }) {
         </SplitFields>
         <p className="select-category">Select categories</p>
         <div className="category-list">
+          <label htmlFor="select-all">
+            <input
+              type="checkbox"
+              name="select-all"
+              id="select-all"
+              value="select-all"
+              onChange={selectAllCategories}
+              className="category-checkbox-input"
+            />{" "}
+            Select all
+          </label>
           {categoryList.map((category, index) => (
             <label htmlFor={category} key={index}>
               <input

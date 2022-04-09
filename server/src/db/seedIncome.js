@@ -1,7 +1,7 @@
 import Expenses from "../models/Expenses.js";
 export const seedIncome = async () => {
   // you can change this to target a specific expenses collection in your database
-  const expensesCollectionId = "621016a7865f0a457e12449a";
+  const expensesCollectionId = "625163a57083ba40d32f10c5";
   const expensesCollection = await Expenses.findById(expensesCollectionId);
   const dataToSeed = [
     {
