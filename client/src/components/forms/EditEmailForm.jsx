@@ -47,7 +47,7 @@ function EditEmailForm({ setShouldShowFormFn }) {
         value={newEmail}
         setValue={setNewEmail}
       />
-      <PrimaryButton text="Edit" width="150px" />
+      <PrimaryButton text="Save" width="150px" />
     </Form>
   );
 }

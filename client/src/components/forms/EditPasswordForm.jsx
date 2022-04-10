@@ -40,7 +40,7 @@ function EditPasswordForm({ setShouldShowFormFn }) {
     performFetch(fetchOptions("PUT", reqBody));
   }
   return (
-    <Form formHeader="Edit currency" formWidth="100%" onSubmit={handleSubmit}>
+    <Form formHeader="Edit Password" formWidth="100%" onSubmit={handleSubmit}>
       <LoadingOrError
         isLoading={isLoading}
         errMsg={error}
@@ -67,7 +67,7 @@ function EditPasswordForm({ setShouldShowFormFn }) {
         value={confirmNewPassword}
         setValue={setConfirmNewPassword}
       />
-      <PrimaryButton text="Edit" width="150px" />
+      <PrimaryButton text="Save" width="150px" />
     </Form>
   );
 }

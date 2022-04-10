@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes, { object } from "prop-types";
 
-function FormsButtonsBar({ buttons = [], hideFormsFunc }) {
+function FormsButtonsBar({ buttons = [] }) {
   // buttons should be objects with keys like this {icon: "fas fa-plus..." , func: showForm}
   //write code here
 
@@ -12,22 +12,16 @@ function FormsButtonsBar({ buttons = [], hideFormsFunc }) {
           className="forms-buttons-icon"
           onClick={button.func}
           key={index}
-          title={button.title}>
+          title={button.title}
+        >
           <i className={button.icon}></i>
         </div>
       ))}
-      <div
-        className="forms-buttons-icon"
-        onClick={hideFormsFunc}
-        title="hide forms">
-        <i className="fas fa-eye-slash"></i>
-      </div>
     </div>
   );
 }
 
 FormsButtonsBar.propTypes = {
   buttons: PropTypes.arrayOf(object),
-  hideFormsFunc: PropTypes.func,
 };
 export default FormsButtonsBar;

@@ -46,7 +46,7 @@ function EditNameForm({ setShouldShowFormFn }) {
         value={fullName}
         setValue={setFullName}
       />
-      <PrimaryButton text="Edit" width="150px" />
+      <PrimaryButton text="Save" width="150px" />
     </Form>
   );
 }

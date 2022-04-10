@@ -25,18 +25,13 @@ function ShowAllTransactions({ type, headerTitle }) {
   const [shouldShowAddForm, setShouldShowAddForm] = useState(false);
 
   function showFilterForm() {
-    setShouldShowFilterForm(true);
+    setShouldShowFilterForm(prev => !prev);
     setShouldShowAddForm(false);
   }
 
   function showِAddForm() {
     setShouldShowFilterForm(false);
-    setShouldShowAddForm(true);
-  }
-
-  function hideForms() {
-    setShouldShowFilterForm(false);
-    setShouldShowAddForm(false);
+    setShouldShowAddForm(prev => !prev);
   }
 
   useEffect(() => {
@@ -47,15 +42,17 @@ function ShowAllTransactions({ type, headerTitle }) {
     {
       icon: "fas fa-filter",
       func: showFilterForm,
+      title: type === "expenses" ? "Filter Expenses" : "Filter Income",
     },
     {
       icon: "fas fa-plus-circle",
       func: showِAddForm,
+      title: type === "expenses" ? "Add Expense" : "Add Income",
     },
   ];
   return (
     <>
-      <FormsButtonsBar hideFormsFunc={hideForms} buttons={formBarIcons} />
+      <FormsButtonsBar buttons={formBarIcons} />
       {shouldShowFilterForm && <FilterExpensesForm type={type} />}
       {shouldShowAddForm && <AddExpensesForm type={type} />}
       <h2 className="section-title">

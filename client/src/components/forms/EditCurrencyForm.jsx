@@ -46,7 +46,7 @@ function EditCurrencyForm({ setShouldShowFormFn }) {
         value={newCurrency}
         setValue={setNewCurrency}
       />
-      <PrimaryButton text="Edit" width="150px" />
+      <PrimaryButton text="Save" width="150px" />
     </Form>
   );
 }

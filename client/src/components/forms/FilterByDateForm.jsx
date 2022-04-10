@@ -4,14 +4,12 @@ import PrimaryButton from "../buttons/PrimaryButton";
 import Form from "./Form";
 import Input from "./Input";
 import SplitFields from "./SplitFields";
-import { format, subDays } from "date-fns";
+import { format } from "date-fns";
 import { filterOverviewData } from "../../utils/filtrationMethods";
 
 function FilterByDateForm() {
-  const [fromDate, setFromDate] = useState(
-    format(subDays(new Date(), 30), "yyyy-MM-dd")
-  );
-  const [toDate, setToDate] = useState(format(new Date(), "yyyy-MM-dd"));
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
   const { userExpenses, updateOverviewPage } = useContext(expensesContext);
 
   function handleFilter(e) {
@@ -24,7 +22,8 @@ function FilterByDateForm() {
     <Form
       formHeader="Filter expenses by date"
       onSubmit={handleFilter}
-      formWidth="100%">
+      formWidth="100%"
+    >
       <SplitFields>
         <Input
           type="date"
