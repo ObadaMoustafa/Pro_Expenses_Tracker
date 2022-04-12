@@ -8,19 +8,26 @@ import useFetch from "../../hooks/useFetch";
 import { expensesContext } from "../../context/expensesContext";
 import fetchOptions from "../../utils/fetchOptions";
 import LoadingOrError from "../loading_and_errors/LoadingOrError";
+import { deleteTheCategory } from "../../utils/delete-add-transactions";
 
 function Category({ categoryTitle, options = [], categoryId, type }) {
   //write code here
   const [isDeleteMsg, setIsDeleteMsg] = useState(false);
   const { currentUser } = useContext(userContext);
-  const { userExpenses, setUserExpenses } = useContext(expensesContext);
+  const { userExpenses, setUserExpenses, setExpensesArray, setIncomeArray } =
+    useContext(expensesContext);
   const endPoint =
     type === "expenses"
       ? `/expenses/deleteExpensesCategory/${currentUser._id}/${categoryId}`
       : `/expenses/deleteIncomeCategory/${currentUser._id}/${categoryId}`;
   const { performFetch, isLoading, error, cancelFetch } = useFetch(
     endPoint,
-    res => setUserExpenses(res.result)
+    res => {
+      setUserExpenses(res.result);
+      const setFunction =
+        type === "expenses" ? setExpensesArray : setIncomeArray;
+      deleteTheCategory(setFunction, categoryId);
+    }
   );
   useEffect(() => {
     return () => cancelFetch();
@@ -48,7 +55,8 @@ function Category({ categoryTitle, options = [], categoryId, type }) {
           <i
             className="fas fa-trash-alt"
             title="Delete Debt"
-            onClick={showAlertMsg}></i>
+            onClick={showAlertMsg}
+          ></i>
         </div>
         <details className="category-card" open>
           <summary className="category-card-title">

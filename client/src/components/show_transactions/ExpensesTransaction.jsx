@@ -5,6 +5,7 @@ import { userContext } from "../../context/userContext";
 import { expensesContext } from "../../context/expensesContext";
 import fetchOptions from "../../utils/fetchOptions";
 import LoadingOrError from "../loading_and_errors/LoadingOrError";
+import { deleteExpenseTransaction } from "../../utils/delete-add-transactions";
 
 function ExpensesTransaction({
   categoryId,
@@ -35,11 +36,16 @@ function ExpensesTransaction({
     deleteApiPath,
     async res => {
       await setUserExpenses(res.result);
-      if (type === "expenses") {
-        //^ should do something to update the expenses array
-      } else if (type === "income") {
-        //^ should do something to update the expenses array
-      }
+      // change the result on UI side without affecting filtration mode
+      const setFunction =
+        type === "expenses" ? setExpensesArray : setIncomeArray;
+      deleteExpenseTransaction(
+        setFunction,
+        categoryId,
+        subcategoryId,
+        transactionId,
+        type
+      );
     }
   );
 

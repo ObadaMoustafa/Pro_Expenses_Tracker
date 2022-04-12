@@ -84,10 +84,10 @@ export const ExpensesProvider = ({ children }) => {
   }
 
   //^ gonna delete this function to control the filtration mode
-  useMemo(() => {
-    const { expenses, income } = userExpenses;
-    updateExpensesArrays(expenses, income);
-  }, [userExpenses]);
+  // useMemo(() => {
+  //   const { expenses, income } = userExpenses;
+  //   updateExpensesArrays(expenses, income);
+  // }, [userExpenses]);
 
   const sharedValues = {
     userExpenses,

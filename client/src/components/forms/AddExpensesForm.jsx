@@ -34,8 +34,12 @@ const reducer = (state, action) => {
 };
 function AddExpensesForm({ type }) {
   //write code here
-  const { setUserExpenses, setExpensesArray, setIncomeArray } =
-    useContext(expensesContext);
+  const {
+    setUserExpenses,
+    setExpensesArray,
+    setIncomeArray,
+    updateExpensesArrays,
+  } = useContext(expensesContext);
   const { currentUser } = useContext(userContext);
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
@@ -55,6 +59,7 @@ function AddExpensesForm({ type }) {
       setUserExpenses({ expenses, income, paidDebts });
 
       // TODO for adding the new transaction in the filtration mode.
+      updateExpensesArrays(expenses, income);
       // if (type === "expenses") setExpensesArray(expenses);
       // if (type === "income") setIncomeArray(income);
     }
@@ -89,7 +94,8 @@ function AddExpensesForm({ type }) {
     <>
       <Form
         onSubmit={addExpenses}
-        formHeader={type === "expenses" ? "Add Expenses" : "Add Income"}>
+        formHeader={type === "expenses" ? "Add Expenses" : "Add Income"}
+      >
         <LoadingOrError
           isLoading={isLoading}
           isErr={error ? true : false}
