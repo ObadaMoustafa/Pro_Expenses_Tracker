@@ -2,7 +2,15 @@ import React from "react";
 import propTypes from "prop-types";
 import Button, { commonProps } from "./Button";
 
-function PrimaryButton({ href, text, width, icon, onClick, disabled }) {
+function PrimaryButton({
+  href,
+  text,
+  width,
+  icon,
+  onClick,
+  disabled,
+  ...rest
+}) {
   return (
     <Button
       href={href}
@@ -13,6 +21,7 @@ function PrimaryButton({ href, text, width, icon, onClick, disabled }) {
       type="submit"
       className="primary-button"
       disabled={disabled}
+      {...rest}
     />
   );
 }

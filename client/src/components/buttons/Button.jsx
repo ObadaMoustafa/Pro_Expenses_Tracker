@@ -11,6 +11,7 @@ function Button({
   disabled,
   className,
   type,
+  ...rest
 }) {
   return (
     <>
@@ -21,6 +22,7 @@ function Button({
             disabled={disabled}
             className={className}
             style={{ width: width }}
+            {...rest}
           >
             {text}
             {/* this icon can be provided by Bootstrap or fontawesome icons libraries */}
@@ -34,6 +36,7 @@ function Button({
           className={className}
           style={{ width: width }}
           onClick={onClick}
+          {...rest}
         >
           {text}
           {/* this icon can be provided by Bootstrap or fontawesome icons libraries */}

@@ -133,7 +133,8 @@ function FilterExpensesForm({ type }) {
           type === "expenses" ? "expenses" : "income"
         } transactions`}
         formWidth="100%"
-        onSubmit={handleFilter}>
+        onSubmit={handleFilter}
+      >
         <LoadingOrError
           isLoading={isLoading}
           isErr={errorObject.isErr}
@@ -159,7 +160,8 @@ function FilterExpensesForm({ type }) {
           <i
             className="fas fa-calendar-times clear-dates-icon"
             onClick={resetDates}
-            title="clear dates"></i>
+            title="clear dates"
+          ></i>
         </SplitFields>
         <p className="select-category">Select categories</p>
         <div className="category-list">
@@ -193,6 +195,7 @@ function FilterExpensesForm({ type }) {
             text="Filter"
             width="150px"
             icon="fas fa-funnel-dollar"
+            id="filter-button"
           />
           <SecondaryButton
             text="Reset data"
