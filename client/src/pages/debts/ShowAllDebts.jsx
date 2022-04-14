@@ -11,14 +11,12 @@ import DebtCard from "./components/DebtCard";
 function ShowAllDebts() {
   //write code here
   const { currentUser } = useContext(userContext);
-  const { userDebts, setUserDebts, setForFilterDebtsTransactions } =
-    useContext(debtsContext);
+  const { userDebts, setUserDebts } = useContext(debtsContext);
 
   const { performFetch, isLoading, error, cancelFetch } = useFetch(
     `/debts/getUserDebts/${currentUser._id}`,
     res => {
       setUserDebts(res.result);
-      setForFilterDebtsTransactions(res.allTransactions);
     }
   );
 
@@ -28,16 +26,11 @@ function ShowAllDebts() {
 
   function showِCreateDebtForm() {
     setShouldShowPayDebtsForm(false);
-    setShouldShowCreateDebtForm(true);
+    setShouldShowCreateDebtForm(prev => !prev);
   }
 
   function showِPayDebtForm() {
-    setShouldShowPayDebtsForm(true);
-    setShouldShowCreateDebtForm(false);
-  }
-
-  function hideForms() {
-    setShouldShowPayDebtsForm(false);
+    setShouldShowPayDebtsForm(prev => !prev);
     setShouldShowCreateDebtForm(false);
   }
 
@@ -60,7 +53,7 @@ function ShowAllDebts() {
   ];
   return (
     <>
-      <FormsButtonsBar buttons={formBar} hideFormsFunc={hideForms} />
+      <FormsButtonsBar buttons={formBar} />
       {/* should put here filtration form for debts */}
       {shouldShowCreateDebtForm && <CreateDebtForm />}
       {shouldShowPayDebtsForm && <PayDebtsForm />}

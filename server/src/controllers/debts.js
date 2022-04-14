@@ -1,7 +1,6 @@
 import Debts from "../models/debts.js";
 import Users from "../models/Users.js";
 import produceExpensesObject from "../utils/produceExpensesObject.js";
-import { producePaidDebtsTransactions } from "../utils/producePaidDebtsTransactions.js";
 import { sumArrayAmounts } from "../utils/sumArrayAmounts.js";
 
 export const getUserDebts = async (req, res) => {
@@ -9,12 +8,9 @@ export const getUserDebts = async (req, res) => {
     const { userId } = req.params;
     const userDebts = await Debts.find({ userId });
 
-    const allTransactions = producePaidDebtsTransactions(userDebts);
-
     res.status(200).json({
       success: true,
       result: userDebts,
-      allTransactions,
     });
   } catch (error) {
     console.log(error);
@@ -31,11 +27,9 @@ export const createNewDebt = async (req, res) => {
     await Debts.create({ userId, ...req.body });
     const userDebts = await Debts.find({ userId });
 
-    const allTransactions = producePaidDebtsTransactions(userDebts);
     res.status(200).json({
       success: true,
       result: userDebts,
-      allTransactions,
     });
   } catch (error) {
     console.log(error);
@@ -74,18 +68,21 @@ export const payDebts = async (req, res) => {
     // if user paid all the debt amount we change the value to be paid
     if (theDebt.amount - newPaidDebts === 0) theDebt.hasPaid = true;
 
+    // sort the pay history array by date
+    theDebt.payHistory.sort((a, b) => {
+      return b.date.localeCompare(a.date);
+    });
+
     // finally we save
     await theDebt.save();
 
     // prepare the result
     // we use this function to change in both expensesContext and debtsContext;
     const allExpenses = await produceExpensesObject(userId);
-    const allTransactions = producePaidDebtsTransactions(allExpenses.userDebts);
 
     res.status(200).json({
       success: true,
       result: allExpenses,
-      allTransactions,
     });
   } catch (error) {
     console.log(error);
@@ -102,12 +99,10 @@ export const deleteDebt = async (req, res) => {
     await Debts.findByIdAndDelete(debtId);
 
     const userDebts = await Debts.find({ userId });
-    const allTransactions = producePaidDebtsTransactions(userDebts);
 
     res.status(200).json({
       success: true,
       result: userDebts,
-      allTransactions,
     });
   } catch (error) {
     console.log(error);
@@ -136,12 +131,10 @@ export const deletePaidDebtTransaction = async (req, res) => {
     await debtToModify.save();
 
     const userDebts = await Debts.find({ userId });
-    const allTransactions = producePaidDebtsTransactions(userDebts);
 
     res.status(200).json({
       success: true,
       result: userDebts,
-      allTransactions,
     });
   } catch (error) {
     console.log(error);
@@ -178,12 +171,10 @@ export const editDebtDetails = async (req, res) => {
     await debt.save();
 
     const userDebts = await Debts.find({ userId });
-    const allTransactions = producePaidDebtsTransactions(userDebts);
 
     res.status(200).json({
       success: true,
       result: userDebts,
-      allTransactions,
     });
   } catch (error) {
     console.log(error);

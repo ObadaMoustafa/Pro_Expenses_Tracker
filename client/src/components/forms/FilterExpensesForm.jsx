@@ -14,7 +14,6 @@ import {
 import LoadingOrError from "../loading_and_errors/LoadingOrError";
 import SecondaryButton from "../buttons/SecondaryButton";
 import { format } from "date-fns";
-import _ from "lodash";
 
 const incomeCategoriesList = incomeCategories.sort((a, b) =>
   a.localeCompare(b)
@@ -85,11 +84,21 @@ function FilterExpensesForm({ type }) {
     });
     setIsLoading(true);
 
+    // error handling
     if (
       (type === "expenses" && expenses.length === 0) ||
       (type === "income" && income.length === 0)
     ) {
       setErrorObject({ isErr: true, msg: "No data to filter" });
+      setIsLoading(false);
+      return;
+    }
+
+    if (fromDate > toDate) {
+      setErrorObject({
+        isErr: true,
+        msg: "(From date) cannot be greater than (To date)",
+      });
       setIsLoading(false);
       return;
     }
@@ -103,19 +112,20 @@ function FilterExpensesForm({ type }) {
       return;
     }
 
+    // filter data
     if (type === "expenses") {
-      const cloneExpenses = _.cloneDeep(expenses);
+      const clonedExpenses = structuredClone(expenses);
       const filteredExpenses = filterExpensesData(
-        cloneExpenses,
+        clonedExpenses,
         selectedCategories,
         fromDate,
         toDate
       );
       setExpensesArray(filteredExpenses);
     } else {
-      const cloneIncome = _.cloneDeep(income);
+      const clonedIncome = structuredClone(income);
       const filteredIncome = filterIncomeData(
-        cloneIncome,
+        clonedIncome,
         selectedCategories,
         fromDate,
         toDate

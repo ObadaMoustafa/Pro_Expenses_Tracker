@@ -16,8 +16,7 @@ function PayDebtsForm() {
   const { currentUser } = useContext(userContext);
   const { setUserExpenses, setPaidDebtsTransactions } =
     useContext(expensesContext);
-  const { setUserDebts, setForFilterDebtsTransactions, needToPay } =
-    useContext(debtsContext);
+  const { setUserDebts, needToPay } = useContext(debtsContext);
 
   const [debtId, setDebtId] = useState("none");
   const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd"));
@@ -29,7 +28,6 @@ function PayDebtsForm() {
 
     setUserExpenses({ expenses, income, paidDebts });
     setUserDebts(userDebts);
-    setForFilterDebtsTransactions(res.allTransactions);
     clearFields();
 
     // this line for overview page so we don't care a bout _id;
