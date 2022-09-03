@@ -37,21 +37,21 @@ function WelcomeMsg() {
       <h1>Pro Expenses Tracker App</h1>
       <div className="homepage-social-icons-container">
         <a
-          href="https://www.linkedin.com/in/obada-elsharbatly/"
+          href="https://www.linkedin.com/in/obada-moustafa/"
           target="_blank"
           rel="noreferrer"
           id="linkedin">
           <Linkedin size={50} strokeWidth={1} />
         </a>
         <a
-          href="https://github.com/ObadaElSharbatly"
+          href="https://github.com/ObadaMoustafa"
           target="_blank"
           rel="noreferrer"
           id="github">
           <GitHub size={50} strokeWidth={1} />
         </a>
         <a
-          href="https://www.youtube.com/playlist?list=PLoMKCbpTTvvthiSknYuafN-XMhbz-fSlY"
+          href="https://www.youtube.com/channel/UCRdunQiyRHNq4zwk73YQWaw"
           target="_blank"
           rel="noreferrer"
           id="youtube">
