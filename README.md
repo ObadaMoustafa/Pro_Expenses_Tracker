@@ -7,13 +7,14 @@ Pro expenses tracker is a MERN stack and responsive application that requires th
 
 ## Watch Demo
 
-You can [click here](https://pro-expenses-tracker.netlify.app/) to watch the Demo which is deployed to Netlify website
+You can [click here](https://pro-expenses-tracker.netlify.app/) to watch the Demo which is deployed to Netlify website.
+> You may feel some slow at first because I deployed the backend on [render](https://render.com/) website. so once it works fine it will be fast.
 
 ## Use locally
 
 > Note: it's better to follow these steps in order
 
-- Copy and rename the `.env.example` file which is in `client` and `server` folders to be `.env` and put the right value in the variables.
+- Copy and rename the `.env.example` file `.env` and put the right value (you api endpoint without the last slash like that `https://example-endpoint.com`) in the variables.
 - In Cli use this commands all in the `root` directory path in order
 
 First you need to run this command to install some packages we need to run the app in the main directory
@@ -21,17 +22,12 @@ First you need to run this command to install some packages we need to run the a
 ```
 npm i
 ```
-
-This command goes into the `Server` folder and installs the packages then does the same in `Client` folder
-
-```
-npm run setup
-```
+Go to [pro-expenses-tracker-api](https://github.com/ObadaMoustafa/pro-expenses-tracker-api) repo and follow instructions then continue from here.
 
 This command to run the application locally
 
 ```
-npm run dev
+npm start
 ```
 
 ## Technologies and npm used
