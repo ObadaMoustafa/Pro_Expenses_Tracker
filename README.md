@@ -7,7 +7,7 @@ Pro expenses tracker is a MERN stack and responsive application that requires th
 
 ## Watch Demo
 
-You can [click here](https://pro-expenses-tracker.herokuapp.com/) to watch the Demo which is deployed to Heroku website
+You can [click here](https://pro-expenses-tracker.netlify.app/) to watch the Demo which is deployed to Netlify website
 
 ## Use locally
 
