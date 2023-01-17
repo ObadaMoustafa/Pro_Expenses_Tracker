@@ -1,35 +1,43 @@
 {
   "name": "pro_expenses_tracker",
   "version": "1.0.0",
-  "description": "expenses tracker app",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "start": "cd server && npm run start && cd ..",
-    "setup": "npm run setup:client && npm run setup:server",
-    "setup:client": "cd client && npm run setup && cd ..",
-    "setup:server": "cd server && npm run setup && cd ..",
-    "build:client": "cd client && npm run build && cd ..",
-    "heroku-postbuild": "npm run setup && npm run build:client",
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "dev:client": "cd client && npm run dev && cd ..",
-    "dev:server": "cd server && npm run dev && cd ..",
-    "seedDb": "cd server && npm run seedDb & cd .."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ObadaElSharbatly/Pro_Expenses_Tracker.git"
-  },
-  "author": "Obada ELSharbatly",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ObadaElSharbatly/Pro_Expenses_Tracker/issues"
-  },
-  "homepage": "https://github.com/ObadaElSharbatly/Pro_Expenses_Tracker#readme",
+  "private": true,
   "dependencies": {
-    "concurrently": "^7.0.0",
-    "lodash.clonedeep": "^4.5.0",
-    "mongodb": "^4.5.0",
-    "mongoose": "^6.2.0"
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "date-fns": "^2.28.0",
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-feather": "^2.0.9",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "5.0.0",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "setup": "npm i",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
